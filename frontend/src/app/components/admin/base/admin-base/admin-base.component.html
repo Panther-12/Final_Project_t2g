@@ -1,0 +1,61 @@
+<div class="d-flex">
+  <nav class="sidenav flex-column p-3 bg-purple text-white">
+    <h3 class="text-white" [routerLink]="['/home']">Agenda</h3>
+    <ul class="nav flex-column mb-auto">
+      <li class="nav-item">
+        <a  [routerLink]="['/admin']" class="nav-link text-white">Home</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/admin/analytics']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">Analytics</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a [routerLink]="['/admin/events']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">Events</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Amapiano</a></li>
+          <li><a class="dropdown-item" href="#">Afro pop</a></li>
+          <li><a class="dropdown-item" href="#">Soul music</a></li>
+          <li><a class="dropdown-item" href="#">Other</a></li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/admin']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">Messages</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/admin/tickets']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">Tickets</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/admin/attendees']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">Users</a>
+      </li>
+      <hr/>
+      <li class="nav-item">
+        <a [routerLink]="['/admin']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">Settings</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/users/auth/login']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">Log out</a>
+      </li>
+    </ul>
+    <div class="profile mt-auto d-flex align-items-center">
+      <img src="/assets/images/next1.jpg" alt="Profile" class="rounded-circle me-2" width="50" height="50">
+      <div>
+        <div>Nimrod</div>
+        <div>nimrod{{symbolAt}}tailgrids.com</div>
+      </div>
+    </div>
+  </nav>
+  <div class="content flex-grow-1">
+    <header class="topnav bg-white p-2 d-flex justify-content-end align-items-center">
+      <div class="me-3">
+        <i class="fa fa-bell"></i>
+      </div>
+      <div>
+        <img src="/assets/images/next1.jpg" alt="Profile" class="rounded-circle" width="40" height="40">
+      </div>
+    </header>
+    <main class="p-3"  *ngIf="loadingService.loading$ | async">
+      <app-loading></app-loading>
+    </main>
+    <main class="p-3" *ngIf="(loadingService.loading$ | async) === false">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

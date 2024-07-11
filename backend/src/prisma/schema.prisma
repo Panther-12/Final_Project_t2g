@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  password     String
+  role         String
+  resetCode    String?
+  profile      Profile?
+  createdEvents Event[]      @relation("CreatedEvents")
+  registrations Registration[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Profile {
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  bio       String?
+  phone     String?
+  image     String?
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id            String         @id @default(uuid())
+  title         String
+  description   String
+  startDateTime DateTime
+  endDateTime   DateTime
+  venueId       String
+  organizerId   String
+  rating        Float?
+  venue         Venue          @relation(fields: [venueId], references: [id])
+  organizer     User           @relation(fields: [organizerId], references: [id], name: "CreatedEvents")
+  tickets       Ticket[]
+  registrations Registration[]
+  images        EventImage[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model Venue {
+  id         String    @id @default(uuid())
+  name       String
+  address    String
+  capacity   Int
+  events     Event[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Ticket {
+  id         String    @id @default(uuid())
+  eventId    String
+  type       String
+  price      Float
+  event      Event     @relation(fields: [eventId], references: [id])
+  createdAt  DateTime  @default(now())
+  registrations Registration[] // Adding the opposite relation field
+  updatedAt  DateTime  @updatedAt
+}
+
+model Registration {
+  id         String    @id @default(uuid())
+  eventId    String
+  userId     String
+  status     String    @default("pending")
+  event      Event     @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user       User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tickets    Ticket[]  
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model EventImage {
+  id         String    @id @default(uuid())
+  eventId    String
+  url        String
+  event      Event     @relation(fields: [eventId], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}

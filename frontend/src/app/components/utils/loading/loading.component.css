@@ -1,0 +1,10 @@
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of the viewport */
+  }
+
+.custom-purple {
+    color: #6f42c1;
+}

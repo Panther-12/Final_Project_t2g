@@ -1,0 +1,54 @@
+.chart-container {
+  background-color: white;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 1rem;
+}
+
+.calendar-container {
+  background-color: white;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 1rem;
+}
+
+.upcoming-events .card {
+  background-color: #f8f9fa;
+}
+
+.custom-success{
+  color:#13C296;
+}
+
+.custom-danger{
+  color: orangered;
+}
+.custom-normal{
+  color:blue;
+}
+.custombsuccess{
+  background-color:#13C296;
+}
+
+.custombdanger{
+  background-color: orangered;
+}
+
+.custombnormal{
+  background-color: blue;
+}
+
+.avatar-group {
+  display: flex;
+
+  img{
+    border: 4px solid white;
+  }
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: -12px; /* Adjust as needed to stack avatars */
+}

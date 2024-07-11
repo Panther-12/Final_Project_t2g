@@ -1,0 +1,89 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="d-flex justify-content-between mb-3">
+        <div class="card p-3 border rounded" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+          <div class="text-center">
+            <h4 class="m-0">New Events</h4>
+            <p class="custom-success m-0">1,368</p>
+            <p class="custom-success m-0">0.43% <span class="custom-success"><i class="fa fa-arrow-up"></i></span></p>
+          </div>
+          <div class="progress">
+            <div class="progress-bar custombsuccess" role="progressbar" style="width: 77%;" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="card p-3 border rounded" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+          <div class="text-center">
+            <h4 class="m-0">New Attendees</h4>
+            <p class="custom-success m-0">785</p>
+            <p class="custom-success m-0">0.39% <span class="custom-success"><i class="fa fa-arrow-up"></i></span></p>
+          </div>
+          <div class="progress">
+            <div class="progress-bar custombsuccess" role="progressbar" style="width: 69%;" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="card p-3 border rounded" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+          <div class="text-center">
+            <h4 class="m-0">Online Tickets</h4>
+            <p class="custom-danger m-0">795</p>
+            <p class="custom-danger m-0">1.39% <span class="custom-danger"><i class="fa fa-arrow-down"></i></span></p>
+          </div>
+          <div class="progress">
+            <div class="progress-bar custombdanger" role="progressbar" style="width: 36%;" aria-valuenow="139" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-container rounded" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <canvas id="lineChart"></canvas>
+      </div>
+      <div class="chart-container mt-3 rounded" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="calendar-container mb-3 rounded" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <full-calendar [options]="calendarOptions">
+          <ng-template #eventContent let-arg>
+            <b>{{ arg.event.title }}</b>
+          </ng-template>
+        </full-calendar>
+      </div>
+      <div class="upcoming-events">
+        <div class="card mb-2 border rounded" *ngFor="let event of upcomingEvents" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+          <div class="card-body">
+            <!-- Info Icon and Title -->
+            <div class="d-flex align-items-center mb-2">
+              <i class="fa fa-info-circle mr-2"></i>
+              <h5 class="card-title">{{ event.title }}</h5>
+            </div>
+      
+            <!-- Time and Location -->
+            <div class="mb-2">
+              <p class="card-text" style="color: black; font-weight: bold;">{{ event.time.from }} - {{ event.time.to }}</p>
+              <p class="card-text">{{ event.location }}</p>
+            </div>
+      
+            <!-- Sold Out Status -->
+            <div class="mb-2">
+              <p class="card-text custom-danger">SOLD OUT ({{ event.ticketsSold }})</p>
+            </div>
+      
+            <!-- Attendees Avatars -->
+            <div class="d-flex align-items-center mb-2">
+              <!-- Example for 5 stacked avatars -->
+              <div class="avatar-group">
+                <img src="/assets/images/next1.jpg" alt="Avatar 1" class="avatar">
+                <img src="/assets/images/next2.jpg" alt="Avatar 2" class="avatar">
+                <img src="/assets/images/next3.jpg" alt="Avatar 3" class="avatar">
+                <img src="/assets/images/news-1.jpg" alt="Avatar 4" class="avatar">
+                <img src="/assets/images/news-2.jpg" alt="Avatar 5" class="avatar">
+              </div>
+              <!-- More attendees count -->
+              <p class="ml-4">+{{ event.totalAttendees - 5 }} more</p>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+  </div>
+</div>

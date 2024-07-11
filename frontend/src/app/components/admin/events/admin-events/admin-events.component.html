@@ -1,0 +1,25 @@
+<!-- events.component.html -->
+<div class="container-fluid">
+    <table class="table table-striped">
+      <thead class="bg-purple text-white">
+        <tr>
+          <th>Event Name</th>
+          <th>Date</th>
+          <th>Location</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td>{{ event.name }}</td>
+          <td>{{ event.date }}</td>
+          <td>{{ event.location }}</td>
+          <td>
+            <i class="fas fa-edit text-success me-2"></i>
+            <i class="fas fa-trash text-danger"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

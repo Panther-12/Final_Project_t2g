@@ -1,0 +1,27 @@
+<main class="p-3"  *ngIf="loadingService.loading$ | async">
+  <app-loading></app-loading>
+</main>
+<div class="container-fluid" *ngIf="(loadingService.loading$ | async) === false">
+    <table class="table table-striped">
+      <thead class="bg-purple text-white">
+        <tr>
+          <th>Ticket ID</th>
+          <th>Attendee</th>
+          <th>Event</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ticket of tickets">
+          <td>{{ ticket.id }}</td>
+          <td>{{ ticket.attendee }}</td>
+          <td>{{ ticket.event }}</td>
+          <td>
+            <i class="fas fa-edit text-success me-2"></i>
+            <i class="fas fa-trash text-danger"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
