@@ -1,0 +1,49 @@
+<div class="container mt-5">
+    <div class="card shadow-sm">
+      <div class="card-header d-flex justify-content-between align-items-center bg-purple text-white">
+        <h4 class="mb-0">Profile</h4>
+        <button class="btn btn-light" (click)="toggleEditMode()" style="border-radius: 8px;">
+          <i class="fa" [ngClass]="editMode ? 'fa-times' : 'fa-edit'"></i> 
+          {{ editMode ? 'Cancel' : 'Edit Profile' }}
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="d-flex flex-column align-items-center text-center">
+          <img [src]="user.profileImage" alt="Profile Image" class="rounded-circle mb-3" width="150" height="150">
+          <h4>{{ user.name }}</h4>
+          <p class="text-muted">{{ user.email }}</p>
+          <p>{{ user.bio }}</p>
+          <p><i class="fa fa-map-marker-alt"></i> {{ user.location }}</p>
+        </div>
+  
+        <div *ngIf="editMode" class="mt-4">
+          <form (ngSubmit)="saveProfile()">
+            <div class="form-group mb-3">
+              <label for="name">Name</label>
+              <input type="text" id="name" class="form-control" [(ngModel)]="user.name" name="name" required>
+            </div>
+            <div class="form-group mb-3">
+              <label for="email">Email</label>
+              <input type="email" id="email" class="form-control" [(ngModel)]="user.email" name="email" required>
+            </div>
+            <div class="form-group mb-3">
+              <label for="bio">Bio</label>
+              <textarea id="bio" class="form-control" [(ngModel)]="user.bio" name="bio" rows="3" required></textarea>
+            </div>
+            <div class="form-group mb-3">
+              <label for="location">Location</label>
+              <input type="text" id="location" class="form-control" [(ngModel)]="user.location" name="location" required>
+            </div>
+            <div class="form-group mb-3">
+              <label for="profileImage">Profile Image</label>
+              <input type="file" id="profileImage" class="form-control" (change)="uploadProfileImage($event)">
+            </div>
+            <button type="submit" class="btn btn-primary" style="border-radius: 8px; background-color: #6f42c1; color: white; border: none;">
+              <i class="fa fa-save"></i> Save Changes
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

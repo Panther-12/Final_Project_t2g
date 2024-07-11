@@ -14,6 +14,7 @@ import { AdminTicketsComponent } from './components/admin/tickets/admin-tickets/
 import { AdminAttendeesComponent } from './components/admin/attendees/admin-attendees/admin-attendees.component';
 import { NewsComponent } from './components/users/news/news/news.component';
 import { AdminBaseComponent } from './components/admin/base/admin-base/admin-base.component';
+import { AdminProfileComponent } from './components/admin/profile/admin-profile/admin-profile.component';
 
 export const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -32,6 +33,7 @@ export const routes: Routes = [
     ]},
     { path: 'admin', component: AdminBaseComponent, children:[
         { path: '', pathMatch: 'full', redirectTo:'analytics'},
+        { path: 'profile', component: AdminProfileComponent},
         { path: 'analytics', component: AnalyticsComponent},
         { path:'events', component: AdminEventsComponent},
         { path: 'tickets', component: AdminTicketsComponent},

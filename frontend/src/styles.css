@@ -8,6 +8,7 @@
     font-style: normal;
 }
 
+
 body {
     color: #2f2f2f;
     font-family: 'Calibri';
@@ -43,6 +44,9 @@ a:hover, a:active {
 }
 
 button{
+    cursor: pointer;
+}
+i{
     cursor: pointer;
 }
 /*--------------------------------------------------------------

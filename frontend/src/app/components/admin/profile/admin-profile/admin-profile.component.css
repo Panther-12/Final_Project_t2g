@@ -1,0 +1,30 @@
+.bg-purple {
+    background-color: #6f42c1 !important;
+  }
+  
+  .btn-light {
+    color: #6f42c1;
+    background-color: #fff;
+    border-color: #6f42c1;
+  }
+  
+  .btn-light:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .card-body img {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .card-body img:hover {
+    transform: scale(1.1);
+  }
+  
+  .form-group label {
+    font-weight: bold;
+  }
+  
+  input[type="file"] {
+    padding: 3px;
+  }
+  

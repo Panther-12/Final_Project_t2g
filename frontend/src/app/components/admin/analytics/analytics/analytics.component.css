@@ -52,3 +52,8 @@
   border-radius: 50%;
   margin-right: -12px; /* Adjust as needed to stack avatars */
 }
+
+:root{
+  --fc-today-bg-color: rgba(5, 152, 236, 0.15);
+  --fc-now-indicator-color: #13C296;
+}

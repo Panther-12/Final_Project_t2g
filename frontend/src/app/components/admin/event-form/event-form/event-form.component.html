@@ -1,0 +1,36 @@
+<div class="modal-backdrop" (click)="closeModal.emit()"></div>
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">{{ event.id ? 'Edit Event' : 'Add Event' }}</h5>
+      <button type="button" class="btn-close" (click)="closeModal.emit()"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group mb-3">
+          <label for="name">Event Name</label>
+          <input type="text" id="name" class="form-control" [(ngModel)]="event.name" name="name" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="date">Event Date</label>
+          <input type="date" id="date" class="form-control" [(ngModel)]="event.date" name="date" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="location">Event Location</label>
+          <input type="text" id="location" class="form-control" [(ngModel)]="event.location" name="location" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="description">Event Description</label>
+          <textarea id="description" class="form-control" [(ngModel)]="event.description" name="description" rows="3" required></textarea>
+        </div>
+        <div class="form-group mb-3">
+          <label for="image">Event Image</label>
+          <input type="file" id="image" class="form-control" (change)="onImageUpload($event)">
+        </div>
+        <button type="submit" class="btn btn-primary text-white w-100" style="border-radius: 8px;">
+          <i class="fa fa-save"></i> {{ event.id ? 'Update Event' : 'Create Event' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
