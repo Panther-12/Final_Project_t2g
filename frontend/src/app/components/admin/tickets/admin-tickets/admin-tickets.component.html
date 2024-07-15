@@ -1,27 +1,37 @@
-<main class="p-3"  *ngIf="loadingService.loading$ | async">
-  <app-loading></app-loading>
-</main>
-<div class="container-fluid" *ngIf="(loadingService.loading$ | async) === false">
+
+<div *ngIf="showLoadingSpinner" class="loading-spinner" style="margin-top: 27%; margin-left: 48%;">
+  <div class="spinner-border custom-purple" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div *ngIf="!showLoadingSpinner" >
+  <h2>Tickets</h2>
+  <div class="table-responsive">
     <table class="table table-striped">
-      <thead class="bg-purple text-white">
+      <thead>
         <tr>
-          <th>Ticket ID</th>
-          <th>Attendee</th>
-          <th>Event</th>
-          <th>Actions</th>
+          <th>Type</th>
+          <th>Price</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let ticket of tickets">
-          <td>{{ ticket.id }}</td>
-          <td>{{ ticket.attendee }}</td>
-          <td>{{ ticket.event }}</td>
+          <td>{{ ticket.type }}</td>
+          <td>{{ ticket.price | currency: 'Ksh.' }}</td>
           <td>
-            <i class="fas fa-edit text-success me-2"></i>
-            <i class="fas fa-trash text-danger"></i>
+            <button *ngIf="role === 'organizer'" class="btn btn-warning btn-sm custom-success" (click)="openAddTicketModal(ticket)" style="background: none; outline: none; border: none; width: fit-content; height: fit-content; padding: 10px;">
+              <i class="fa fa-edit"></i> Edit
+            </button>
+            <button *ngIf="role === 'organizer'" class="btn btn-danger btn-sm custom-danger" (click)="deleteTicket(ticket.id)" style="background: none; outline: none; border: none; width: fit-content; height: fit-content; padding: 10px; ">
+              <i class="fa fa-trash"></i> Delete
+            </button>
+            <button *ngIf="role === 'admin'" class="btn btn-info btn-sm" style="background: none; outline: none; border: none; width: fit-content; height: fit-content; padding: 10px; color: blue;">
+              <i class="fa fa-eye"></i> View
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  
+</div>

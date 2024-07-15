@@ -3,4 +3,13 @@
     background-color: #6f42c1;
     color: white;
   }
-  
+  .custom-purple {
+    color: #6f42c1;
+}
+.custom-success{
+  color:#13C296;
+}
+
+.custom-danger{
+  color: orangered;
+}

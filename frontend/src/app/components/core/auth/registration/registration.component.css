@@ -1,0 +1,11 @@
+.form-control-border-bottom {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #ced4da;
+    border-radius: 0;
+  }
+
+  .container{
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }

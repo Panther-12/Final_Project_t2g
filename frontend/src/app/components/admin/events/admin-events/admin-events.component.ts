@@ -29,6 +29,14 @@ export class AdminEventsComponent {
   
 
   selectedEvent: any = null;
+  showLoadingSpinner = false
+
+  ngOnInit(): void {
+    this.showLoadingSpinner = true
+    setTimeout(()=>{
+      this.showLoadingSpinner = false
+    }, 3000)
+  }
 
   openAddEventModal() {
     this.selectedEvent = {

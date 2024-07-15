@@ -19,9 +19,16 @@ export class AdminProfileComponent {
   };
 
   editMode = false;
+  showLoadingSpinner = false
 
   toggleEditMode() {
     this.editMode = !this.editMode;
+    if(this.editMode){
+      this.showLoadingSpinner = true
+      setTimeout(()=>{
+        this.showLoadingSpinner = false
+      }, 3000)
+    }
   }
 
   saveProfile() {

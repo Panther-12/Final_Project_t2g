@@ -6,6 +6,8 @@ import userRoutes from './routes/userRoutes';
 import venueRoutes from './routes/venueRoutes';
 import registrationRoutes from './routes/registrationRoutes';
 import eventRoutes from './routes/eventRoutes';
+import categoryRoutes from './routes/categoryRoutes';
+import ticketRoutes from './routes/ticketRoutes';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -22,6 +24,8 @@ app.use('/users', userRoutes);
 app.use('/venues', venueRoutes)
 app.use('/registration', registrationRoutes)
 app.use('/events', eventRoutes)
+app.use('/categories', categoryRoutes);
+app.use('/tickets', ticketRoutes)
 
 // Error handler middleware
 app.use((err: Error, req: Request, res: Response, next: any) => {
@@ -40,5 +44,3 @@ testDatabaseConnection()
   .catch((error) => {
     console.error('Failed to start server:', error);
   });
-
-testDatabaseConnection()

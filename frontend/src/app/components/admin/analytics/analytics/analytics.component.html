@@ -1,4 +1,10 @@
-<div class="container-fluid">
+
+<div *ngIf="showLoadingSpinner" class="loading-spinner" style="margin-top: 27%; margin-left: 48%;">
+  <div class="spinner-border custom-purple" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div *ngIf="!showLoadingSpinner" class="container-fluid">
   <div class="row">
     <div class="col-md-8">
       <div class="d-flex justify-content-between mb-3">
@@ -47,6 +53,7 @@
             <b>{{ arg.event.title }}</b>
           </ng-template>
         </full-calendar>
+        <button class="btn btn-primary mt-2" style="border-radius: 8px; background-color: white; color: #6f42c1; border: none; outline: none;" (click)="openCalendarModal()">Open Calendar</button>
       </div>
       <div class="upcoming-events">
         <div class="card mb-2 border rounded" *ngFor="let event of upcomingEvents" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
@@ -87,3 +94,27 @@
     </div>
   </div>
 </div>
+
+<!-- Fullscreen Calendar Modal -->
+<div class="modal fullscreen" tabindex="-1" role="dialog" [ngClass]="{'show': showCalendarModal}" (click)="outsideModalClick($event)">
+  <div class="modal-dialog modal-fullscreen" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Full Calendar View</h5>
+        <button type="button" class="close" aria-label="Close" (click)="closeCalendarModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <full-calendar [options]="calendarOptions" *ngIf="showCalendarModal">
+          <ng-template #eventContent let-arg>
+            <b>{{ arg.event.title }}</b>
+          </ng-template>
+        </full-calendar>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dark Overlay -->
+<div class="modal-backdrop" [ngClass]="{'show': showCalendarModal}"></div>

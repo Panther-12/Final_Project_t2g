@@ -1,0 +1,79 @@
+### Login User
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+    "email":"nimrodnyongesa7@gmail.com",
+    "password":"12@17y017g3sa?"
+}
+
+### Create User
+POST http://localhost:3000/users/register
+Content-Type: application/json
+
+{
+    "firstName":"Nimrod",
+    "lastName":"Nyongesa",
+    "email":"nimrodnyongesa7@gmail.com",
+    "password":"12@17y017g3sa?"
+}
+
+### Get User by ID
+GET http://localhost:3000/users/18d861d9-f28d-41f4-b924-93c58d85924c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEwNDU0NTUsImV4cCI6MTcyMTA0OTA1NX0.vgW6JAYtozPhoUkymVojeYt618llkkrjGZkg9aruPhM
+
+### Update User
+PUT http://localhost:3000/users/fb2ce82a-1688-4873-be0b-ba9f0e25c75a
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmYjJjZTgyYS0xNjg4LTQ4NzMtYmUwYi1iYTlmMGUyNWM3NWEiLCJpYXQiOjE3MjEwNDYxODIsImV4cCI6MTcyMTA0OTc4Mn0.PuFQz5dL8gGKYRJO9mTqiajo2Ik1WFt0FYWyKU7Ux5M
+
+{
+  "email": "updateduser@example.com",
+  "password": "newpassword123"
+}
+
+### Deactivate a user account
+DELETE http://localhost:3000/users/fb2ce82a-1688-4873-be0b-ba9f0e25c75a
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEwNDU0NTUsImV4cCI6MTcyMTA0OTA1NX0.vgW6JAYtozPhoUkymVojeYt618llkkrjGZkg9aruPhM
+
+### Reactivate a use account
+PUT http://localhost:3000/users/fb2ce82a-1688-4873-be0b-ba9f0e25c75a/activate/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEwNDU0NTUsImV4cCI6MTcyMTA0OTA1NX0.vgW6JAYtozPhoUkymVojeYt618llkkrjGZkg9aruPhM
+
+### Update Profile
+PUT http://localhost:3000/users/18d861d9-f28d-41f4-b924-93c58d85924c/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEwNDU0NTUsImV4cCI6MTcyMTA0OTA1NX0.vgW6JAYtozPhoUkymVojeYt618llkkrjGZkg9aruPhM
+
+{
+  "firstName":"Nimrod",
+  "lastName":"Nyongesa",
+  "bio": "Software developer and code fanatic",
+  "phone": "0740837666",
+  "image": "https://i.pinimg.com/236x/b9/84/ae/b984ae81005b25dbdd4d58826ddcd1a3.jpg"
+}
+
+### Assign Role Organizer
+PUT http://localhost:3000/users/fb2ce82a-1688-4873-be0b-ba9f0e25c75a/assign-organizer
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEwNDU0NTUsImV4cCI6MTcyMTA0OTA1NX0.vgW6JAYtozPhoUkymVojeYt618llkkrjGZkg9aruPhM
+
+### Assign Role Admin
+PUT http://localhost:3000/users/18d861d9-f28d-41f4-b924-93c58d85924c/assign-admin
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEwNDU0NTUsImV4cCI6MTcyMTA0OTA1NX0.vgW6JAYtozPhoUkymVojeYt618llkkrjGZkg9aruPhM
+
+### Generate Reset Code
+POST http://localhost:3000/users/generate-reset-code
+Content-Type: application/json
+
+{
+  "email": "user@example.com"
+}
+
+### Reset Password
+POST http://localhost:3000/users/reset-password
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "newPassword": "newSecurePassword"
+}

@@ -3,10 +3,10 @@ import { eventService } from '../services/eventService';
 
 export const eventController = {
   async createEvent(req: Request, res: Response) {
-    const { title, description, startDateTime, endDateTime, venueId, organizerId, images } = req.body;
+    const { title, description, startDateTime, endDateTime, venueId, organizerId, images, categoryId } = req.body;
 
     try {
-      const event = await eventService.createEvent(title, description, startDateTime, endDateTime, venueId, organizerId, images);
+      const event = await eventService.createEvent(title, description, startDateTime, endDateTime, venueId, organizerId, categoryId, images);
       res.status(201).json(event);
     } catch (error) {
       res.status(500).json({ error: 'Failed to create event' });
@@ -57,6 +57,27 @@ export const eventController = {
       res.json(events);
     } catch (error) {
       res.status(500).json({ error: 'Failed to fetch events' });
+    }
+  },
+
+  async getEventsByOrganizer(req: Request, res: Response) {
+    const { organizerId } = req.params;
+    try {
+      const events = await eventService.getEventsByOrganizer(organizerId);
+      res.status(200).json(events);
+    } catch (error) {
+      res.status(500).json({ message: 'Failed to get organizer\'s events' });
+    }
+  },
+
+  async getAllEventsForUser(req: Request, res: Response) {
+    const userId = req.params.userId;
+
+    try {
+      const events = await eventService.getAllEventsForUser(userId);
+      res.json(events);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch events for user' });
     }
   },
 };

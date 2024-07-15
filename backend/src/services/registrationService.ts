@@ -49,14 +49,47 @@ export const registrationService = {
   },
 
   async deleteRegistration(id: string) {
-    return prisma.registration.delete({
+    return prisma.registration.update({
       where: { id },
+      data: {
+        status: 'cancelled',
+      },
+      include: {
+        event: true,
+        user: true,
+        tickets: true,
+      },
     });
   },
 
   async getAllRegistrationsForUser(userId: string) {
     return prisma.registration.findMany({
       where: { userId },
+      include: {
+        event: true,
+        user: true,
+        tickets: true,
+      },
+    });
+  },
+
+  async getAllRegistrations() {
+    return prisma.registration.findMany({
+      include: {
+        event: true,
+        user: true,
+        tickets: true,
+      },
+    });
+  },
+
+  async getAllRegistrationsByOrganizer(organizerId: string) {
+    return prisma.registration.findMany({
+      where: {
+        event: {
+          organizerId: organizerId,
+        },
+      },
       include: {
         event: true,
         user: true,

@@ -18,3 +18,13 @@ export interface UserProfileInput {
     status: string;
     ticketIds: string[];
   }
+
+export interface user {
+    id: string;
+    email: string;
+    password: string;
+    role: string;
+    resetCode: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+}

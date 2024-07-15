@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { userService } from '../services/userService';
 import { generateAccessToken } from '../middlewares/auth';
 import bcrypt from 'bcrypt';
+import { user } from '../interfaces/interfaces';
+import { sendRegistrationConfirmationEmail } from '../utils/emailUtils';
 
 export const userController = {
   async loginUser(req: Request, res: Response) {
@@ -13,20 +15,21 @@ export const userController = {
         return res.status(401).json({ error: 'Invalid credentials' });
       }
 
-      const user = await userService.getUserByEmail(email);
+      const user = await userService.getUserByEmail(email) as user;
       const accessToken = generateAccessToken(user.id);
 
-      res.json({ accessToken });
+      res.json({ token: accessToken, userId: user.id, role: user.role });
     } catch (error) {
       res.status(500).json({ error: 'Failed to authenticate' });
     }
   },
 
   async createUser(req: Request, res: Response) {
-    const { email, password, role } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
     try {
-      const user = await userService.createUser(email, password, role);
+      const user = await userService.createUser(firstName, lastName, email, password, 'user');
+      // sendRegistrationConfirmationEmail(user.email, user.profile.firstNam)
       res.status(201).json(user);
     } catch (error) {
       res.status(500).json({ error: 'Failed to create user' });
@@ -41,12 +44,6 @@ export const userController = {
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
-
-      // Check permissions if needed
-      if (req.params.userId !== user.id && req.params.userRole !== 'admin') {
-        return res.status(403).json({ error: 'Unauthorized' });
-      }
-
       res.json(user);
     } catch (error) {
       res.status(500).json({ error: 'Failed to fetch user' });
@@ -72,16 +69,26 @@ export const userController = {
   },
 
 
-  async deleteUser(req: Request, res: Response) {
-    const userId = req.params.id;
-
+  async deactivateUser(req: Request, res: Response) {
+    const { id } = req.params;
     try {
-      await userService.deleteUser(userId);
-      res.json({ message: 'User deleted successfully' });
+      const deactivatedUser = await userService.deactivateUser(id);
+      res.status(200).json(deactivatedUser);
     } catch (error) {
-      res.status(500).json({ error: 'Failed to delete user' });
+      res.status(500).json({ message: 'Failed to deactivate account' });
     }
   },
+
+  async activateUser(req: Request, res: Response) {
+    const { id } = req.params;
+    try {
+      const activatedUser = await userService.activateUser(id);
+      res.status(200).json(activatedUser);
+    } catch (error) {
+      res.status(500).json({ message: 'Failed to activate account' });
+    }
+  },
+
 
   async updateProfile(req: Request, res: Response) {
     const userId = req.params.id;
@@ -92,6 +99,47 @@ export const userController = {
       res.json(updatedProfile);
     } catch (error) {
       res.status(500).json({ error: 'Failed to update profile' });
+    }
+  },
+
+  async assignRoleOrganizer (req: Request, res: Response){
+    const userId = req.params.id
+    try{
+      const assignOrganizer = await userService.assignRoleOrganizer(userId)
+      res.json(assignOrganizer)
+    } catch(error){
+      res.status(500).json({ error: 'Failed to assign user role organizer'})
+    }
+  },
+  async assignRoleAdmin (req: Request, res: Response){
+    const userId = req.params.id
+    try{
+      const assignAdmin = await userService.assignRoleAdmin(userId)
+      res.json(assignAdmin)
+    } catch(error){
+      res.status(500).json({ error: 'Failed to assign user role admin'})
+    }
+  },
+
+  async generateResetCode(req: Request, res: Response) {
+    const { email } = req.body;
+
+    try {
+      const user = await userService.generateAndStoreResetCode(email);
+      res.status(200).json({ message: 'Reset code sent to email', user });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to generate reset code' });
+    }
+  },
+
+  async resetPassword(req: Request, res: Response) {
+    const { email, newPassword } = req.body;
+
+    try {
+      const user = await userService.resetPassword(email, newPassword);
+      res.status(200).json({ message: 'Password reset successfully', user });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to reset password' });
     }
   },
 };

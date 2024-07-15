@@ -4,7 +4,7 @@ import { EventImageInput } from '../interfaces/eventImageInterface';
 const prisma = new PrismaClient();
 
 export const eventService = {
-  async createEvent(title: string, description: string, startDateTime: Date, endDateTime: Date, venueId: string, organizerId: string, images: EventImageInput[]) {
+  async createEvent(title: string, description: string, startDateTime: Date, endDateTime: Date, venueId: string, organizerId: string, images: EventImageInput[], categoryId: string) {
     return prisma.event.create({
       data: {
         title,
@@ -13,6 +13,7 @@ export const eventService = {
         endDateTime,
         venueId,
         organizerId,
+        categoryId,
         images: {
           createMany: {
             data: images.map(image => ({ url: image.url })),
@@ -62,6 +63,39 @@ export const eventService = {
       include: {
         venue: true,
         organizer: true,
+      },
+    });
+  },
+
+  async getEventsByOrganizer(organizerId: string) {
+    return prisma.event.findMany({
+      where: { organizerId },
+      include: {
+        venue: true,
+        organizer: true,
+        images: true,
+      },
+    });
+  },
+
+  async getAllEventsForUser(userId: string) {
+    return prisma.event.findMany({
+      where: {
+        registrations: {
+          some: {
+            userId: userId,
+            status: {
+              not: 'cancelled',
+            },
+          },
+        },
+      },
+      include: {
+        venue: true,
+        organizer: true,
+        tickets: true,
+        registrations: true,
+        images: true,
       },
     });
   },

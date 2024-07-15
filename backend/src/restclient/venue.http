@@ -1,0 +1,38 @@
+### Create Venue
+POST http://localhost:3000/api/venues
+Content-Type: application/json
+
+{
+  "name": "Conference Center",
+  "address": "123 Main St, Cityville",
+  "capacity": 500
+}
+
+###
+
+### Get All Venues
+GET http://localhost:3000/api/venues
+
+###
+
+### Get Venue by ID
+GET http://localhost:3000/api/venues/{{venueId}}
+
+###
+
+### Update Venue
+PUT http://localhost:3000/api/venues/{{venueId}}
+Content-Type: application/json
+
+{
+  "name": "Updated Conference Center",
+  "address": "123 Main St, Cityville",
+  "capacity": 600
+}
+
+###
+
+### Delete Venue
+DELETE http://localhost:3000/api/venues/{{venueId}}
+
+###

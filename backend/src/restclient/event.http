@@ -1,0 +1,45 @@
+### Create Event
+POST http://localhost:3000/api/events
+Content-Type: application/json
+
+{
+  "title": "Concert",
+  "description": "An amazing music concert",
+  "startDateTime": "2024-07-20T18:00:00Z",
+  "endDateTime": "2024-07-20T21:00:00Z",
+  "venueId": "venue-id-123",
+  "organizerId": "organizer-id-123",
+  "images": ["image-url-1", "image-url-2"]
+}
+
+###
+
+### Get All Events
+GET http://localhost:3000/api/events
+
+###
+
+### Get Event by ID
+GET http://localhost:3000/api/events/{{eventId}}
+
+###
+
+### Update Event
+PUT http://localhost:3000/api/events/{{eventId}}
+Content-Type: application/json
+
+{
+  "title": "Updated Concert",
+  "description": "An updated amazing music concert",
+  "startDateTime": "2024-07-20T18:00:00Z",
+  "endDateTime": "2024-07-20T21:00:00Z",
+  "venueId": "updated-venue-id-123",
+  "organizerId": "updated-organizer-id-123"
+}
+
+###
+
+### Delete Event
+DELETE http://localhost:3000/api/events/{{eventId}}
+
+###

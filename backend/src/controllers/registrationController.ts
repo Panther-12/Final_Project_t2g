@@ -61,4 +61,24 @@ export const registrationController = {
       res.status(500).json({ error: 'Failed to fetch registrations' });
     }
   },
+
+  async getAllRegistrations(req: Request, res: Response) {
+    try {
+      const registrations = await registrationService.getAllRegistrations();
+      res.json(registrations);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch registrations' });
+    }
+  },
+
+  async getAllRegistrationsByOrganizer(req: Request, res: Response) {
+    const organizerId = req.params.organizerId;
+
+    try {
+      const registrations = await registrationService.getAllRegistrationsByOrganizer(organizerId);
+      res.json(registrations);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch registrations for organizer' });
+    }
+  },
 };

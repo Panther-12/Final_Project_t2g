@@ -41,7 +41,7 @@
     "name": "backend",
     "version": "1.0.0",
     "description": "Agenda event management app",
-    "main": "server.js",
+    "main": "./dist/server.js",
     "scripts": {
         "test": "npm test",
         "start:run": "nodemon  ./dist/server.js",
@@ -50,9 +50,9 @@
         "start": "concurrently \"npm run start:build\" \"npm run start:run\""
     },
     "keywords": [
-        "shopie",
-        "ecommerce",
-        "home decor"
+        "Agenda",
+        "Event management",
+        "Music events"
     ],
     "author": "Nimrod Nyongesa",
     "license": "ISC",

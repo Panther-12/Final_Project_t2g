@@ -1,25 +1,77 @@
-<!-- attendee.component.html -->
-<div class="container-fluid">
+<div *ngIf="showLoadingSpinner" class="loading-spinner" style="margin-top: 27%; margin-left: 48%;">
+  <div class="spinner-border custom-purple" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div *ngIf="!showLoadingSpinner" class="container mt-5">
+  <h2>Users</h2>
+  <div class="table-responsive">
     <table class="table table-striped">
-      <thead class="bg-purple text-white">
+      <thead>
         <tr>
           <th>Name</th>
           <th>Email</th>
-          <th>Phone</th>
-          <th>Actions</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let attendee of attendees">
-          <td>{{ attendee.name }}</td>
-          <td>{{ attendee.email }}</td>
-          <td>{{ attendee.phone }}</td>
+        <tr *ngFor="let user of users">
+          <td>{{ user.firstName }} {{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
           <td>
-            <i class="fas fa-edit text-success me-2"></i>
-            <i class="fas fa-trash text-danger"></i>
+            <span class="badge" [ngClass]="{'custom-success': user.status === 'Active', 'custom-danger': user.status === 'Inactive'}">
+              {{ user.status }}
+            </span>
+          </td>
+          <td>
+            <div *ngIf="role === 'admin'">
+              <select class="form-select" (change)="toggleStatus(user)">
+                <option [value]="true" [selected]="user.status === 'Active'">Activate</option>
+                <option [value]="false" [selected]="user.status === 'Inactive'">Deactivate</option>
+              </select>
+            </div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  
+
+  <h2>Events</h2>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Venue</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td>{{ event.title }}</td>
+          <td>{{ event.description }}</td>
+          <td>{{ event.startDateTime }}</td>
+          <td>{{ event.endDateTime }}</td>
+          <td>{{ event.venue }}</td>
+          <td>
+            <button *ngIf="role === 'organizer'" class="btn btn-warning btn-sm custom-success" style="background: none; outline: none; border: none; width: fit-content; height: fit-content; padding: 10px;">
+              <i class="fa fa-edit"></i> Edit
+            </button>
+            <button *ngIf="role === 'organizer'" class="btn btn-danger btn-sm custom-danger" style="background: none; outline: none; border: none; width: fit-content; height: fit-content; padding: 10px;">
+              <i class="fa fa-trash"></i> Delete
+            </button>
+            <button *ngIf="role === 'admin'" class="btn btn-info btn-sm custom-purple" style="background: none; outline: none; border: none; width: fit-content; height: fit-content; padding: 10px;">
+              <i class="fa fa-eye"></i> View
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

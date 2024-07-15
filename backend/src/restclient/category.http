@@ -1,0 +1,34 @@
+### Create Category
+POST http://localhost:3000/api/categories
+Content-Type: application/json
+
+{
+  "name": "Amapiano"
+}
+
+###
+
+### Get All Categories
+GET http://localhost:3000/api/categories
+
+###
+
+### Get Category by ID
+GET http://localhost:3000/api/categories/{{categoryId}}
+
+###
+
+### Update Category
+PUT http://localhost:3000/api/categories/{{categoryId}}
+Content-Type: application/json
+
+{
+  "name": "Updated Music"
+}
+
+###
+
+### Delete Category
+DELETE http://localhost:3000/api/categories/{{categoryId}}
+
+###

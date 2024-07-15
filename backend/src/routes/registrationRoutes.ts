@@ -1,16 +1,15 @@
 import express from 'express';
 import { registrationController } from '../controllers/registrationController';
-import { authenticateToken } from '../middlewares/auth';
+import { authenticateToken, isAdmin, isOrganizer } from '../middlewares/auth';
 
 const router = express.Router();
 
-// Secure routes below require authentication
-router.use(authenticateToken);
-
-router.post('/', registrationController.registerUserForEvent);
-router.get('/:id', registrationController.getRegistrationById);
-router.put('/:id', registrationController.updateRegistration);
-router.delete('/:id', registrationController.deleteRegistration);
-router.get('/user/:userId', registrationController.getAllRegistrationsForUser);
+router.post('/', authenticateToken, registrationController.registerUserForEvent);
+router.get('/:id', authenticateToken, registrationController.getRegistrationById);
+router.put('/:id', authenticateToken, registrationController.updateRegistration);
+router.delete('/:id', authenticateToken, registrationController.deleteRegistration);
+router.get('/user/:userId', authenticateToken, registrationController.getAllRegistrationsForUser);
+router.get('/', isAdmin, registrationController.getAllRegistrations);
+router.get('/organizer/:organizerId', isOrganizer, registrationController.getAllRegistrationsByOrganizer);
 
 export default router;

@@ -27,4 +27,8 @@
   input[type="file"] {
     padding: 3px;
   }
+
+  .custom-purple {
+    color: #6f42c1;
+}
   

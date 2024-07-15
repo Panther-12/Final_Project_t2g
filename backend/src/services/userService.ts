@@ -1,24 +1,37 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import { UserProfileInput } from '../interfaces/interfaces';
+import { generatePasswordResetCode } from '../utils/passwordUtils';
+import { sendPasswordResetEmail } from '../utils/emailUtils';
 
 const prisma = new PrismaClient();
 
 export const userService = {
-  async createUser(email: string, password: string, role: string) {
+  async createUser(firstName: string, lastName: string, email: string, password: string, role: string) {
     const hashedPassword = await bcrypt.hash(password, 10);
-    return prisma.user.create({
+    const newuser =  await prisma.user.create({
       data: {
         email,
         password: hashedPassword,
         role,
       },
     });
+    await prisma.profile.create({
+      data: {
+        firstName,
+        lastName,
+        userId: newuser.id
+      }
+    })
+    return newuser
   },
 
   async getUserById(id: string) {
     return prisma.user.findUnique({
       where: { id },
+      include: {
+        profile: true,
+      },
     });
   },
 
@@ -46,9 +59,21 @@ export const userService = {
     return updatedProfile;
   },
 
-  async deleteUser(id: string) {
-    return prisma.user.delete({
+  async deactivateUser(id: string) {
+    return prisma.user.update({
       where: { id },
+      data: {
+        accountStatus: 'deactivated',
+      },
+    });
+  },
+
+  async activateUser(id: string) {
+    return prisma.user.update({
+      where: { id },
+      data: {
+        accountStatus: 'activated',
+      },
     });
   },
 
@@ -68,4 +93,41 @@ export const userService = {
       where: { email },
     });
   },
+
+  async assignRoleOrganizer(id: string) {
+    return prisma.user.update({
+      where: { id },
+      data: {
+        role: 'organizer',
+      },
+    });
+  },
+
+  async assignRoleAdmin(id: string) {
+    return prisma.user.update({
+      where: { id },
+      data: {
+        role: 'admin',
+      },
+    });
+  },
+
+  async generateAndStoreResetCode(email: string) {
+    const resetCode = generatePasswordResetCode();
+    const user = await prisma.user.update({
+      where: { email },
+      data: { resetCode },
+    });
+    sendPasswordResetEmail(email, resetCode)
+    return user;
+  },
+
+  async resetPassword(email: string, newPassword: string) {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    return prisma.user.update({
+      where: { email },
+      data: { password: hashedPassword, resetCode: null },
+    });
+  }
 };
+

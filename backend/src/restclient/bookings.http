@@ -1,0 +1,36 @@
+### Register User for Event
+POST http://localhost:3000/api/registrations
+Content-Type: application/json
+
+{
+  "eventId": "event-id-123",
+  "userId": "user-id-123",
+  "ticketIds": ["ticket-id-1", "ticket-id-2"]
+}
+
+###
+
+### Get Registration by ID
+GET http://localhost:3000/api/registrations/{{registrationId}}
+
+###
+
+### Update Registration
+PUT http://localhost:3000/api/registrations/{{registrationId}}
+Content-Type: application/json
+
+{
+  "status": "confirmed"
+}
+
+###
+
+### Delete Registration
+DELETE http://localhost:3000/api/registrations/{{registrationId}}
+
+###
+
+### Get All Registrations for User
+GET http://localhost:3000/api/registrations/user/{{userId}}
+
+###

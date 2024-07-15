@@ -1,0 +1,32 @@
+### Create Ticket
+POST http://localhost:3000/tickets
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "eventId": "event_id_here",
+  "type": "VIP",
+  "price": 100
+}
+
+### Get Ticket by ID
+GET http://localhost:3000/tickets/ticket_id_here
+Authorization: Bearer <token>
+
+### Update Ticket
+PUT http://localhost:3000/tickets/ticket_id_here
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "type": "General Admission",
+  "price": 75
+}
+
+### Delete Ticket
+DELETE http://localhost:3000/tickets/ticket_id_here
+Authorization: Bearer <token>
+
+### Get All Tickets
+GET http://localhost:3000/tickets
+Authorization: Bearer <token>

@@ -49,6 +49,18 @@ button{
 i{
     cursor: pointer;
 }
+input:hover{
+    outline: none;
+}
+input:focus{
+    outline:none;
+}
+button:focus{
+    outline: none;
+}
+button:hover{
+    outline: none;
+}
 /*--------------------------------------------------------------
 # Flex
 --------------------------------------------------------------*/

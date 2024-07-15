@@ -13,6 +13,7 @@ model User {
   password     String
   role         String
   resetCode    String?
+  accountStatus String @default("activated")
   profile      Profile?
   createdEvents Event[]      @relation("CreatedEvents")
   registrations Registration[]
@@ -47,6 +48,8 @@ model Event {
   tickets       Ticket[]
   registrations Registration[]
   images        EventImage[]
+  categoryId    String
+  category      Category       @relation(fields: [categoryId], references: [id])
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 }
@@ -67,8 +70,8 @@ model Ticket {
   type       String
   price      Float
   event      Event     @relation(fields: [eventId], references: [id])
+  registrations Registration[]
   createdAt  DateTime  @default(now())
-  registrations Registration[] // Adding the opposite relation field
   updatedAt  DateTime  @updatedAt
 }
 
@@ -79,7 +82,7 @@ model Registration {
   status     String    @default("pending")
   event      Event     @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   user       User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  tickets    Ticket[]  
+  tickets    Ticket[]
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 }
@@ -89,6 +92,14 @@ model EventImage {
   eventId    String
   url        String
   event      Event     @relation(fields: [eventId], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Category {
+  id         String    @id @default(uuid())
+  name       String    @unique
+  events     Event[]
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 }
