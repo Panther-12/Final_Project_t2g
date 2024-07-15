@@ -25,7 +25,7 @@ export class ToastNotificationComponent implements OnInit {
 
       setTimeout(() => {
         this.show = false;
-      }, 3000); // Hide after 3 seconds
+      }, 3000);
     });
   }
 }

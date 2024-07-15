@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { UserService } from '../../../../services/user/user.service';
+import { NotificationService } from '../../../../services/notification/notification.service';
 
 @Component({
   selector: 'app-registration',
@@ -13,7 +15,7 @@ import { RouterLink } from '@angular/router';
 export class RegistrationComponent {
   registerForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private notificatonService: NotificationService) {
     this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -36,12 +38,28 @@ export class RegistrationComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      // Implement registration logic here
-      console.log(this.registerForm.value);
+      const newUser = {
+        firstName: this.registerForm.value.firstName,
+        lastName: this.registerForm.value.lastName,
+        email: this.registerForm.value.email,
+        password: this.registerForm.value.password
+      };
+  
+      this.userService.createUser(newUser).subscribe(
+        (response) => {
+          this.notificatonService.notify('User registration successful', 'success');
+          this.router.navigateByUrl("/users/auth/login")
+        },
+        (error) => {
+          this.notificatonService.notify('User registration failed:', 'error');
+        }
+      );
+  
     } else {
       this.validateAllFormFields(this.registerForm);
     }
   }
+  
 
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {

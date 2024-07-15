@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { UserService } from '../../../../services/user/user.service';
+import { NotificationService } from '../../../../services/notification/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,7 @@ export class LoginComponent {
   loginForm!: FormGroup;
   rememberMe = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserService, private notificationService: NotificationService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -23,8 +25,31 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      // Implement login logic here
-      console.log(this.loginForm.value);
+      const loginData = {
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password
+      };
+
+      this.userService.loginUser(loginData.email, loginData.password).subscribe(
+        (response: any) => {
+          this.notificationService.notify('Login successful', 'success');
+          // Save user details to localStorage
+          localStorage.setItem('userId', response.user.id);
+          localStorage.setItem('role', response.user.role);
+          localStorage.setItem('token', response.token);
+
+          // Redirect based on role
+          if (response.user.role === 'admin') {
+            this.router.navigateByUrl('/admin/analytics');
+          } else {
+            this.router.navigateByUrl('/users/home');
+          }
+        },
+        (error) => {
+          this.notificationService.notify('Login failed', 'error');
+        }
+      );
+
     } else {
       this.validateAllFormFields(this.loginForm);
     }
