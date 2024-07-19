@@ -1,36 +1,42 @@
 ### Register User for Event
-POST http://localhost:3000/api/registrations
+POST http://localhost:3000/registration
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MGQ1MjFlMi05YzcwLTRjNjUtYjY3MS1mNWJjNjExZGVlZTQiLCJpYXQiOjE3MjEzNjk2MDMsImV4cCI6MTcyMTM3MzIwM30.__kpzT5fWGpju-70zasGRnSIfbUPjf5hvX1XXoQZeH4
 
 {
-  "eventId": "event-id-123",
-  "userId": "user-id-123",
-  "ticketIds": ["ticket-id-1", "ticket-id-2"]
+  "eventId": "bf2c9acc-54c6-43a6-b061-e0f5cee7ef75",
+  "userId": "80d521e2-9c70-4c65-b671-f5bc611deee4",
+  "ticketIds": ["5c30840b-159f-44ed-8cdf-45c4bb61bff0", "5c30840b-159f-44ed-8cdf-45c4bb61bff0"]
 }
 
-###
 
 ### Get Registration by ID
-GET http://localhost:3000/api/registrations/{{registrationId}}
-
-###
+GET http://localhost:3000/registration/02bdf0ca-81be-44e0-bd5a-689ce561e7a3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MGQ1MjFlMi05YzcwLTRjNjUtYjY3MS1mNWJjNjExZGVlZTQiLCJpYXQiOjE3MjEzNjk2MDMsImV4cCI6MTcyMTM3MzIwM30.__kpzT5fWGpju-70zasGRnSIfbUPjf5hvX1XXoQZeH4
 
 ### Update Registration
-PUT http://localhost:3000/api/registrations/{{registrationId}}
+PUT http://localhost:3000/registration/02bdf0ca-81be-44e0-bd5a-689ce561e7a3
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MGQ1MjFlMi05YzcwLTRjNjUtYjY3MS1mNWJjNjExZGVlZTQiLCJpYXQiOjE3MjEzNjk2MDMsImV4cCI6MTcyMTM3MzIwM30.__kpzT5fWGpju-70zasGRnSIfbUPjf5hvX1XXoQZeH4
 
 {
   "status": "confirmed"
 }
 
-###
 
-### Delete Registration
-DELETE http://localhost:3000/api/registrations/{{registrationId}}
+### Cancel Registration
+DELETE http://localhost:3000/registration/02bdf0ca-81be-44e0-bd5a-689ce561e7a3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MGQ1MjFlMi05YzcwLTRjNjUtYjY3MS1mNWJjNjExZGVlZTQiLCJpYXQiOjE3MjEzNjk2MDMsImV4cCI6MTcyMTM3MzIwM30.__kpzT5fWGpju-70zasGRnSIfbUPjf5hvX1XXoQZeH4
 
-###
 
 ### Get All Registrations for User
-GET http://localhost:3000/api/registrations/user/{{userId}}
+GET http://localhost:3000/registration/user/80d521e2-9c70-4c65-b671-f5bc611deee4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MGQ1MjFlMi05YzcwLTRjNjUtYjY3MS1mNWJjNjExZGVlZTQiLCJpYXQiOjE3MjEzNjk2MDMsImV4cCI6MTcyMTM3MzIwM30.__kpzT5fWGpju-70zasGRnSIfbUPjf5hvX1XXoQZeH4
 
-###
+### Get All Registrations
+GET http://localhost:3000/registration
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MGQ1MjFlMi05YzcwLTRjNjUtYjY3MS1mNWJjNjExZGVlZTQiLCJpYXQiOjE3MjEzNjk2MDMsImV4cCI6MTcyMTM3MzIwM30.__kpzT5fWGpju-70zasGRnSIfbUPjf5hvX1XXoQZeH4
+
+### Get All Registrations for Organizer
+GET http://localhost:3000/registration/organizer/022e5400-1ef4-4457-91b8-0950c6ba6afd
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzNzA0NDAsImV4cCI6MTcyMTM3NDA0MH0.4Hi4p6FbLWIEl9N3VZeFrOglQyhGfy9vG2X5Nk91r7k

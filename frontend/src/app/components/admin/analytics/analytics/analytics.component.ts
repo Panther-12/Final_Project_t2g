@@ -8,6 +8,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import Tooltip from 'tooltip.js';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   standalone: true,
@@ -229,4 +230,5 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
     this.showModal = false;
     this.addEventForm.reset();
   }
+
 }

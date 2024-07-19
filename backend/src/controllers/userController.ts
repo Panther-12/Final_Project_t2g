@@ -29,7 +29,7 @@ export const userController = {
 
     try {
       const user = await userService.createUser(firstName, lastName, email, password, 'user');
-      // sendRegistrationConfirmationEmail(user.email, user.profile.firstNam)
+      if (user) sendRegistrationConfirmationEmail(user.email, firstName)
       res.status(201).json(user);
     } catch (error) {
       res.status(500).json({ error: 'Failed to create user' });
@@ -133,10 +133,10 @@ export const userController = {
   },
 
   async resetPassword(req: Request, res: Response) {
-    const { email, newPassword } = req.body;
+    const { resetCode, email, newPassword } = req.body;
 
     try {
-      const user = await userService.resetPassword(email, newPassword);
+      const user = await userService.resetPassword(resetCode, email, newPassword);
       res.status(200).json({ message: 'Password reset successfully', user });
     } catch (error) {
       res.status(500).json({ error: 'Failed to reset password' });

@@ -33,7 +33,7 @@ export const isAdmin = async (req: Request, res: Response, next: NextFunction) =
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
     const user = await prisma.user.findUnique({
-      where: { email: (decoded as any).email },
+      where: { id: (decoded as any).userId },
     });
 
     if (user?.role !== 'admin') {
@@ -55,7 +55,7 @@ export const isOrganizer = async (req: Request, res: Response, next: NextFunctio
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
     const user = await prisma.user.findUnique({
-      where: { email: (decoded as any).email },
+      where: { id: (decoded as any).userId },
     });
 
     if (user?.role !== 'organizer') {

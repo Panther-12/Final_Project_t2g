@@ -122,7 +122,14 @@ export const userService = {
     return user;
   },
 
-  async resetPassword(email: string, newPassword: string) {
+  async resetPassword(resetCode: string, email: string, newPassword: string) {
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user) throw new Error('User not found');
+  
+    if (user.resetCode !== resetCode) {
+      throw new Error('Invalid or expired reset code');
+    }
+
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     return prisma.user.update({
       where: { email },

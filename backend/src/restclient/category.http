@@ -1,34 +1,32 @@
 ### Create Category
-POST http://localhost:3000/api/categories
+POST http://localhost:3000/categories
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzMDg3MTAsImV4cCI6MTcyMTMxMjMxMH0.uyS08qfZP8_XgC87xTahPVDKYUuPEAlzT6frYxJZ-sI
 
 {
-  "name": "Amapiano"
+  "name": "Afro"
 }
 
-###
 
 ### Get All Categories
-GET http://localhost:3000/api/categories
+GET http://localhost:3000/categories
 
-###
 
 ### Get Category by ID
-GET http://localhost:3000/api/categories/{{categoryId}}
+GET http://localhost:3000/categories/3b1c6662-8f98-4096-92a8-e47aeda8019a
 
-###
 
 ### Update Category
-PUT http://localhost:3000/api/categories/{{categoryId}}
+PUT http://localhost:3000/categories/3b1c6662-8f98-4096-92a8-e47aeda8019a
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzMDg3MTAsImV4cCI6MTcyMTMxMjMxMH0.uyS08qfZP8_XgC87xTahPVDKYUuPEAlzT6frYxJZ-sI
 
 {
-  "name": "Updated Music"
+  "name": "Soul"
 }
 
-###
 
 ### Delete Category
-DELETE http://localhost:3000/api/categories/{{categoryId}}
+DELETE http://localhost:3000/categories/f91be9d9-273b-49bb-9328-cd24a21486bb
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzMDg3MTAsImV4cCI6MTcyMTMxMjMxMH0.uyS08qfZP8_XgC87xTahPVDKYUuPEAlzT6frYxJZ-sI
 
-###

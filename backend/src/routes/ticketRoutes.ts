@@ -4,11 +4,11 @@ import { isOrganizer, isAdmin } from '../middlewares/auth';
 
 const router = Router();
 
-router.post('/tickets', isOrganizer, ticketController.createTicket);
-router.get('/tickets/:id', ticketController.getTicketById);
-router.put('/tickets/:id', isOrganizer, ticketController.updateTicket);
-router.delete('/tickets/:id', isOrganizer, ticketController.deleteTicket);
-router.get('/tickets', isAdmin, ticketController.getAllTickets);
-router.get('/events/:eventId/tickets', ticketController.getAllTicketsForEvent);
+router.post('', isOrganizer, ticketController.createTicket);
+router.get('/:id', ticketController.getTicketById);
+router.put('/:id', isOrganizer, ticketController.updateTicket);
+router.delete('/:id', isOrganizer, ticketController.deleteTicket);
+router.get('/', isAdmin, ticketController.getAllTickets);
+router.get('/events/:eventId', ticketController.getAllTicketsForEvent);
 
 export default router;

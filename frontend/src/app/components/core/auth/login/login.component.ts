@@ -34,12 +34,12 @@ export class LoginComponent {
         (response: any) => {
           this.notificationService.notify('Login successful', 'success');
           // Save user details to localStorage
-          localStorage.setItem('userId', response.user.id);
-          localStorage.setItem('role', response.user.role);
+          localStorage.setItem('userId', response.userId);
+          localStorage.setItem('role', response.role);
           localStorage.setItem('token', response.token);
 
           // Redirect based on role
-          if (response.user.role === 'admin') {
+          if (response.role === 'admin' || response.role === 'organizer') {
             this.router.navigateByUrl('/admin/analytics');
           } else {
             this.router.navigateByUrl('/users/home');

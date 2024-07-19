@@ -3,24 +3,24 @@ POST http://localhost:3000/users/login
 Content-Type: application/json
 
 {
-    "email":"nimrodnyongesa7@gmail.com",
-    "password":"12@17y017g3sa?"
+    "email":"sonniemwati36@gmail.com",
+    "password":"12@sS01717i3?"
 }
 
 ### Create User
 POST http://localhost:3000/users/register
 Content-Type: application/json
 
-{
-    "firstName":"Nimrod",
-    "lastName":"Nyongesa",
-    "email":"nimrodnyongesa7@gmail.com",
-    "password":"12@17y017g3sa?"
-}
+    {
+        "firstName": "Jessica",
+        "lastName": "Williams",
+        "email": "jessica.williams06@example.com",
+        "password": "12@sS06767i8^"
+    }
 
 ### Get User by ID
 GET http://localhost:3000/users/18d861d9-f28d-41f4-b924-93c58d85924c
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEwNDU0NTUsImV4cCI6MTcyMTA0OTA1NX0.vgW6JAYtozPhoUkymVojeYt618llkkrjGZkg9aruPhM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzMDg3MTAsImV4cCI6MTcyMTMxMjMxMH0.uyS08qfZP8_XgC87xTahPVDKYUuPEAlzT6frYxJZ-sI
 
 ### Update User
 PUT http://localhost:3000/users/fb2ce82a-1688-4873-be0b-ba9f0e25c75a
@@ -33,12 +33,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmYjJjZ
 }
 
 ### Deactivate a user account
-DELETE http://localhost:3000/users/fb2ce82a-1688-4873-be0b-ba9f0e25c75a
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEwNDU0NTUsImV4cCI6MTcyMTA0OTA1NX0.vgW6JAYtozPhoUkymVojeYt618llkkrjGZkg9aruPhM
+DELETE http://localhost:3000/users/022e5400-1ef4-4457-91b8-0950c6ba6afd
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzMDg3MTAsImV4cCI6MTcyMTMxMjMxMH0.uyS08qfZP8_XgC87xTahPVDKYUuPEAlzT6frYxJZ-sI
 
 ### Reactivate a use account
-PUT http://localhost:3000/users/fb2ce82a-1688-4873-be0b-ba9f0e25c75a/activate/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEwNDU0NTUsImV4cCI6MTcyMTA0OTA1NX0.vgW6JAYtozPhoUkymVojeYt618llkkrjGZkg9aruPhM
+PUT http://localhost:3000/users/022e5400-1ef4-4457-91b8-0950c6ba6afd/activate/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzMDg3MTAsImV4cCI6MTcyMTMxMjMxMH0.uyS08qfZP8_XgC87xTahPVDKYUuPEAlzT6frYxJZ-sI
 
 ### Update Profile
 PUT http://localhost:3000/users/18d861d9-f28d-41f4-b924-93c58d85924c/profile
@@ -54,8 +54,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4N
 }
 
 ### Assign Role Organizer
-PUT http://localhost:3000/users/fb2ce82a-1688-4873-be0b-ba9f0e25c75a/assign-organizer
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEwNDU0NTUsImV4cCI6MTcyMTA0OTA1NX0.vgW6JAYtozPhoUkymVojeYt618llkkrjGZkg9aruPhM
+PUT http://localhost:3000/users/022e5400-1ef4-4457-91b8-0950c6ba6afd/assign-organizer
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzMDg3MTAsImV4cCI6MTcyMTMxMjMxMH0.uyS08qfZP8_XgC87xTahPVDKYUuPEAlzT6frYxJZ-sI
 
 ### Assign Role Admin
 PUT http://localhost:3000/users/18d861d9-f28d-41f4-b924-93c58d85924c/assign-admin
@@ -66,7 +66,7 @@ POST http://localhost:3000/users/generate-reset-code
 Content-Type: application/json
 
 {
-  "email": "user@example.com"
+  "email": "nimrodnyongesa7@gmail.com"
 }
 
 ### Reset Password
@@ -74,6 +74,7 @@ POST http://localhost:3000/users/reset-password
 Content-Type: application/json
 
 {
-  "email": "user@example.com",
-  "newPassword": "newSecurePassword"
+  "email": "nimrodnyongesa7@gmail.com",
+  "resetCode":"9aeba9",
+  "newPassword": "12@17Y017g3sa?"
 }

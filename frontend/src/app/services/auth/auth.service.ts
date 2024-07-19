@@ -32,8 +32,10 @@ export class AuthService {
   }
 
   logout(): void {
-    this.currentUser = null;
-    this.router.navigate(['/login']);
+    localStorage.removeItem("userId")
+    localStorage.removeItem("role")
+    localStorage.removeItem("token")
+    this.router.navigateByUrl("/users/auth/login")
   }
 
   getCurrentUser(): any {

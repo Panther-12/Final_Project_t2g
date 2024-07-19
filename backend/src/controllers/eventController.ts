@@ -3,12 +3,13 @@ import { eventService } from '../services/eventService';
 
 export const eventController = {
   async createEvent(req: Request, res: Response) {
-    const { title, description, startDateTime, endDateTime, venueId, organizerId, images, categoryId } = req.body;
+    const { title, description, startDateTime, endDateTime, venueId, organizerId, categoryId, images} = req.body;
 
     try {
       const event = await eventService.createEvent(title, description, startDateTime, endDateTime, venueId, organizerId, categoryId, images);
       res.status(201).json(event);
     } catch (error) {
+      console.log(error)
       res.status(500).json({ error: 'Failed to create event' });
     }
   },
@@ -33,7 +34,7 @@ export const eventController = {
     const { title, description, startDateTime, endDateTime, venueId, organizerId } = req.body;
 
     try {
-      const updatedEvent = await eventService.updateEvent(eventId, { title, description, startDateTime, endDateTime, venueId, organizerId });
+      const updatedEvent = await eventService.updateEvent(eventId, title, description, startDateTime, endDateTime, venueId, organizerId);
       res.json(updatedEvent);
     } catch (error) {
       res.status(500).json({ error: 'Failed to update event' });

@@ -3,27 +3,131 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registration Confirmation</title>
+  <title>Welcome to Agenda - Registration Confirmation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      padding: 20px;
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
     }
     .container {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .header {
       background-color: #8e44ad;
+      color: #ffffff;
+      padding: 30px;
+      text-align: center;
+    }
+    .header i {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+    .content {
+      padding: 30px;
+      color: #333333;
+    }
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    p {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    .cta-button {
+      display: inline-block;
+      background-color: #8e44ad;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-weight: 700;
+      margin-top: 20px;
+    }
+    .features {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
+    }
+    .feature {
+      text-align: center;
+      flex: 1;
+    }
+    .feature i {
+      font-size: 36px;
+      color: #8e44ad;
+      margin-bottom: 10px;
+    }
+    .social-links {
+      background-color: #f0f0f0;
       padding: 20px;
-      color: #fff;
-      border-radius: 10px;
+      text-align: center;
+    }
+    .social-links a {
+      display: inline-block;
+      margin: 0 10px;
+      color: #333333;
+      font-size: 24px;
+    }
+    .footer {
+      background-color: #333333;
+      color: #ffffff;
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Welcome to Agenda!</h2>
-    <p>Hello <%= userName %>,</p>
-    <p>Thank you for registering with Shopie. Your account has been successfully created.</p>
-    <p>Best regards,<br>Agenda Team</p>
+    <div class="header">
+      <i class="fas fa-calendar-check"></i>
+      <h1>Welcome to Agenda!</h1>
+    </div>
+    <div class="content">
+      <p>Hello <%= userName %>,</p>
+      <p>Thank you for registering with Agenda. Your account has been successfully created, and we're thrilled to have you on board!</p>
+      <p>With Agenda, you'll be able to:</p>
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-tasks"></i>
+          <p>Manage Tasks</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-users"></i>
+          <p>Collaborate</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-chart-line"></i>
+          <p>Track Progress</p>
+        </div>
+      </div>
+      <p>To get started, click the button below to access your dashboard:</p>
+      <a href="#" class="cta-button">Access Your Dashboard</a>
+      <p>If you have any questions or need assistance, our support team is always here to help. Don't hesitate to reach out!</p>
+      <p>Best regards,<br>The Agenda Team</p>
+    </div>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="footer">
+      <p>&copy; 2024 Agenda. All rights reserved.</p>
+      <p>123 Productivity Street, Organization City, TO-DO 12345</p>
+    </div>
   </div>
 </body>
 </html>

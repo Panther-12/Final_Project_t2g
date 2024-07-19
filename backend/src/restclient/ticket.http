@@ -1,32 +1,38 @@
 ### Create Ticket
 POST http://localhost:3000/tickets
 Content-Type: application/json
-Authorization: Bearer <token>
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzNjg3ODYsImV4cCI6MTcyMTM3MjM4Nn0.61aR_WPBR52cqEGYXpx6MK2ji97IcTn1m2msa0hqy0U
+
 
 {
-  "eventId": "event_id_here",
-  "type": "VIP",
-  "price": 100
+  "eventId": "bf2c9acc-54c6-43a6-b061-e0f5cee7ef75",
+  "type": "Regular",
+  "price": 60
 }
 
 ### Get Ticket by ID
-GET http://localhost:3000/tickets/ticket_id_here
-Authorization: Bearer <token>
+GET http://localhost:3000/tickets/5c30840b-159f-44ed-8cdf-45c4bb61bff0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzNjg3ODYsImV4cCI6MTcyMTM3MjM4Nn0.61aR_WPBR52cqEGYXpx6MK2ji97IcTn1m2msa0hqy0U
 
 ### Update Ticket
-PUT http://localhost:3000/tickets/ticket_id_here
+PUT http://localhost:3000/tickets/3df103a3-0673-4fc6-9a72-ee61572e1ae2
 Content-Type: application/json
-Authorization: Bearer <token>
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzNjg3ODYsImV4cCI6MTcyMTM3MjM4Nn0.61aR_WPBR52cqEGYXpx6MK2ji97IcTn1m2msa0hqy0U
 
 {
   "type": "General Admission",
-  "price": 75
+  "price": 55
 }
 
 ### Delete Ticket
-DELETE http://localhost:3000/tickets/ticket_id_here
-Authorization: Bearer <token>
+DELETE http://localhost:3000/tickets/3df103a3-0673-4fc6-9a72-ee61572e1ae2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzNjg3ODYsImV4cCI6MTcyMTM3MjM4Nn0.61aR_WPBR52cqEGYXpx6MK2ji97IcTn1m2msa0hqy0U
 
 ### Get All Tickets
 GET http://localhost:3000/tickets
-Authorization: Bearer <token>
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzNjg3ODYsImV4cCI6MTcyMTM3MjM4Nn0.61aR_WPBR52cqEGYXpx6MK2ji97IcTn1m2msa0hqy0U
+
+
+### Get All Tickets for an event
+GET http://localhost:3000/tickets/events/bf2c9acc-54c6-43a6-b061-e0f5cee7ef75
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzNjg3ODYsImV4cCI6MTcyMTM3MjM4Nn0.61aR_WPBR52cqEGYXpx6MK2ji97IcTn1m2msa0hqy0U

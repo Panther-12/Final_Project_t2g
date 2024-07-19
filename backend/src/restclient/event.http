@@ -1,45 +1,53 @@
 ### Create Event
-POST http://localhost:3000/api/events
+POST http://localhost:3000/events
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzMTM0MDIsImV4cCI6MTcyMTMxNzAwMn0.1wqRUbxB6FoWrec4iLZDJFeYKRXB1UMZuya1UDv1kH4
 
 {
   "title": "Concert",
   "description": "An amazing music concert",
   "startDateTime": "2024-07-20T18:00:00Z",
   "endDateTime": "2024-07-20T21:00:00Z",
-  "venueId": "venue-id-123",
-  "organizerId": "organizer-id-123",
-  "images": ["image-url-1", "image-url-2"]
+  "venueId": "60a8bd83-f19e-4b30-9e51-6a081d0a8965",
+  "organizerId": "022e5400-1ef4-4457-91b8-0950c6ba6afd",
+  "categoryId":"3b1c6662-8f98-4096-92a8-e47aeda8019a",
+  "images": ["https://www.pinterest.com/pin/683562049715830733/", "https://i.pinimg.com/474x/ce/8f/21/ce8f21c54b10d1c24960dd6a517f2206.jpg"]
 }
 
-###
 
 ### Get All Events
-GET http://localhost:3000/api/events
+GET http://localhost:3000/events
 
-###
 
 ### Get Event by ID
-GET http://localhost:3000/api/events/{{eventId}}
+GET http://localhost:3000/events/5232e85e-0934-4b8a-8eec-5eab548dfc9f
 
-###
 
 ### Update Event
-PUT http://localhost:3000/api/events/{{eventId}}
+PUT http://localhost:3000/events/5232e85e-0934-4b8a-8eec-5eab548dfc9f
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzMTM0MDIsImV4cCI6MTcyMTMxNzAwMn0.1wqRUbxB6FoWrec4iLZDJFeYKRXB1UMZuya1UDv1kH4
 
 {
   "title": "Updated Concert",
   "description": "An updated amazing music concert",
   "startDateTime": "2024-07-20T18:00:00Z",
   "endDateTime": "2024-07-20T21:00:00Z",
-  "venueId": "updated-venue-id-123",
-  "organizerId": "updated-organizer-id-123"
+  "venueId": "60a8bd83-f19e-4b30-9e51-6a081d0a8965",
+  "organizerId": "022e5400-1ef4-4457-91b8-0950c6ba6afd"
 }
 
-###
 
 ### Delete Event
-DELETE http://localhost:3000/api/events/{{eventId}}
+DELETE http://localhost:3000/events/5232e85e-0934-4b8a-8eec-5eab548dfc9f
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzMTM0MDIsImV4cCI6MTcyMTMxNzAwMn0.1wqRUbxB6FoWrec4iLZDJFeYKRXB1UMZuya1UDv1kH4
 
-###
+### Get all events for organizer
+GET http://localhost:3000/events/organizer/022e5400-1ef4-4457-91b8-0950c6ba6afd
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzNjg3ODYsImV4cCI6MTcyMTM3MjM4Nn0.61aR_WPBR52cqEGYXpx6MK2ji97IcTn1m2msa0hqy0U
+
+
+
+### Get all events for user
+GET http://localhost:3000/events/user/5232e85e-0934-4b8a-8eec-5eab548dfc9f
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzMTM0MDIsImV4cCI6MTcyMTMxNzAwMn0.1wqRUbxB6FoWrec4iLZDJFeYKRXB1UMZuya1UDv1kH4

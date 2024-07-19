@@ -4,7 +4,8 @@ import { EventImageInput } from '../interfaces/eventImageInterface';
 const prisma = new PrismaClient();
 
 export const eventService = {
-  async createEvent(title: string, description: string, startDateTime: Date, endDateTime: Date, venueId: string, organizerId: string, images: EventImageInput[], categoryId: string) {
+  async createEvent(title: string, description: string, startDateTime: Date, endDateTime: Date, venueId: string, organizerId: string, categoryId: string, images: string[]) {
+    console.log(images)
     return prisma.event.create({
       data: {
         title,
@@ -15,9 +16,7 @@ export const eventService = {
         organizerId,
         categoryId,
         images: {
-          createMany: {
-            data: images.map(image => ({ url: image.url })),
-          },
+          create: images.map((url) => ({url})),
         }
       },
       include: {
@@ -41,7 +40,15 @@ export const eventService = {
     });
   },
 
-  async updateEvent(id: string, data: { title?: string; description?: string; startDateTime?: Date; endDateTime?: Date; venueId?: string; organizerId?: string }) {
+  async updateEvent(id: string, title?: string, description?: string, startDateTime?: Date, endDateTime?: Date, venueId?: string, organizerId?: string ) {
+    let data = {
+      title,
+      description,
+      startDateTime,
+      endDateTime,
+      venueId,
+      organizerId
+    }
     return prisma.event.update({
       where: { id },
       data,
@@ -53,6 +60,11 @@ export const eventService = {
   },
 
   async deleteEvent(id: string) {
+    await prisma.eventImage.deleteMany({
+      where: {
+        eventId: id
+      },
+    });
     return prisma.event.delete({
       where: { id },
     });
