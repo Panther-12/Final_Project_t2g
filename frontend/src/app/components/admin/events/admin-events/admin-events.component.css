@@ -184,3 +184,32 @@
 .custom-purple {
   color: #6f42c1;
 }
+
+
+.cbadge-success{
+  background-color:#13C296;
+  color: white;
+  padding: 2px 5px;
+}
+.cbadge-danger{
+  background-color: orangered;
+  color: white;
+  padding: 2px 5px;
+}
+
+.badge{
+  width: fit-content;
+  height: fit-content;
+}
+
+#approvebutton{
+  border: none;
+  outline: none;
+  margin: none;
+  color: #13C296;
+  background: none;
+}
+
+#approvedbutton:focus{
+  outline: none;
+}

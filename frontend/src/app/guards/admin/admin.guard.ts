@@ -11,10 +11,11 @@ export class AdminGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean {
-    if (this.authService.isLoggedIn() && this.authService.isAdmin()) {
+    let isAdmin = localStorage.getItem('role') as string
+    if (isAdmin === 'admin' || isAdmin === 'organizer') {
       return true;
     } else {
-      this.router.navigateByUrl('/auth/login');
+      this.router.navigateByUrl('/users/auth/login');
       return false;
     }
   }

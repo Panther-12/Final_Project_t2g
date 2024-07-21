@@ -1,0 +1,22 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- AlterTable
+ALTER TABLE [dbo].[Ticket] ADD [quantity] INT NOT NULL CONSTRAINT [Ticket_quantity_df] DEFAULT 30;
+
+-- AlterTable
+ALTER TABLE [dbo].[Venue] ADD [type] NVARCHAR(1000) NOT NULL CONSTRAINT [Venue_type_df] DEFAULT 'private';
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH

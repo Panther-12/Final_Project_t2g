@@ -3,10 +3,10 @@ import { venueService } from '../services/venueService';
 
 export const venueController = {
   async createVenue(req: Request, res: Response) {
-    const { name, address, capacity } = req.body;
+    const { name, address, capacity, type } = req.body;
 
     try {
-      const venue = await venueService.createVenue(name, address, capacity);
+      const venue = await venueService.createVenue(name, address, capacity, type);
       res.status(201).json(venue);
     } catch (error) {
       res.status(500).json({ error: 'Failed to create venue' });

@@ -1,0 +1,26 @@
+/* tickets.component.css */
+.table thead {
+    background-color: #6f42c1;
+    color: white;
+  }
+  .custom-purple {
+    color: #6f42c1;
+}
+
+.custom-success{
+  color:#13C296;
+}
+
+.custom-danger{
+  color: orangered;
+}
+
+#addvenue{
+  color: white;
+  background-color: #6f42c1;
+  border-radius: 8px;
+  padding: 8px 12px;
+  border: none;
+  outline: none;
+
+}

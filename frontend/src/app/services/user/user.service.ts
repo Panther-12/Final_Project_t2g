@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { User } from '../../interfaces/interfaces';
+import { updateProfile, User, UserProfile } from '../../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +25,12 @@ export class UserService {
     return this.http.post<User>(`${this.baseUrl}/users/register`, user, this.httpOptions);
   }
 
-  getUserById(userId: string): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/users/${userId}`, this.getAuthHeaders());
+  getUserById(userId: string): Observable<UserProfile> {
+    return this.http.get<UserProfile>(`${this.baseUrl}/users/${userId}`, this.getAuthHeaders());
+  }
+
+  getAllUsers(){
+    return this.http.get<any[]>(`${this.baseUrl}/users/all`, this.getAuthHeaders());
   }
 
   updateUser(userId: string, updatedUser: Partial<User>): Observable<User> {
@@ -41,8 +45,8 @@ export class UserService {
     return this.http.put<void>(`${this.baseUrl}/users/${userId}/activate`, {}, this.getAuthHeaders());
   }
 
-  updateProfile(userId: string, updatedProfile: Partial<User>): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/users/${userId}/profile`, updatedProfile, this.getAuthHeaders());
+  updateProfile(userId: string, updatedProfile: updateProfile): Observable<updateProfile> {
+    return this.http.put<updateProfile>(`${this.baseUrl}/users/${userId}/profile`, updatedProfile, this.getAuthHeaders());
   }
 
   assignOrganizerRole(userId: string): Observable<void> {
@@ -59,6 +63,10 @@ export class UserService {
 
   resetPassword(email: string, newPassword: string): Observable<void> {
     return this.http.post<void>(`${this.baseUrl}/users/reset-password`, { email, newPassword }, this.httpOptions);
+  }
+
+  getAttendeesForOrganizerEvents(organizerId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/users/organizer/${organizerId}/attendees`, this.getAuthHeaders());
   }
 
   private getAuthHeaders(): { headers: HttpHeaders } {

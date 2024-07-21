@@ -4,6 +4,7 @@ import { generateAccessToken } from '../middlewares/auth';
 import bcrypt from 'bcrypt';
 import { user } from '../interfaces/interfaces';
 import { sendRegistrationConfirmationEmail } from '../utils/emailUtils';
+import { User } from '@prisma/client';
 
 export const userController = {
   async loginUser(req: Request, res: Response) {
@@ -15,9 +16,12 @@ export const userController = {
         return res.status(401).json({ error: 'Invalid credentials' });
       }
 
-      const user = await userService.getUserByEmail(email) as user;
-      const accessToken = generateAccessToken(user.id);
+      const user = await userService.getUserByEmail(email) as User;
+      if (user?.accountStatus === 'deactivated') {
+        return res.status(403).json({ error: 'Account is deactivated' });
+      }
 
+      const accessToken = generateAccessToken(user.id);
       res.json({ token: accessToken, userId: user.id, role: user.role });
     } catch (error) {
       res.status(500).json({ error: 'Failed to authenticate' });
@@ -29,7 +33,7 @@ export const userController = {
 
     try {
       const user = await userService.createUser(firstName, lastName, email, password, 'user');
-      if (user) sendRegistrationConfirmationEmail(user.email, firstName)
+      // if (user) sendRegistrationConfirmationEmail(user.email, firstName)
       res.status(201).json(user);
     } catch (error) {
       res.status(500).json({ error: 'Failed to create user' });
@@ -142,4 +146,24 @@ export const userController = {
       res.status(500).json({ error: 'Failed to reset password' });
     }
   },
+
+  async getAllUsersExceptAdmins(req: Request, res: Response) {
+    try {
+      const users = await userService.getAllUsersExceptAdmins();
+      res.status(200).json(users);
+    } catch (error) {
+      res.status(500).json({ message: 'Error retrieving users', error });
+    }
+  },
+
+  async getAttendeesForOrganizerEvents(req: Request, res: Response){
+    const { organizerId } = req.params;
+    try {
+      const attendees = await userService.getAttendeesForOrganizerEvents(organizerId);
+      res.status(200).json(attendees);
+    } catch (error) {
+      console.error('Error fetching attendees for organizer events', error);
+      res.status(500).json({ error: 'Failed to fetch attendees for organizer events' });
+    }
+  }
 };

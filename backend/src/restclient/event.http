@@ -1,13 +1,13 @@
 ### Create Event
 POST http://localhost:3000/events
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzMTM0MDIsImV4cCI6MTcyMTMxNzAwMn0.1wqRUbxB6FoWrec4iLZDJFeYKRXB1UMZuya1UDv1kH4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MGQ1MjFlMi05YzcwLTRjNjUtYjY3MS1mNWJjNjExZGVlZTQiLCJpYXQiOjE3MjEzODgxNDMsImV4cCI6MTcyMTM5MTc0M30.LEFkjzZVrU2QGmWcFyA_8AOT76ILGVcUU2Vs8Mn24fE
 
 {
   "title": "Concert",
   "description": "An amazing music concert",
-  "startDateTime": "2024-07-20T18:00:00Z",
-  "endDateTime": "2024-07-20T21:00:00Z",
+  "startDateTime": "2024-08-20T18:00:00Z",
+  "endDateTime": "2024-08-20T21:00:00Z",
   "venueId": "60a8bd83-f19e-4b30-9e51-6a081d0a8965",
   "organizerId": "022e5400-1ef4-4457-91b8-0950c6ba6afd",
   "categoryId":"3b1c6662-8f98-4096-92a8-e47aeda8019a",
@@ -20,13 +20,13 @@ GET http://localhost:3000/events
 
 
 ### Get Event by ID
-GET http://localhost:3000/events/5232e85e-0934-4b8a-8eec-5eab548dfc9f
+GET http://localhost:3000/events/da9edcb9-7d42-4227-aad5-5dd224faaea0
 
 
 ### Update Event
-PUT http://localhost:3000/events/5232e85e-0934-4b8a-8eec-5eab548dfc9f
+PUT http://localhost:3000/events/da9edcb9-7d42-4227-aad5-5dd224faaea0
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzMTM0MDIsImV4cCI6MTcyMTMxNzAwMn0.1wqRUbxB6FoWrec4iLZDJFeYKRXB1UMZuya1UDv1kH4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MGQ1MjFlMi05YzcwLTRjNjUtYjY3MS1mNWJjNjExZGVlZTQiLCJpYXQiOjE3MjEzODgxNDMsImV4cCI6MTcyMTM5MTc0M30.LEFkjzZVrU2QGmWcFyA_8AOT76ILGVcUU2Vs8Mn24fE
 
 {
   "title": "Updated Concert",
@@ -38,9 +38,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlN
 }
 
 
-### Delete Event
-DELETE http://localhost:3000/events/5232e85e-0934-4b8a-8eec-5eab548dfc9f
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzMTM0MDIsImV4cCI6MTcyMTMxNzAwMn0.1wqRUbxB6FoWrec4iLZDJFeYKRXB1UMZuya1UDv1kH4
+### Cancel an event
+DELETE http://localhost:3000/events/da9edcb9-7d42-4227-aad5-5dd224faaea0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MGQ1MjFlMi05YzcwLTRjNjUtYjY3MS1mNWJjNjExZGVlZTQiLCJpYXQiOjE3MjEzODgxNDMsImV4cCI6MTcyMTM5MTc0M30.LEFkjzZVrU2QGmWcFyA_8AOT76ILGVcUU2Vs8Mn24fE
 
 ### Get all events for organizer
 GET http://localhost:3000/events/organizer/022e5400-1ef4-4457-91b8-0950c6ba6afd

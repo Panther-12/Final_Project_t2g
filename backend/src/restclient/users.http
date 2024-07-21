@@ -3,8 +3,8 @@ POST http://localhost:3000/users/login
 Content-Type: application/json
 
 {
-    "email":"sonniemwati36@gmail.com",
-    "password":"12@sS01717i3?"
+        "email": "sonniemwati36@gmail.com",
+        "password": "12@sS01717i3?"
 }
 
 ### Create User
@@ -14,9 +14,13 @@ Content-Type: application/json
     {
         "firstName": "Jessica",
         "lastName": "Williams",
-        "email": "jessica.williams06@example.com",
+        "email": "jessica2.williams06@example.com",
         "password": "12@sS06767i8^"
     }
+
+### Get All Users (Admin)
+GET http://localhost:3000/users/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzODExMzUsImV4cCI6MTcyMTM4NDczNX0.vmMC0A8olFuzgxO9JWiYJOXiYeqvgO8rXHRM1BgK_EQ
 
 ### Get User by ID
 GET http://localhost:3000/users/18d861d9-f28d-41f4-b924-93c58d85924c
@@ -33,8 +37,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmYjJjZ
 }
 
 ### Deactivate a user account
-DELETE http://localhost:3000/users/022e5400-1ef4-4457-91b8-0950c6ba6afd
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzMDg3MTAsImV4cCI6MTcyMTMxMjMxMH0.uyS08qfZP8_XgC87xTahPVDKYUuPEAlzT6frYxJZ-sI
+DELETE http://localhost:3000/users/25a85411-8255-41c7-8645-329b97351204
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzNzM2MDksImV4cCI6MTcyMTM3NzIwOX0.BSH9E3Bo_NGtJig2ZxHXPvWhTMdKfUw9pz99pQOJ-XU
 
 ### Reactivate a use account
 PUT http://localhost:3000/users/022e5400-1ef4-4457-91b8-0950c6ba6afd/activate/
@@ -54,8 +58,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4N
 }
 
 ### Assign Role Organizer
-PUT http://localhost:3000/users/022e5400-1ef4-4457-91b8-0950c6ba6afd/assign-organizer
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzMDg3MTAsImV4cCI6MTcyMTMxMjMxMH0.uyS08qfZP8_XgC87xTahPVDKYUuPEAlzT6frYxJZ-sI
+PUT http://localhost:3000/users/80d521e2-9c70-4c65-b671-f5bc611deee4/assign-organizer
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzODgwOTUsImV4cCI6MTcyMTM5MTY5NX0.Nj5pEoDMiivL-ZzLf788aULbH2qzx4IZ2tXV8VAbQio
 
 ### Assign Role Admin
 PUT http://localhost:3000/users/18d861d9-f28d-41f4-b924-93c58d85924c/assign-admin

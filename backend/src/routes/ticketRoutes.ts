@@ -10,5 +10,6 @@ router.put('/:id', isOrganizer, ticketController.updateTicket);
 router.delete('/:id', isOrganizer, ticketController.deleteTicket);
 router.get('/', isAdmin, ticketController.getAllTickets);
 router.get('/events/:eventId', ticketController.getAllTicketsForEvent);
+router.get('/organizer/:organizerId/tickets', ticketController.getAllTicketsForOrganizer);
 
 export default router;

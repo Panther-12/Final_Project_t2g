@@ -1,13 +1,14 @@
 ### Create Venue
 POST http://localhost:3000/venues
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzMDg3MTAsImV4cCI6MTcyMTMxMjMxMH0.uyS08qfZP8_XgC87xTahPVDKYUuPEAlzT6frYxJZ-sI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzODk4MDIsImV4cCI6MTcyMTM5MzQwMn0.ietwy_vV2f8ibFRi_VbLegTulzX1D9LC9cqQ3gPps0I
 
-{
-  "name": "Conference Center",
-  "address": "123 Main St, Cityville",
-  "capacity": 500
-}
+  {
+    "name": "Music camp",
+    "address": "699 Lavington, Innoville",
+    "capacity": 900,
+    "type": "private"
+  }
 
 ### Get All Venues
 GET http://localhost:3000/venues
@@ -19,7 +20,7 @@ GET http://localhost:3000/venues/31626e66-d517-4a9f-bcda-7eb7168d2d6f
 ### Update Venue
 PUT http://localhost:3000/venues/d9ef21e8-973b-483d-8118-8eb27b327a1e
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzMDg3MTAsImV4cCI6MTcyMTMxMjMxMH0.uyS08qfZP8_XgC87xTahPVDKYUuPEAlzT6frYxJZ-sI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzNzM2MDksImV4cCI6MTcyMTM3NzIwOX0.BSH9E3Bo_NGtJig2ZxHXPvWhTMdKfUw9pz99pQOJ-XU
 
 {
   "name": "Updated Conference Center",
@@ -30,4 +31,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4N
 
 ### Delete Venue
 DELETE http://localhost:3000/venues/31626e66-d517-4a9f-bcda-7eb7168d2d6f
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzMDg3MTAsImV4cCI6MTcyMTMxMjMxMH0.uyS08qfZP8_XgC87xTahPVDKYUuPEAlzT6frYxJZ-sI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzNzM2MDksImV4cCI6MTcyMTM3NzIwOX0.BSH9E3Bo_NGtJig2ZxHXPvWhTMdKfUw9pz99pQOJ-XU

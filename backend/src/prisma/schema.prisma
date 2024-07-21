@@ -27,7 +27,7 @@ model Profile {
   lastName  String
   bio       String?
   phone     String?
-  image     String?
+  image     String   @default("https://www.gravatar.com/avatar/a6ea2c1cffdd6f99c2ea02a97f48bea3?s=200&r=pg&d=mm")
   userId    String   @unique
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
@@ -43,6 +43,7 @@ model Event {
   venueId       String
   organizerId   String
   rating        Float?
+  status        String          @default("active")
   venue         Venue          @relation(fields: [venueId], references: [id])
   organizer     User           @relation(fields: [organizerId], references: [id], name: "CreatedEvents")
   tickets       Ticket[]
@@ -59,6 +60,7 @@ model Venue {
   name       String
   address    String
   capacity   Int
+  type       String    @default("private")
   events     Event[]
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
@@ -69,6 +71,7 @@ model Ticket {
   eventId    String
   type       String
   price      Float
+  quantity   Int       @default(30)
   event      Event     @relation(fields: [eventId], references: [id])
   registrations Registration[]
   createdAt  DateTime  @default(now())

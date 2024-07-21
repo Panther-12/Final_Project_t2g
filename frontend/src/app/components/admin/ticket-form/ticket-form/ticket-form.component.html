@@ -1,18 +1,27 @@
 <div class="modal-header">
-    <h5 class="modal-title">{{ ticket.type ? 'Edit Ticket' : 'Add Ticket' }}</h5>
-    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
-  </div>
-  <div class="modal-body">
-    <form (ngSubmit)="save()">
-      <div class="mb-3">
-        <label for="type" class="form-label">Type</label>
-        <input type="text" id="type" class="form-control" [(ngModel)]="ticket.type" name="type" required>
-      </div>
-      <div class="mb-3">
-        <label for="price" class="form-label">Price</label>
-        <input type="number" id="price" class="form-control" [(ngModel)]="ticket.price" name="price" required>
-      </div>
-      <button type="submit" class="btn btn-primary text-white" style="border-radius: 8px; background: #6f42c1; outline: none; border: none;">Save</button>
-    </form>
-  </div>
-  
+  <h5 class="modal-title">{{ isEditMode ? 'Edit Ticket' : 'Add Ticket' }}</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="save()">
+    <div *ngIf="!isEditMode" class="mb-3">
+      <label for="event" class="form-label">Event</label>
+      <select id="event" class="form-select" [(ngModel)]="ticket.eventId" name="eventId" required>
+        <option *ngFor="let event of events" [value]="event.id">{{ event.title }}</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="type" class="form-label">Type</label>
+      <input type="text" id="type" class="form-control" [(ngModel)]="ticket.type" name="type" required>
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Price</label>
+      <input type="number" id="price" class="form-control" [(ngModel)]="ticket.price" name="price" required>
+    </div>
+    <div class="mb-3">
+      <label for="quantity" class="form-label">Quantity</label>
+      <input type="number" id="quantity" class="form-control" [(ngModel)]="ticket.quantity" name="quantity" required>
+    </div>
+    <button type="submit" class="btn btn-primary text-white" style="border-radius: 8px; background: #6f42c1; outline: none; border: none;">Save</button>
+  </form>
+</div>

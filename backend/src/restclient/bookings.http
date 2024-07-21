@@ -1,23 +1,23 @@
 ### Register User for Event
 POST http://localhost:3000/registration
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MGQ1MjFlMi05YzcwLTRjNjUtYjY3MS1mNWJjNjExZGVlZTQiLCJpYXQiOjE3MjEzNjk2MDMsImV4cCI6MTcyMTM3MzIwM30.__kpzT5fWGpju-70zasGRnSIfbUPjf5hvX1XXoQZeH4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyN2Q4MjA5MC02NTZjLTQ4Y2MtYjgwZS1jNTNkMmVjNDNhZGUiLCJpYXQiOjE3MjEzODgyNTksImV4cCI6MTcyMTM5MTg1OX0.6Gorx4HJ3pDLoIbHp1XvvXePjzlDrwvw7WHxvCyWDk0
 
 {
-  "eventId": "bf2c9acc-54c6-43a6-b061-e0f5cee7ef75",
-  "userId": "80d521e2-9c70-4c65-b671-f5bc611deee4",
+  "eventId": "da9edcb9-7d42-4227-aad5-5dd224faaea0",
+  "userId": "27d82090-656c-48cc-b80e-c53d2ec43ade",
   "ticketIds": ["5c30840b-159f-44ed-8cdf-45c4bb61bff0", "5c30840b-159f-44ed-8cdf-45c4bb61bff0"]
 }
 
 
 ### Get Registration by ID
-GET http://localhost:3000/registration/02bdf0ca-81be-44e0-bd5a-689ce561e7a3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MGQ1MjFlMi05YzcwLTRjNjUtYjY3MS1mNWJjNjExZGVlZTQiLCJpYXQiOjE3MjEzNjk2MDMsImV4cCI6MTcyMTM3MzIwM30.__kpzT5fWGpju-70zasGRnSIfbUPjf5hvX1XXoQZeH4
+GET http://localhost:3000/registration/5b955db0-ec8e-4fd9-aa9c-568f842ee46e
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzODgwOTUsImV4cCI6MTcyMTM5MTY5NX0.Nj5pEoDMiivL-ZzLf788aULbH2qzx4IZ2tXV8VAbQio
 
 ### Update Registration
-PUT http://localhost:3000/registration/02bdf0ca-81be-44e0-bd5a-689ce561e7a3
+PUT http://localhost:3000/registration/5b955db0-ec8e-4fd9-aa9c-568f842ee46e
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MGQ1MjFlMi05YzcwLTRjNjUtYjY3MS1mNWJjNjExZGVlZTQiLCJpYXQiOjE3MjEzNjk2MDMsImV4cCI6MTcyMTM3MzIwM30.__kpzT5fWGpju-70zasGRnSIfbUPjf5hvX1XXoQZeH4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxOGQ4NjFkOS1mMjhkLTQxZjQtYjkyNC05M2M1OGQ4NTkyNGMiLCJpYXQiOjE3MjEzODgwOTUsImV4cCI6MTcyMTM5MTY5NX0.Nj5pEoDMiivL-ZzLf788aULbH2qzx4IZ2tXV8VAbQio
 
 {
   "status": "confirmed"
@@ -25,8 +25,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MGQ1M
 
 
 ### Cancel Registration
-DELETE http://localhost:3000/registration/02bdf0ca-81be-44e0-bd5a-689ce561e7a3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MGQ1MjFlMi05YzcwLTRjNjUtYjY3MS1mNWJjNjExZGVlZTQiLCJpYXQiOjE3MjEzNjk2MDMsImV4cCI6MTcyMTM3MzIwM30.__kpzT5fWGpju-70zasGRnSIfbUPjf5hvX1XXoQZeH4
+DELETE http://localhost:3000/registration/5b955db0-ec8e-4fd9-aa9c-568f842ee46e
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyN2Q4MjA5MC02NTZjLTQ4Y2MtYjgwZS1jNTNkMmVjNDNhZGUiLCJpYXQiOjE3MjEzODgyNTksImV4cCI6MTcyMTM5MTg1OX0.6Gorx4HJ3pDLoIbHp1XvvXePjzlDrwvw7WHxvCyWDk0
 
 
 ### Get All Registrations for User
@@ -40,3 +40,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MGQ1M
 ### Get All Registrations for Organizer
 GET http://localhost:3000/registration/organizer/022e5400-1ef4-4457-91b8-0950c6ba6afd
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzNzA0NDAsImV4cCI6MTcyMTM3NDA0MH0.4Hi4p6FbLWIEl9N3VZeFrOglQyhGfy9vG2X5Nk91r7k
+
+
+
+#### If the event is cancelled by a user can they change it back or they create a new field in the database
+#### Make error messages more descriptive
+#### Quantity of tickets
+#### Private and public venues
+#### 

@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
 import { eventService } from '../services/eventService';
+import { sendEventCreationConfirmationEmail } from '../utils/emailUtils';
+import { userService } from '../services/userService';
+import { User } from '@prisma/client';
 
 export const eventController = {
   async createEvent(req: Request, res: Response) {
@@ -7,6 +10,10 @@ export const eventController = {
 
     try {
       const event = await eventService.createEvent(title, description, startDateTime, endDateTime, venueId, organizerId, categoryId, images);
+      // // Send confirmation email to the organizer
+      // const organizer = await userService.getUserById(organizerId) as User;
+      // await sendEventCreationConfirmationEmail(organizer.email, title, startDateTime, endDateTime, venueId);
+    
       res.status(201).json(event);
     } catch (error) {
       console.log(error)
@@ -31,10 +38,10 @@ export const eventController = {
 
   async updateEvent(req: Request, res: Response) {
     const eventId = req.params.id;
-    const { title, description, startDateTime, endDateTime, venueId, organizerId } = req.body;
+    const { title, description, startDateTime, endDateTime, venueId, organizerId, images } = req.body;
 
     try {
-      const updatedEvent = await eventService.updateEvent(eventId, title, description, startDateTime, endDateTime, venueId, organizerId);
+      const updatedEvent = await eventService.updateEvent(eventId, title, description, startDateTime, endDateTime, venueId, organizerId, images);
       res.json(updatedEvent);
     } catch (error) {
       res.status(500).json({ error: 'Failed to update event' });
@@ -46,9 +53,9 @@ export const eventController = {
 
     try {
       await eventService.deleteEvent(eventId);
-      res.json({ message: 'Event deleted successfully' });
+      res.json({ message: 'Event cancelled successfully' });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to delete event' });
+      res.status(500).json({ error: 'Failed to cancel event' });
     }
   },
 

@@ -1,0 +1,64 @@
+<div *ngIf="showLoadingSpinner" class="loading-spinner" style="margin-top: 27%; margin-left: 48%;">
+  <div class="spinner-border custom-purple" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div *ngIf="!showLoadingSpinner" class="container-fluid p-3">
+  <div class="row mb-4">
+    <div class="col">
+      <button id="addvenue" (click)="openAddVenueModal()">
+        <i class="fa fa-plus-circle me-2"></i>Add Venue
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <table class="table table-hover">
+        <thead class="bg-primary text-white">
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Capacity</th>
+            <th>Type</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let venue of venues">
+            <td>{{ venue.name }}</td>
+            <td>{{ venue.address }}</td>
+            <td>{{ venue.capacity }}</td>
+            <td>{{ venue.type }}</td>
+            <td>
+              <i class="fa fa-edit custom-success me-2" (click)="openEditVenueModal(venue)"></i>
+              <i class="fa fa-trash custom-danger" (click)="deleteVenue(venue.id)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+        <a class="page-link" (click)="goToPage(1)">First</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+        <a class="page-link" (click)="goToPage(currentPage - 1)">Previous</a>
+      </li>
+      <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [ngClass]="{'active': currentPage === (i + 1)}">
+        <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+        <a class="page-link" (click)="goToPage(currentPage + 1)">Next</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+        <a class="page-link" (click)="goToPage(totalPages)">Last</a>
+      </li>
+    </ul>
+  </nav>
+</div>

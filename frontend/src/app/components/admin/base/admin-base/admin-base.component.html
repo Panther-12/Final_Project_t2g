@@ -14,8 +14,11 @@
       <li class="nav-item">
         <a [routerLink]="['/admin/tickets']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">Tickets</a>
       </li>
+      <li class="nav-item" *ngIf="role === 'admin'">
+        <a [routerLink]="['/admin/venues']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">Venues</a>
+      </li>
       <li class="nav-item">
-        <a [routerLink]="['/admin/attendees']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">Users</a>
+        <a [routerLink]="['/admin/attendees']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">{{ role === 'organizer' ? 'Attendees' : 'Users'}}</a>
       </li>
       <li class="nav-item">
         <a [routerLink]="['/admin/profile']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">Profile</a>
@@ -29,10 +32,10 @@
       </li>
     </ul>
     <div class="profile mt-auto d-flex align-items-center">
-      <img src="/assets/images/next1.jpg" alt="Profile" class="rounded-circle me-2" width="50" height="50">
+      <img src="{{ user.profile.image}}" alt="Profile" class="rounded-circle me-2" width="50" height="50">
       <div>
-        <div>Nimrod</div>
-        <div>nimrod{{symbolAt}}tailgrids.com</div>
+        <div>{{ user.profile.firstName }}</div>
+        <div>{{ user.email }}</div>
       </div>
     </div>
   </nav>
@@ -42,7 +45,7 @@
         <i class="fa fa-bell"></i>
       </div>
       <div>
-        <img src="/assets/images/next1.jpg" alt="Profile" class="rounded-circle" width="40" height="40">
+        <img src="{{ user.profile.image}}" alt="Profile" class="rounded-circle" width="40" height="40">
       </div>
     </header>
     <main class="p-3"  *ngIf="loadingService.loading$ | async">

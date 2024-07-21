@@ -1,13 +1,14 @@
 ### Create Ticket
 POST http://localhost:3000/tickets
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzNjg3ODYsImV4cCI6MTcyMTM3MjM4Nn0.61aR_WPBR52cqEGYXpx6MK2ji97IcTn1m2msa0hqy0U
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlNTQwMC0xZWY0LTQ0NTctOTFiOC0wOTUwYzZiYTZhZmQiLCJpYXQiOjE3MjEzOTAwNzksImV4cCI6MTcyMTM5MzY3OX0.54esBrBt8TFT6-h2sCp-2r-jGmwTZnzKapBRqYSuhZw
 
 
 {
   "eventId": "bf2c9acc-54c6-43a6-b061-e0f5cee7ef75",
-  "type": "Regular",
-  "price": 60
+  "type": "VVIP",
+  "price": 60,
+  "quantity": "20"
 }
 
 ### Get Ticket by ID
@@ -21,7 +22,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMjJlN
 
 {
   "type": "General Admission",
-  "price": 55
+  "price": 55,
+  "quantity": 10
 }
 
 ### Delete Ticket

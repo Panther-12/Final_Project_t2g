@@ -5,6 +5,8 @@ import { LoadingComponent } from '../../../utils/loading/loading.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../services/auth/auth.service';
+import { UserService } from '../../../../services/user/user.service';
+import { UserProfile } from '../../../../interfaces/interfaces';
 
 @Component({
   selector: 'app-admin-base',
@@ -16,13 +18,37 @@ import { AuthService } from '../../../../services/auth/auth.service';
 export class AdminBaseComponent implements OnInit {
   loading: boolean = false;
   symbolAt = '@'
+  role = localStorage.getItem('role') as string
+  user: UserProfile = {
+    email: '',
+    password: '',
+    profile: {
+      firstName: '',
+      lastName: '',
+      bio: '',
+      phone: '',
+      image: '',
+    }
+  };
 
-  constructor(public loadingService: LoadingService, private authService: AuthService) {
+  constructor(public loadingService: LoadingService, private authService: AuthService,
+    private userService: UserService) {
   }
 
   ngOnInit(): void {
     this.loadingService.showLoading();
     this.loadingService.hideLoadingAfterDelay(3)
+    this.loadUserProfile();
+  }
+
+  
+  loadUserProfile() {
+    const userId = localStorage.getItem('userId') as string;
+    this.userService.getUserById(userId).subscribe(user => {
+      this.user = user;
+    }, error => {
+      console.error('Error fetching user profile:', error);
+    });
   }
 
   logout(): void {

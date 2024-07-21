@@ -3,12 +3,13 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const ticketService = {
-  async createTicket(eventId: string, type: string, price: number) {
+  async createTicket(eventId: string, type: string, price: number, quantity: number) {
     return prisma.ticket.create({
       data: {
         eventId,
         type,
         price,
+        quantity,
       },
       include: {
         event: true,
@@ -27,7 +28,7 @@ export const ticketService = {
     });
   },
 
-  async updateTicket(id: string, data: { type?: string; price?: number }) {
+  async updateTicket(id: string, data: { type?: string; price?: number, quantity?: number }) {
     return prisma.ticket.update({
       where: { id },
       data,
@@ -62,4 +63,33 @@ export const ticketService = {
       },
     });
   },
-};
+
+  async getAllTicketsForOrganizer(organizerId: string) {
+    // Fetch all events for the given organizer
+    const events = await prisma.event.findMany({
+      where: {
+        organizerId,
+      },
+      include: {
+        tickets: {
+          include: {
+            event: {
+              select: {
+                title: true,
+              },
+            },
+          },
+        },
+      },
+    });
+  
+    const ticketsWithEventTitle = events.flatMap(event => 
+      event.tickets.map(ticket => ({
+        ...ticket,
+        eventTitle: event.title
+      }))
+    );
+  
+    return ticketsWithEventTitle;
+  },
+}

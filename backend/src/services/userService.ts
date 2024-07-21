@@ -60,6 +60,12 @@ export const userService = {
   },
 
   async deactivateUser(id: string) {
+    let message: string = ''
+    const user = await prisma.user.findUnique({ where: { id } });
+    if (user?.role === 'admin') {
+      message = 'Cannot deactivate an admin user'
+      return {message: message}
+    }
     return prisma.user.update({
       where: { id },
       data: {
@@ -69,6 +75,12 @@ export const userService = {
   },
 
   async activateUser(id: string) {
+    let message: string = ''
+    const user = await prisma.user.findUnique({ where: { id } });
+    if (user?.role === 'admin') {
+      message = 'User is an admin'
+      return {message: message}
+    }
     return prisma.user.update({
       where: { id },
       data: {
@@ -95,6 +107,12 @@ export const userService = {
   },
 
   async assignRoleOrganizer(id: string) {
+    let message: string = ''
+    const user = await prisma.user.findUnique({ where: { id } });
+    if (user?.role === 'admin') {
+      message = 'Cannot change role of an admin user'
+      return { message: message}
+    }
     return prisma.user.update({
       where: { id },
       data: {
@@ -104,6 +122,12 @@ export const userService = {
   },
 
   async assignRoleAdmin(id: string) {
+    let message: string = ''
+    const user = await prisma.user.findUnique({ where: { id } });
+    if (user?.role === 'admin') {
+      message = 'Cannot change role of an admin user'
+      return { message: message}
+    }
     return prisma.user.update({
       where: { id },
       data: {
@@ -135,6 +159,40 @@ export const userService = {
       where: { email },
       data: { password: hashedPassword, resetCode: null },
     });
-  }
+  },
+  
+  async getAllUsersExceptAdmins() {
+    return prisma.user.findMany({
+      where: {
+        role: { not: 'admin' },
+      },
+      include: {
+        profile: true,
+      },
+    });
+  },
+
+  async getAttendeesForOrganizerEvents(organizerId: string) {
+    const events = await prisma.event.findMany({
+      where: {
+        organizerId,
+      },
+      include: {
+        registrations: {
+          include: {
+            user: {
+              include: {
+                profile: true,
+                registrations: true
+              },
+            },
+          },
+        },
+      },
+    });
+
+    const attendees = events.flatMap(event => event.registrations.map(registration => registration.user));
+    return attendees;
+  },
 };
 

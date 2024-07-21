@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <div class="row mb-4">
+  <div class="row mb-4" *ngIf="role === 'organizer'">
     <div class="col">
       <button class="addbutton" id="addevent" (click)="openAddEventModal()">
         <i class="fa fa-plus-circle me-2"></i>Add Event
@@ -42,20 +42,33 @@
             <th>Duration</th>
             <th>Description</th>
             <th>Location</th>
-            <th>Price</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let event of events">
-            <td>{{ event.name }}</td>
+          <tr *ngFor="let event of paginatedEvents">
+            <td>{{ event.title }}</td>
             <td>{{ event.duration }}</td>
             <td>{{ event.description }}</td>
-            <td>{{ event.location }}</td>
-            <td>{{ event.price }}</td>
+            <td>{{ event.venue.name }}</td>
             <td>
-              <i class="fa fa-edit custom-success me-2" (click)="openEditEventModal(event)"></i>
-              <i class="fa fa-trash custom-danger"></i>
+              <span class="badge" [ngClass]="{'cbadge-success': event.status === 'active', 'cbadge-danger': event.status === 'cancelled'}">
+                {{ event.status }}
+              </span>
+            </td>
+            <td>
+              <!-- Show Approve Button only for Admins and if event status is 'pending' -->
+              <button *ngIf="role === 'admin' && event.status === 'active'"
+                      class="btn" id="approvebutton">
+                Approve
+              </button>
+              
+              <!-- Show Edit and Delete Icons only for Organizers -->
+              <ng-container *ngIf="role === 'organizer'">
+                <i class="fa fa-edit custom-success me-2" (click)="openEditEventModal(event)"></i>
+                <i class="fa fa-times custom-danger" (click)="deleteEvent(event.id)"></i>
+              </ng-container>
             </td>
           </tr>
         </tbody>
@@ -63,22 +76,31 @@
     </div>
   </div>
   
-  <div class="row">
-    <div class="col d-flex justify-content-center">
-      <nav aria-label="Page navigation">
-        <ul class="pagination">
-          <li class="page-item"><a class="page-link" href="#" >1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">4</a></li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-  <app-event-form 
-  *ngIf="selectedEvent" 
-  [event]="selectedEvent" 
-  (saveEvent)="saveEvent($event)" 
-  (closeModal)="closeModal()">
-  </app-event-form>
+  <!-- Pagination -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+        <a class="page-link" (click)="goToPage(1)">First</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+        <a class="page-link" (click)="goToPage(currentPage - 1)">Previous</a>
+      </li>
+      <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [ngClass]="{'active': currentPage === (i + 1)}">
+        <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+        <a class="page-link" (click)="goToPage(currentPage + 1)">Next</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+        <a class="page-link" (click)="goToPage(totalPages)">Last</a>
+      </li>
+    </ul>
+  </nav>
 </div>
+
+<app-event-form 
+*ngIf="selectedEvent" 
+[event]="selectedEvent" 
+(saveEvent)="handleSaveEvent($event)" 
+(closeModal)="closeModal()">
+</app-event-form>

@@ -6,27 +6,39 @@
 </div>
 <div *ngIf="!showLoadingSpinner" >
   <h2>Tickets</h2>
+
+  <!-- Add Ticket Button (Visible only if role is 'organizer') -->
+  <div *ngIf="role === 'organizer'" class="mb-3">
+    <button id="addticket" (click)="openAddTicketModal()">
+      <i class="fa fa-plus"></i> Add Ticket
+    </button>
+  </div>
+
   <div class="table-responsive">
     <table class="table table-striped">
       <thead>
         <tr>
           <th>Type</th>
+          <th>Event</th>
+          <th>Available</th>
           <th>Price</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let ticket of tickets">
+        <tr *ngFor="let ticket of paginatedTickets">
           <td>{{ ticket.type }}</td>
+          <td>{{ ticket.event.title }}</td>
+          <td>{{ ticket.quantity }}</td>
           <td>{{ ticket.price | currency: 'Ksh.' }}</td>
           <td>
             <button *ngIf="role === 'organizer'" class="btn btn-warning btn-sm custom-success" (click)="openAddTicketModal(ticket)" style="background: none; outline: none; border: none; width: fit-content; height: fit-content; padding: 10px;">
               <i class="fa fa-edit"></i> Edit
             </button>
-            <button *ngIf="role === 'organizer'" class="btn btn-danger btn-sm custom-danger" (click)="deleteTicket(ticket.id)" style="background: none; outline: none; border: none; width: fit-content; height: fit-content; padding: 10px; ">
+            <!-- <button *ngIf="role === 'organizer'" class="btn btn-danger btn-sm custom-danger" (click)="deleteTicket(ticket.id)" style="background: none; outline: none; border: none; width: fit-content; height: fit-content; padding: 10px; ">
               <i class="fa fa-trash"></i> Delete
-            </button>
-            <button *ngIf="role === 'admin'" class="btn btn-info btn-sm" style="background: none; outline: none; border: none; width: fit-content; height: fit-content; padding: 10px; color: blue;">
+            </button> -->
+            <button *ngIf="role === 'admin'" class="btn btn-info btn-sm" style="background: none; outline: none; border: none; width: fit-content; height: fit-content; padding: 10px; color: rgb(22, 150, 255);">
               <i class="fa fa-eye"></i> View
             </button>
           </td>
@@ -34,4 +46,26 @@
       </tbody>
     </table>
   </div>
+
+  
+  <!-- Pagination -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+        <a class="page-link" (click)="goToPage(1)">First</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+        <a class="page-link" (click)="goToPage(currentPage - 1)">Previous</a>
+      </li>
+      <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [ngClass]="{'active': currentPage === (i + 1)}">
+        <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+        <a class="page-link" (click)="goToPage(currentPage + 1)">Next</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+        <a class="page-link" (click)="goToPage(totalPages)">Last</a>
+      </li>
+    </ul>
+  </nav>
 </div>

@@ -3,9 +3,26 @@
     <span class="visually-hidden">Loading...</span>
   </div>
 </div>
+
 <div *ngIf="!showLoadingSpinner" class="container mt-5">
-  <h2>Users</h2>
-  <div class="table-responsive">
+  <h2>{{ role === 'organizer' ? 'Attendees' : 'Users'}}</h2>
+  
+  <!-- Filter Tabs -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item" *ngFor="let filter of filters">
+      <a class="nav-link" [ngClass]="{'active': selectedFilter === filter}" (click)="filterUsers(filter)">{{ filter }}</a>
+    </li>
+  </ul>
+
+  <div *ngIf="role === 'organizer'" class="mt-2 mb-2">
+    <label for="eventFilter">Filter by Event:</label>
+    <select id="eventFilter" [(ngModel)]="selectedEvent" (change)="filterUsersByEvent(selectedEvent)">
+      <option value="All">All Events</option>
+      <option *ngFor="let event of events" [value]="event.id">{{ event.title }}</option>
+    </select>
+  </div>
+  
+  <div class="table-responsive mt-3">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -13,65 +30,97 @@
           <th>Email</th>
           <th>Role</th>
           <th>Status</th>
-          <th>Action</th>
+          <th *ngIf="role === 'admin'">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.firstName }} {{ user.lastName }}</td>
+        <tr *ngFor="let user of getPaginatedUsers()" (click)="onUserRowClick(user)">
+          <td>{{ user.profile.firstName }} {{ user.profile.lastName }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.role }}</td>
           <td>
-            <span class="badge" [ngClass]="{'custom-success': user.status === 'Active', 'custom-danger': user.status === 'Inactive'}">
-              {{ user.status }}
+            <span class="badge" [ngClass]="{'custom-success': user.accountStatus === 'activated', 'custom-danger': user.accountStatus === 'deactivated'}">
+              {{ user.accountStatus }}
             </span>
           </td>
-          <td>
-            <div *ngIf="role === 'admin'">
-              <select class="form-select" (change)="toggleStatus(user)">
-                <option [value]="true" [selected]="user.status === 'Active'">Activate</option>
-                <option [value]="false" [selected]="user.status === 'Inactive'">Deactivate</option>
-              </select>
-            </div>
+          <td *ngIf="role === 'admin'">
+            <select class="form-select bg-transparent border-0 m-0 p-2" (change)="toggleStatus(user)">
+              <option [value]="true" [selected]="user.accountStatus === 'activated'">Activate</option>
+              <option [value]="false" [selected]="user.accountStatus === 'deactivated'">Deactivate</option>
+            </select>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <h2>Events</h2>
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Venue</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let event of events">
-          <td>{{ event.title }}</td>
-          <td>{{ event.description }}</td>
-          <td>{{ event.startDateTime }}</td>
-          <td>{{ event.endDateTime }}</td>
-          <td>{{ event.venue }}</td>
-          <td>
-            <button *ngIf="role === 'organizer'" class="btn btn-warning btn-sm custom-success" style="background: none; outline: none; border: none; width: fit-content; height: fit-content; padding: 10px;">
-              <i class="fa fa-edit"></i> Edit
-            </button>
-            <button *ngIf="role === 'organizer'" class="btn btn-danger btn-sm custom-danger" style="background: none; outline: none; border: none; width: fit-content; height: fit-content; padding: 10px;">
-              <i class="fa fa-trash"></i> Delete
-            </button>
-            <button *ngIf="role === 'admin'" class="btn btn-info btn-sm custom-purple" style="background: none; outline: none; border: none; width: fit-content; height: fit-content; padding: 10px;">
-              <i class="fa fa-eye"></i> View
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- Pagination -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+        <a class="page-link" (click)="goToPage(1)">First</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+        <a class="page-link" (click)="goToPage(currentPage - 1)">Previous</a>
+      </li>
+      <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [ngClass]="{'active': currentPage === (i + 1)}">
+        <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+        <a class="page-link" (click)="goToPage(currentPage + 1)">Next</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+        <a class="page-link" (click)="goToPage(totalPages)">Last</a>
+      </li>
+    </ul>
+  </nav>
+
+<!-- Events Table -->
+<h2 *ngIf="selectedUser && selectedUser.role === 'organizer'">{{ selectedUser.profile.firstName }}'s Events</h2>
+<div *ngIf="selectedUser && selectedUser.role === 'organizer'" class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Venue</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events">
+        <td>{{ event.title }}</td>
+        <td>{{ event.description }}</td>
+        <td>{{ event.startDateTime | date }}</td>
+        <td>{{ event.endDateTime | date }}</td>
+        <td>{{ event.venue.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 *ngIf="selectedUser && role === 'user'">{{ selectedUser.profile.firstName }}'s Attended Events</h2>
+<div *ngIf="selectedUser && role === 'user'" class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Venue</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events">
+        <td>{{ event.title }}</td>
+        <td>{{ event.description }}</td>
+        <td>{{ event.startDateTime | date }}</td>
+        <td>{{ event.endDateTime | date }}</td>
+        <td>{{ event.venue.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 </div>

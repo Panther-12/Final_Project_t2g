@@ -43,14 +43,14 @@ export class AuthService {
   }
 
   isSuperAdmin(): boolean {
-    return this.currentUser?.role === 'SUPER_ADMIN';
+    return this.currentUser?.role === 'admin';
   }
 
   isOrganizer(): boolean {
-    return this.currentUser?.role === 'ORGANIZER';
+    return this.currentUser?.role === 'organizer';
   }
 
   isAttendee(): boolean {
-    return this.currentUser?.role === 'ATTENDEE';
+    return this.currentUser?.role === 'user';
   }
 }

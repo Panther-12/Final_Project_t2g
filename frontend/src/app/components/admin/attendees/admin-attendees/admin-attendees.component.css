@@ -13,3 +13,8 @@
 .custom-danger{
   color: orangered;
 }
+
+.custom-active{
+  color: white;
+  background-color: #6f42c1;
+}

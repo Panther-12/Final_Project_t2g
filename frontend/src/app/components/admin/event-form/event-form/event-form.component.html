@@ -1,36 +1,64 @@
-<div class="modal-backdrop" (click)="closeModal.emit()"></div>
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title">{{ event.id ? 'Edit Event' : 'Add Event' }}</h5>
-      <button type="button" class="btn-close" (click)="closeModal.emit()"></button>
+<div class="modal-header">
+  <h5 class="modal-title">{{ event?.id ? 'Edit Event' : 'Add Event' }}</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="closeModalForm()"></button>
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="onSubmit()" #eventForm="ngForm">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" id="title" class="form-control" [(ngModel)]="event.title" name="title" required>
     </div>
-    <div class="modal-body">
-      <form (ngSubmit)="onSubmit()">
-        <div class="form-group mb-3">
-          <label for="name">Event Name</label>
-          <input type="text" id="name" class="form-control" [(ngModel)]="event.name" name="name" required>
-        </div>
-        <div class="form-group mb-3">
-          <label for="date">Event Date</label>
-          <input type="date" id="date" class="form-control" [(ngModel)]="event.date" name="date" required>
-        </div>
-        <div class="form-group mb-3">
-          <label for="location">Event Location</label>
-          <input type="text" id="location" class="form-control" [(ngModel)]="event.location" name="location" required>
-        </div>
-        <div class="form-group mb-3">
-          <label for="description">Event Description</label>
-          <textarea id="description" class="form-control" [(ngModel)]="event.description" name="description" rows="3" required></textarea>
-        </div>
-        <div class="form-group mb-3">
-          <label for="image">Event Image</label>
-          <input type="file" id="image" class="form-control" (change)="onImageUpload($event)">
-        </div>
-        <button type="submit" class="btn btn-primary text-white w-100" style="border-radius: 8px;">
-          <i class="fa fa-save"></i> {{ event.id ? 'Update Event' : 'Create Event' }}
-        </button>
-      </form>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea id="description" class="form-control" [(ngModel)]="event.description" name="description" rows="3" required></textarea>
     </div>
-  </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="startDate" class="form-label">Start Date</label>
+          <input type="date" id="startDate" class="form-control" [(ngModel)]="event.startDate" name="startDate" required>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="startTime" class="form-label">Start Time</label>
+          <input type="time" id="startTime" class="form-control" [(ngModel)]="event.startTime" name="startTime" required>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="endDate" class="form-label">End Date</label>
+          <input type="date" id="endDate" class="form-control" [(ngModel)]="event.endDate" name="endDate" required>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="endTime" class="form-label">End Time</label>
+          <input type="time" id="endTime" class="form-control" [(ngModel)]="event.endTime" name="endTime" required>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="venueId" class="form-label">Venue</label>
+      <select id="venueId" class="form-select" [(ngModel)]="event.venueId" name="venueId" required>
+        <option *ngFor="let venue of venues" [value]="venue.id">{{ venue.name }}</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="categoryId" class="form-label">Category</label>
+      <select id="categoryId" class="form-select" [(ngModel)]="event.categoryId" name="categoryId" required>
+        <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="images" class="form-label">Images</label>
+      <input type="file" id="images" class="form-control" (change)="onImageUpload($event)" multiple>
+      <div class="mt-2">
+        <img *ngFor="let image of event.images" [src]="image" class="img-thumbnail me-2" style="max-height: 100px;">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary text-white" style="border-radius: 8px; background: #6f42c1; outline: none; border: none;">{{ event?.id ? 'Update' : 'Create' }}</button>
+  </form>
 </div>

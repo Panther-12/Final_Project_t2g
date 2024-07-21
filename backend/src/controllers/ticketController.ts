@@ -3,10 +3,10 @@ import { ticketService } from '../services/ticketService';
 
 export const ticketController = {
   async createTicket(req: Request, res: Response) {
-    const { eventId, type, price } = req.body;
+    const { eventId, type, price, quantity } = req.body;
 
     try {
-      const ticket = await ticketService.createTicket(eventId, type, price);
+      const ticket = await ticketService.createTicket(eventId, type, price, quantity);
       res.status(201).json(ticket);
     } catch (error) {
       res.status(500).json({ error: 'Failed to create ticket' });
@@ -29,10 +29,10 @@ export const ticketController = {
 
   async updateTicket(req: Request, res: Response) {
     const ticketId = req.params.id;
-    const { type, price } = req.body;
+    const { type, price, quantity } = req.body;
 
     try {
-      const updatedTicket = await ticketService.updateTicket(ticketId, { type, price });
+      const updatedTicket = await ticketService.updateTicket(ticketId, { type, price, quantity });
       res.json(updatedTicket);
     } catch (error) {
       res.status(500).json({ error: 'Failed to update ticket' });
@@ -67,6 +67,17 @@ export const ticketController = {
       res.json(tickets);
     } catch (error) {
       res.status(500).json({ error: 'Failed to fetch tickets for event' });
+    }
+  },
+
+  async getAllTicketsForOrganizer( req: Request, res:Response){
+    const { organizerId } = req.params;
+    try {
+      const tickets = await ticketService.getAllTicketsForOrganizer(organizerId);
+      res.status(200).json(tickets);
+    } catch (error) {
+      console.error('Error fetching tickets for organizer', error);
+      res.status(500).json({ error: 'Failed to fetch tickets for organizer' });
     }
   },
 };
