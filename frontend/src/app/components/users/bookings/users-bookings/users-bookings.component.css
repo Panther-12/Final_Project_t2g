@@ -1,0 +1,67 @@
+.container {
+    margin-top: 50px;
+  }
+  
+  .list-group-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 15px;
+  }
+  
+  .list-group-item h5 {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .list-group-item p, .list-group-item small {
+    margin-bottom: 5px;
+  }
+  
+  .list-group-item img {
+    border-radius: 50%;
+  }
+  
+  .list-group-item .btn {
+    font-size: 0.8rem;
+  }
+  
+  .status-dot-active, .status-dot-cancelled {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+  
+  .status-dot-active {
+    background-color: green;
+  }
+  
+  .status-dot-cancelled {
+    background-color: orangered;
+  }
+  
+  .text-success {
+    color: green !important;
+  }
+  
+  .text-danger {
+    color: orangered !important;
+  }
+  
+  .load-more-btn {
+    background: linear-gradient(to right, #59309c, #0056b3);
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    font-size: 0.7rem;
+    border-radius: 25px;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  
+  .load-more-btn:hover {
+    background: linear-gradient(to right, #59309c, #003a75);
+    transform: scale(1.05);
+  }

@@ -117,13 +117,13 @@
                     </div>
                     <div class="flex align-items-center">
                         <div class="number-of-ticket flex justify-content-between align-items-center">
-                            <span class="decrease-ticket">-</span>
-                            <input type="number" class="ticket-count" value="1" />
-                            <span class="increase-ticket">+</span>
+                            <button class="decrease-ticket" (click)="handleTicketChange(ticket.id, (selectedTickets[ticket.id] || 1) - 1)">-</button>
+                            <input type="number" class="ticket-count" [(ngModel)]="selectedTickets[ticket.id]" (ngModelChange)="handleTicketChange(ticket.id, $event)" />
+                            <button class="increase-ticket" (click)="handleTicketChange(ticket.id, (selectedTickets[ticket.id] || 0) + 1)">+</button>
                         </div>
-                        <div class="clear-ticket-count">Clear</div>
+                        <button class="clear-ticket-count" (click)="handleTicketChange(ticket.id, 0)">Clear</button>
                     </div>
-                    <input type="submit" class="btn gradient-bg" value="Buy Ticket">
+                    <button class="btn gradient-bg" (click)="registerForEvent()">Buy Ticket</button>
                 </div>
             </div>
         </div>

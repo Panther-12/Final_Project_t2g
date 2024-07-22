@@ -42,7 +42,7 @@ export class LoginComponent {
           if (response.role === 'admin' || response.role === 'organizer') {
             this.router.navigateByUrl('/admin/analytics');
           } else {
-            this.router.navigateByUrl('/users/home');
+            this.router.navigateByUrl('/users/events');
           }
         },
         (error) => {

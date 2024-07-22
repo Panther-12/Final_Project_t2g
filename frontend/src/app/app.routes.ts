@@ -17,6 +17,8 @@ import { AdminAttendeesComponent } from './components/admin/attendees/admin-atte
 import { NewsComponent } from './components/users/news/news/news.component';
 import { AdminBaseComponent } from './components/admin/base/admin-base/admin-base.component';
 import { AdminProfileComponent } from './components/admin/profile/admin-profile/admin-profile.component';
+import { ProfileComponent } from './components/users/profile/profile/profile.component';
+import { UsersBookingsComponent } from './components/users/bookings/users-bookings/users-bookings.component';
 
 export const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -26,6 +28,8 @@ export const routes: Routes = [
         { path: 'events', component: EventsComponent},
         { path: 'event/:id', component: SingleEventComponent},
         { path: 'contact', component: ContactComponent},
+        { path: 'profile', component: ProfileComponent},
+        { path: 'bookings', component: UsersBookingsComponent},
         { path: 'news', component: NewsComponent},
         { path: 'auth', children: [
             { path: '', pathMatch: 'full', redirectTo: 'register'},

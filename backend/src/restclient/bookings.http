@@ -1,11 +1,11 @@
 ### Register User for Event
 POST http://localhost:3000/registration
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyN2Q4MjA5MC02NTZjLTQ4Y2MtYjgwZS1jNTNkMmVjNDNhZGUiLCJpYXQiOjE3MjEzODgyNTksImV4cCI6MTcyMTM5MTg1OX0.6Gorx4HJ3pDLoIbHp1XvvXePjzlDrwvw7WHxvCyWDk0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5Nzk1OTIzMC0yNDU0LTQ4M2MtOTFkMC01NWE0NjE3MGQ5YzgiLCJpYXQiOjE3MjE2NTYxOTksImV4cCI6MTcyMTY1OTc5OX0.IfVdGDKZWkb6vmEw4ourz8BUPGuraQEuBAuSZ0dfQ80
 
 {
   "eventId": "da9edcb9-7d42-4227-aad5-5dd224faaea0",
-  "userId": "27d82090-656c-48cc-b80e-c53d2ec43ade",
+  "userId": "97959230-2454-483c-91d0-55a46170d9c8",
   "ticketIds": ["5c30840b-159f-44ed-8cdf-45c4bb61bff0", "5c30840b-159f-44ed-8cdf-45c4bb61bff0"]
 }
 

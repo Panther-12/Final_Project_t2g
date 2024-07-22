@@ -127,8 +127,17 @@ export const registrationService = {
     return prisma.registration.findMany({
       where: { userId },
       include: {
-        event: true,
-        user: true,
+        event: {
+          include: {
+            venue: true,
+            images: true
+          }
+        },
+        user: {
+          include:{
+            profile: true
+          }
+        },
         tickets: true,
       },
     });

@@ -6,9 +6,9 @@
                     <div class="site-branding">
                         <div class="site-title">
                             <a routerLink="/"><img src="/assets/images/logo.png" alt="logo"></a>
-                        </div><!-- .site-title -->
-                    </div><!-- .site-branding -->
-                </div><!-- .col -->
+                        </div>
+                    </div>
+                </div>
 
                 <div class="col-2 col-lg-7 order-3 order-lg-2">
                     <nav class="site-navigation">
@@ -17,26 +17,41 @@
                             <span></span>
                             <span></span>
                             <span></span>
-                        </div><!-- .hamburger-menu -->
+                        </div>
 
-                        <ul>
-                            <li><a routerLink="/home">Home</a></li>
-                            <li><a href="#about-section">About us</a></li>
-                            <li><a routerLink="/users/events">Events</a></li>
-                            <li><a routerLink="/users/news">News</a></li>
-                            <li><a routerLink="/users/contact">Contact</a></li>
+                        <ul class="navbar-nav d-flex flex-row justify-content-around w-100">
+                            <li class="nav-item">
+                                <a class="nav-link" routerLink="/home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#about-section">About us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a  routerLink="/users/events" routerLinkActive="nav-link" [routerLinkActiveOptions]="{exact: true}">Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a routerLink="/users/contact" routerLinkActive="nav-link" [routerLinkActiveOptions]="{exact: true}">Contact</a>
+                            </li>
+                            <li class="nav-item" *ngIf="isLoggedIn()">
+                                <a  routerLink="/users/bookings" routerLinkActive="nav-link" [routerLinkActiveOptions]="{exact: true}">My bookings</a>
+                            </li>
                         </ul>
-                    </nav><!-- .site-navigation -->
-                </div><!-- .col -->
-
+                    </nav>
+                </div>
                 <div class="col-lg-3 d-none d-lg-block order-2 order-lg-3">
-                    <div class="buy-tickets">
-                        <a class="btn gradient-bg" routerLink="/users/events">Buy Tickets</a>
-                    </div><!-- .buy-tickets -->
-                </div><!-- .col -->
-            </div><!-- .row -->
-        </div><!-- .container-fluid -->
-    </div><!-- .header-bar -->
+                    <li class="nav-item dropdown" *ngIf="isLoggedIn()" style="list-style: none; width: fit-content;">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img [src]="user.profile.image || '/assets/images/default-avatar.jpg'" alt="Profile Avatar" class="profile-pic img-fluid rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" routerLink="/users/profile">View Profile</a></li>
+                            <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
+                        </ul>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="page-header events-page-header">
         <div class="container">
@@ -49,7 +64,8 @@
             </div>
         </div>
     </div>
-</header><!-- .site-header -->
+</header>
+
 
 <div>
     <router-outlet/>

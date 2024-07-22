@@ -1,0 +1,37 @@
+<div class="container mt-5">
+  <h2 class="mb-4">My Bookings</h2>
+  <div *ngIf="displayedBookings.length > 0; else noBookings">
+    <div class="list-group">
+      <a *ngFor="let booking of displayedBookings" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between align-items-center mb-3">
+          <div class="d-flex align-items-center">
+            <img [src]="booking.user.profile.image || '/assets/images/default-avatar.jpg'" alt="Profile Image" class="img-fluid rounded-circle" style="width: 50px; height: 50px; margin-right: 10px;">
+            <div>
+              <h5 class="mb-0">{{ booking.user.profile.firstName }}</h5>
+              <small class="text-muted">{{ booking.user.email }}</small>
+            </div>
+          </div>
+          <small>{{ booking.event.startDateTime | date:'short' }}</small>
+        </div>
+        <h5 class="mb-1">{{ booking.event.title }}</h5>
+        <p class="mb-1">{{ booking.event.description }}</p>
+        <small>Location: {{ booking.event.venue.address }}</small>
+        <p class="mb-1">Tickets: {{ booking.tickets.length }}</p>
+        <p class="mb-1" *ngFor="let ticket of booking.tickets">
+          <span>{{ ticket.type }} - {{ ticket.price | currency: 'Ksh.' }}</span>
+        </p>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <small class="d-flex align-items-center">
+            <span [ngClass]="{ 'status-dot-active': booking.status === 'active', 'status-dot-cancelled': booking.status === 'cancelled' }"></span>
+            <span [ngClass]="{ 'text-success': booking.status === 'active', 'text-danger': booking.status === 'cancelled' }" class="ml-2">{{ booking.status }}</span>
+          </small>
+          <button class="btn btn-danger btn-sm" (click)="cancelBooking(booking.id)" style="border: none; background: none; outline: none; color: orangered;">Cancel Booking</button>
+        </div>
+      </a>
+    </div>
+    <button *ngIf="currentIndex < bookings.length" class="btn mt-3 mb-3 load-more-btn" (click)="loadMore()">Load More</button>
+  </div>
+  <ng-template #noBookings>
+    <p class="text-muted">You have no bookings yet.</p>
+  </ng-template>
+</div>
