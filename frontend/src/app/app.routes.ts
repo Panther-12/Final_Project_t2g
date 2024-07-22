@@ -24,7 +24,7 @@ export const routes: Routes = [
     { path: 'users', component:BaseComponent, children: [
         { path: '', pathMatch: 'full', redirectTo: 'events'},
         { path: 'events', component: EventsComponent},
-        { path: 'single-event', component: SingleEventComponent},
+        { path: 'event/:id', component: SingleEventComponent},
         { path: 'contact', component: ContactComponent},
         { path: 'news', component: NewsComponent},
         { path: 'auth', children: [

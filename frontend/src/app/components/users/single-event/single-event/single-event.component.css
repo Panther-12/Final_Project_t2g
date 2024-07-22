@@ -1,0 +1,17 @@
+.tabs-nav .tab-nav {
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  .tabs-nav .tab-nav.active {
+    background-color: #ddd; /* Highlight active tab */
+  }
+  
+  .tab-content {
+    display: none;
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  

@@ -1,24 +1,23 @@
-<div class="container">
+<div class="container" *ngIf="event">
     <div class="row">
         <div class="col-12 single-event">
             <div class="event-content-wrap">
                 <header class="entry-header flex flex-wrap justify-content-between align-items-end">
                     <div class="single-event-heading">
-                        <h2 class="entry-title">2018 Summer Festival</h2>
-
-                        <div class="event-location"><a href="#">Ford Field  2000 Brush St, Detroit, MI 48226, EE. UU.</a></div>
-
-                        <div class="event-date">May 29, 2018 {{ symbolAt }} 8:00 Pm - May 30, 2018 {{ symbolAt }} 4:00 Am</div>
+                        <h2 class="entry-title">{{ event.title }}</h2>
+                        <div class="event-location"><a href="#">{{ event.venue.name }} {{ event.venue.address }}</a></div>
+                        <div class="event-date">{{ event.startDateTime | date }} {{ symbolAt }} {{ event.startDateTime | date:'shortTime' }} - {{ event.endDateTime | date }} {{ symbolAt }} {{ event.endDateTime | date:'shortTime' }}</div>
                     </div>
-
                     <div class="buy-tickets flex justify-content-center align-items-center">
-                        <a class="btn gradient-bg" href="#">Buy Tikets</a>
+                        <a class="btn gradient-bg" href="#">Buy Tickets</a>
                     </div>
                 </header>
-
                 <figure class="events-thumbnail">
-                    <img src="/assets/images/summer.jpg" alt="">
+                    <img [src]="event.images && event.images.length > 0 ? event.images[0].url : '/assets/images/summer.jpg'"
+                         alt=""
+                         class="img-fluid custom-img">
                 </figure>
+                
             </div>
         </div>
     </div>
@@ -27,53 +26,81 @@
         <div class="col-12">
             <div class="tabs">
                 <ul class="tabs-nav flex">
-                    <li class="tab-nav flex justify-content-center align-items-center" data-target="#tab_details">Details</li>
-                    <li class="tab-nav flex justify-content-center align-items-center" data-target="#tab_venue">Venue</li>
-                    <li class="tab-nav flex justify-content-center align-items-center" data-target="#tab_organizers">Organizers</li>
+                    <li class="tab-nav flex justify-content-center align-items-center" 
+                        [class.active]="activeTab === 'tab_details'"
+                        (click)="setActiveTab('tab_details')">Details
+                    </li>
+                    <li class="tab-nav flex justify-content-center align-items-center" 
+                        [class.active]="activeTab === 'tab_venue'"
+                        (click)="setActiveTab('tab_venue')">Venue
+                    </li>
+                    <li class="tab-nav flex justify-content-center align-items-center" 
+                        [class.active]="activeTab === 'tab_organizers'"
+                        (click)="setActiveTab('tab_organizers')">Organizer
+                    </li>
                 </ul>
-
                 <div class="tabs-container">
-                    <div id="tab_details" class="tab-content">
+                    <div id="tab_details" class="tab-content" [class.active]="activeTab === 'tab_details'">
                         <div class="flex flex-wrap justify-content-between">
                             <div class="single-event-details">
                                 <div class="single-event-details-row">
-                                    <label>Start:</label>
-                                    <p>June 17 {{ symbolAt }} 09:00 am</p>
+                                    <label>Start</label>
+                                    <p>{{ event.startDateTime | date }} {{ symbolAt }} {{ event.startDateTime | date:'shortTime' }}</p>
                                 </div>
-
                                 <div class="single-event-details-row">
-                                    <label>End:</label>
-                                    <p>June 22 {{ symbolAt }} 07:30 am</p>
+                                    <label>End</label>
+                                    <p>{{ event.endDateTime | date }} {{ symbolAt }} {{ event.endDateTime | date:'shortTime' }}</p>
                                 </div>
-
                                 <div class="single-event-details-row">
-                                    <label>Price:</label>
-                                    <p>$89 <span>Sold Out</span></p>
+                                    <label>Price from</label>
+                                    <p *ngIf="event.tickets.length > 0">{{ event.tickets[0].price | currency:'Ksh.' }}</p>
+                                    <p *ngIf="event.tickets.length <= 0">No tickets available</p>
                                 </div>
-
                                 <div class="single-event-details-row">
-                                    <label>Categories:</label>
-                                    <p>Festivals</p>
+                                    <label>Categories</label>
+                                    <p>{{ event.category.name }}</p>
                                 </div>
-
                                 <div class="single-event-details-row">
-                                    <label>Tags:</label>
-                                    <p><a href="#">festivals</a>, <a href="#">music</a>, <a href="#">concert</a></p>
+                                    <label>Tags</label>
+                                    <p><a href="#">{{ event.createdAt | date }}</a></p>
                                 </div>
                             </div>
-
                             <div class="single-event-map">
-                                <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=university of san francisco&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                <iframe id="gmap_canvas" [src]="mapUrl" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                             </div>
                         </div>
                     </div>
 
-                    <div id="tab_venue" class="tab-content">
-                        <p>Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.</p>
+                    <div id="tab_venue" class="tab-content" [class.active]="activeTab === 'tab_venue'">
+                        <div class="venue-profile">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>{{ event.venue.name }}</h3>
+                                    <p><strong>Address:</strong> {{ event.venue.address }}</p>
+                                    <p><strong>Capacity:</strong> {{ event.venue.capacity }}</p>
+                                    <p><strong>Type:</strong> {{ event.venue.type }}</p>
+                                    <p><strong>Added:</strong> {{ event.venue.createdAt | date }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div id="tab_organizers" class="tab-content">
-                        <p>Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna.</p>
+                    <div id="tab_organizers" class="tab-content" [class.active]="activeTab === 'tab_organizers'">
+                        <div class="organizer-profile">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img [src]="event.organizer.profile.image || '/assets/images/default-avatar.jpg'" alt="{{ event.organizer.profile.firstName }}" class="img-fluid rounded-circle">
+                                </div>
+                                <div class="col-md-8">
+                                    <h3>{{ event.organizer.profile.firstName }} {{ event.organizer.profile.lastName }}</h3>
+                                    <p>Email: <a href="mailto:{{ event.organizer.email }}">{{ event.organizer.email }}</a></p>
+                                    <p>Phone: {{ event.organizer.profile.phone || 'N/A' }}</p>
+                                    <p>Bio: {{ event.organizer.profile.bio || 'No bio available' }}</p>
+                                    <p>Account Status: {{ event.organizer.accountStatus }}</p>
+                                    <p>Member since {{ event.organizer.createdAt | date }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,43 +110,19 @@
     <div class="row">
         <div class="col-12">
             <div class="event-tickets">
-                <div class="ticket-row flex flex-wrap justify-content-between align-items-center">
+                <div class="ticket-row flex flex-wrap justify-content-between align-items-center" *ngFor="let ticket of event.tickets">
                     <div class="ticket-type flex justify-content-between align-items-center">
-                        <h3 class="entry-title"><span>Siver Ticket</span> Basic entry</h3>
-
-                        <div class="ticket-price">$89</div>
+                        <h3 class="entry-title"><span>{{ ticket.type }}</span> {{ ticket.quantity }}</h3>
+                        <div class="ticket-price">{{ ticket.price | currency: 'Ksh.' }}</div>
                     </div>
-
                     <div class="flex align-items-center">
                         <div class="number-of-ticket flex justify-content-between align-items-center">
                             <span class="decrease-ticket">-</span>
                             <input type="number" class="ticket-count" value="1" />
                             <span class="increase-ticket">+</span>
                         </div>
-
                         <div class="clear-ticket-count">Clear</div>
                     </div>
-
-                    <input type="submit" class="btn gradient-bg" value="Buy Ticket">
-                </div>
-
-                <div class="ticket-row flex flex-wrap justify-content-between align-items-center">
-                    <div class="ticket-type flex justify-content-between align-items-center">
-                        <h3 class="entry-title"><span>Gold Ticket</span>Vip entrry</h3>
-
-                        <div class="ticket-price">$199</div>
-                    </div>
-
-                    <div class="flex align-items-center">
-                        <div class="number-of-ticket flex justify-content-between align-items-center">
-                            <span class="decrease-ticket">-</span>
-                            <input type="number" class="ticket-count" value="1" />
-                            <span class="increase-ticket">+</span>
-                        </div>
-
-                        <div class="clear-ticket-count">Clear</div>
-                    </div>
-
                     <input type="submit" class="btn gradient-bg" value="Buy Ticket">
                 </div>
             </div>
@@ -132,77 +135,23 @@
                 <div class="upcoming-events-header">
                     <h4>Upcoming Events</h4>
                 </div>
-
                 <div class="upcoming-events-list">
-                    <div class="upcoming-event-wrap flex flex-wrap justify-content-between align-items-center">
+                    <div class="upcoming-event-wrap flex flex-wrap justify-content-between align-items-center" *ngFor="let event of allEvents">
                         <figure class="events-thumbnail">
-                            <a href="#"><img src="/assets/images/upcoming-1.jpg" alt=""></a>
+                            <a [routerLink]="['/event', event.id]"><img src="/assets/images/upcoming-1.jpg" alt=""></a>
                         </figure>
-
                         <div class="entry-meta">
                             <div class="event-date">
-                                25<span>February</span>
+                                {{ event.startDateTime | date: 'dd' }}<span>{{ event.startDateTime | date: 'MMMM' }}</span>
                             </div>
                         </div>
-
                         <header class="entry-header">
-                            <h3 class="entry-title"><a href="#">Blockchain Conference</a></h3>
-
-                            <div class="event-date-time">May 29, 2018 {{ symbolAt }} 8:00 Pm - May 30, 2018 {{ symbolAt }} 4:00 Am</div>
-
-                            <div class="event-speaker">Speackers: Maria Williams, Luis Smith, James Doe</div>
+                            <h3 class="entry-title"><a [routerLink]="['/event', event.id]">{{ event.title }}</a></h3>
+                            <div class="event-date-time">{{ event.startDateTime | date }} {{ symbolAt }} {{ event.startDateTime | date:'shortTime' }} - {{ event.endDateTime | date }} {{ symbolAt }} {{ event.endDateTime | date:'shortTime' }}</div>
+                            <div class="event-speaker">Organizer: {{ event.organizer.profile.firstName }} {{ event.organizer.profile.lastName }}</div>
                         </header>
-
                         <footer class="entry-footer">
-                            <a href="#">Buy Tikets</a>
-                        </footer>
-                    </div>
-
-                    <div class="upcoming-event-wrap flex flex-wrap justify-content-between align-items-center">
-                        <figure class="events-thumbnail">
-                            <a href="#"><img src="/assets/images/upcoming-2.jpg" alt=""></a>
-                        </figure>
-
-                        <div class="entry-meta">
-                            <div class="event-date">
-                                27<span>February</span>
-                            </div>
-                        </div>
-
-                        <header class="entry-header">
-                            <h3 class="entry-title"><a href="#">Financial Conference</a></h3>
-
-                            <div class="event-date-time">May 29, 2018 {{ symbolAt }} 8:00 Pm - May 30, 2018 {{ symbolAt }} 4:00 Am</div>
-
-                            <div class="event-speaker">Speackers: Maria Williams, Luis Smith, James Doe</div>
-                        </header>
-
-                        <footer class="entry-footer">
-                            <a href="#">Buy Tikets</a>
-                        </footer>
-                    </div>
-
-                    <div class="upcoming-event-wrap flex flex-wrap justify-content-between align-items-center">
-                        <figure class="events-thumbnail">
-                            <a href="#"><img src="/assets/images/upcoming-3.jpg" alt=""></a>
-                        </figure>
-
-                        <div class="entry-meta">
-                            <div class="event-date">
-                                27<span>February</span>
-                            </div>
-                        </div>
-
-                        <header class="entry-header">
-                            <h3 class="entry-title"><a href="#">Winter Festival</a></h3>
-
-                            <div class="event-date-time">May 29, 2018 {{ symbolAt }} 8:00 Pm - May 30, 2018 {{ symbolAt }} 4:00 Am</div>
-
-                            <div class="event-speaker">Speackers: Maria Williams, Luis Smith, James Doe</div>
-                        </header>
-
-                        <footer class="entry-footer">
-                            <a href="#">Buy Tikets</a>
+                            <a [routerLink]="['/event', event.id]">Buy Tickets</a>
                         </footer>
                     </div>
                 </div>

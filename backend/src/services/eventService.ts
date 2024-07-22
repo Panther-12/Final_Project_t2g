@@ -51,10 +51,15 @@ export const eventService = {
       where: { id },
       include: {
         venue: true,
-        organizer: true,
+        organizer: {
+          include: {
+            profile: true,
+          }
+        },
         tickets: true,
         registrations: true,
         images: true,
+        category: true
       },
     });
   },
@@ -111,7 +116,12 @@ export const eventService = {
     return prisma.event.findMany({
       include: {
         venue: true,
-        organizer: true,
+        organizer: {
+          include: {
+            profile: true
+          }
+        },
+        tickets: true,
       },
     });
   },
