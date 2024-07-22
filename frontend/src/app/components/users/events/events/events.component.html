@@ -31,32 +31,37 @@
             
             <div class="event-content-wrap">
                 <header class="entry-header flex justify-content-between">
-                    <div>
-                        <h2 class="entry-title"><a href="#">{{ event.title }}</a></h2>
-
-                        <div class="event-location"><a href="#">{{ event.venue.name }} {{ event.venue.address }}</a></div>
-
-                        <div class="event-date">{{ event.startDateTime | date }} {{ symbolAt }} {{ event.startDateTime | date:'shortTime' }} - {{ event.endDateTime | date }} {{ symbolAt }} {{ event.endDateTime | date:'shortTime' }}</div>
+                  <div>
+                    <h2 class="entry-title custom-purple">{{ event.title }}</h2>
+              
+                    <div class="event-location custom-purple">
+                      {{ event.venue.name }} - {{ event.venue.address }}
                     </div>
-
-                    <div class="event-cost flex justify-content-center align-items-center" *ngIf="event.minPrice > 0">
-                        from<span style="margin-left: 6px;">{{ event.minPrice | currency: 'Ksh.' }}</span>
+              
+                    <div class="event-date custom-gray">
+                      {{ event.startDateTime | date: 'longDate' }} - {{ event.startDateTime | date: 'shortTime' }} 
+                      <span>to</span> 
+                      {{ event.endDateTime | date: 'longDate' }} - {{ event.endDateTime | date: 'shortTime' }}
                     </div>
-                    <div class="event-cost flex justify-content-center align-items-center" *ngIf="event.minPrice <= 0">
-                        No tickets Available
-                    </div>
+                  </div>
+              
+                  <div class="event-cost flex justify-content-center align-items-center custom-purple2" *ngIf="event.minPrice > 0">
+                    From <span style="margin-left: 6px;">{{ event.minPrice | currency: 'Ksh.' }}</span>
+                  </div>
+                  <div class="event-cost flex justify-content-center align-items-center custom-purple2" *ngIf="event.minPrice <= 0">
+                    No tickets available
+                  </div>
                 </header>
-
-                <div class="entry-content">
-                    <p>{{ event.description }}</p>
+              
+                <div class="entry-content custom-gray">
+                  <p>{{ event.description }}</p>
                 </div>
-
-                <footer class="entry-footer">
-                    <a href="#">Buy Tickets</a>
+              
+                <footer class="entry-footer mb-3">
+                  <a routerLink="/users/auth/login" class="btn" style="background: none; outline: none; border: none;">Buy Tickets</a>
                 </footer>
-            </div>
+              </div>              
         </div>
-    </div>
 
     <div class="row">
         <div class="col-md-12">

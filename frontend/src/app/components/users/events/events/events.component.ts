@@ -18,6 +18,8 @@ export class EventsComponent implements OnInit {
   allEvents: any[] = [];
   page: number = 0;
   size: number = 4;
+  userId: string = localStorage.getItem('userId') as string
+  token: string = localStorage.getItem('token') as string
 
   searchDate: string = '';
   searchEvent: string = '';
