@@ -33,7 +33,7 @@ export const userController = {
 
     try {
       const user = await userService.createUser(firstName, lastName, email, password, 'user');
-      // if (user) sendRegistrationConfirmationEmail(user.email, firstName)
+      if (user) sendRegistrationConfirmationEmail(user.email, firstName)
       res.status(201).json(user);
     } catch (error) {
       res.status(500).json({ error: 'Failed to create user' });

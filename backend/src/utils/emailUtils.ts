@@ -2,6 +2,8 @@ import nodemailer from 'nodemailer';
 import ejs from 'ejs';
 import path from 'path';
 import dotenv from 'dotenv'
+import { generateTicketPDF } from './generateTicketPDF'; 
+
 dotenv.config()
 
 // Create a nodemailer transporter
@@ -76,6 +78,10 @@ export const sendRegistrationConfirmationEmail = async (recipientEmail: string, 
   };
   
   export const sendEventRegistrationConfirmationEmail = async (attendeeName: string, attendeeEmail: string, eventName: string, eventStartDate: string, eventEndDate: string, location: string) => {
+    // Generate the PDF
+    const ticketPDFPath = await generateTicketPDF(attendeeName, eventName, eventStartDate, eventEndDate, location);
+    console.log(ticketPDFPath)
+
     const emailTemplate = path.join(__dirname, '../emails/eventRegistrationConfirmation.ejs');
     const renderedHtml = await ejs.renderFile(emailTemplate, { attendeeName, attendeeEmail, eventName, eventStartDate, eventEndDate, location });
 
@@ -84,6 +90,12 @@ export const sendRegistrationConfirmationEmail = async (recipientEmail: string, 
       to: attendeeEmail,
       subject: 'Event Registration Confirmation',
       html: renderedHtml,
+      attachments: [
+        {
+          filename: 'ticket.pdf',
+          path: ticketPDFPath,
+        },
+      ],
     };
 
     await transporter.sendMail(mailOptions);

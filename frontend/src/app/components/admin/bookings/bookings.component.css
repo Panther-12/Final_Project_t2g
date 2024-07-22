@@ -1,0 +1,30 @@
+.custom-purple {
+    color: #6b3eb8;
+  }
+  
+  .custom-purple2 {
+    color: rgb(128, 0, 128);
+  }
+  
+  .custom-gray {
+    color: gray;
+  }
+  
+  .status-dot-active {
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+  }
+  
+  .status-dot-cancelled {
+    width: 10px;
+    height: 10px;
+    background-color: orangered;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+  }
+  

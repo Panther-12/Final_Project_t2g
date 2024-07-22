@@ -17,22 +17,22 @@
       <li class="nav-item" *ngIf="role === 'admin'">
         <a [routerLink]="['/admin/venues']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">Venues</a>
       </li>
+      <li class="nav-item" *ngIf="role === 'admin'">
+        <a [routerLink]="['/admin/bookings']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">Bookings</a>
+      </li>
       <li class="nav-item">
         <a [routerLink]="['/admin/attendees']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">{{ role === 'organizer' ? 'Attendees' : 'Users'}}</a>
       </li>
-      <li class="nav-item">
-        <a [routerLink]="['/admin/profile']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">Profile</a>
-      </li>
       <hr/>
       <li class="nav-item">
-        <a [routerLink]="['/admin']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">Settings</a>
+        <a [routerLink]="['/admin/profile']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"  class="nav-link text-white">Profile</a>
       </li>
       <li class="nav-item">
         <a (click)="logout()"  class="nav-link text-white">Log out</a>
       </li>
     </ul>
     <div class="profile mt-auto d-flex align-items-center">
-      <img src="{{ user.profile.image}}" alt="Profile" class="rounded-circle me-2" width="50" height="50">
+      <img src="{{ user.profile.image || 'https://www.gravatar.com/avatar/a6ea2c1cffdd6f99c2ea02a97f48bea3?s=200&r=pg&d=mm'}}" alt="Profile" class="rounded-circle me-2" width="50" height="50">
       <div>
         <div>{{ user.profile.firstName }}</div>
         <div>{{ user.email }}</div>
@@ -45,7 +45,7 @@
         <i class="fa fa-bell"></i>
       </div>
       <div>
-        <img src="{{ user.profile.image}}" alt="Profile" class="rounded-circle" width="40" height="40">
+        <img src="{{ user.profile.image || 'https://www.gravatar.com/avatar/a6ea2c1cffdd6f99c2ea02a97f48bea3?s=200&r=pg&d=mm'}}" alt="Profile" class="rounded-circle" width="40" height="40">
       </div>
     </header>
     <main class="p-3"  *ngIf="loadingService.loading$ | async">

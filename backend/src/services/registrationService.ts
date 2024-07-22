@@ -1,4 +1,5 @@
-import { Event, PrismaClient } from '@prisma/client';
+import { Event, PrismaClient, Profile } from '@prisma/client';
+import { sendEventRegistrationConfirmationEmail } from '../utils/emailUtils';
 
 const prisma = new PrismaClient();
 
@@ -79,6 +80,39 @@ export const registrationService = {
           tickets: true,
         },
       });
+
+          // Fetch user details
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { profile: true, email: true },
+      });
+
+      if (!user) {
+        message = `User with id ${userId} not found`;
+        return { message: message };
+      }
+
+      const event2 = await prisma.event.findUnique({
+        where: { id: eventId },
+        include: {
+          venue: true
+        }
+      });
+
+      if (!event2) {
+        message = `Event with id ${eventId} not found`
+        return {message: message}
+      }
+
+          // Send the confirmation email
+    await sendEventRegistrationConfirmationEmail(
+      ((user.profile) as Profile).firstName,
+      user.email,
+      event2.title,
+      event2.startDateTime.toISOString(),
+      event2.endDateTime.toISOString(),
+      event2.venue.address
+    );
   
       return registration;
     } catch (error) {
@@ -146,8 +180,17 @@ export const registrationService = {
   async getAllRegistrations() {
     return prisma.registration.findMany({
       include: {
-        event: true,
-        user: true,
+        event: {
+          include: {
+            venue: true,
+            images: true
+          }
+        },
+        user: {
+          include:{
+            profile: true
+          }
+        },
         tickets: true,
       },
     });
@@ -161,8 +204,17 @@ export const registrationService = {
         },
       },
       include: {
-        event: true,
-        user: true,
+        event: {
+          include: {
+            venue: true,
+            images: true
+          }
+        },
+        user: {
+          include:{
+            profile: true
+          }
+        },
         tickets: true,
       },
     });

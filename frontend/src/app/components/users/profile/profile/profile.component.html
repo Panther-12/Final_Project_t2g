@@ -3,7 +3,7 @@
     <div class="row mb-4">
       <div class="col-12 text-center">
         <div class="profile-avatar mb-3">
-          <img [src]="user.profile.image || '/assets/images/default-avatar.jpg'" alt="Profile Avatar" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+          <img [src]="user.profile.image || 'https://www.gravatar.com/avatar/a6ea2c1cffdd6f99c2ea02a97f48bea3?s=200&r=pg&d=mm'" alt="Profile Avatar" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
         </div>
         <input type="file" (change)="onImageChange($event)" class="form-control-file mx-auto d-block" placeholder="Upload image...">
       </div>

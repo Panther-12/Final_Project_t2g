@@ -41,11 +41,11 @@
                 <div class="col-lg-3 d-none d-lg-block order-2 order-lg-3">
                     <li class="nav-item dropdown" *ngIf="isLoggedIn()" style="list-style: none; width: fit-content;">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img [src]="user.profile.image || '/assets/images/default-avatar.jpg'" alt="Profile Avatar" class="profile-pic img-fluid rounded-circle">
+                            <img [src]="user.profile.image || 'https://www.gravatar.com/avatar/a6ea2c1cffdd6f99c2ea02a97f48bea3?s=200&r=pg&d=mm'" alt="Profile Avatar" class="profile-pic img-fluid rounded-circle">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" routerLink="/users/profile">View Profile</a></li>
-                            <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
+                            <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
                         </ul>
                     </li>
                 </div>

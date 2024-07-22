@@ -12,6 +12,8 @@
         "@types/jsonwebtoken": "^9.0.6",
         "@types/lodash": "^4.17.4",
         "@types/mssql": "^9.1.5",
+        "@types/pdfkit": "^0.13.4",
+        "@types/qrcode": "^1.5.5",
         "@types/uuid": "^9.0.8",
         "axios": "^1.7.2",
         "bcrypt": "^5.1.1",
@@ -33,7 +35,9 @@
         "mysql2": "^3.10.0",
         "nodemailer": "^6.9.13",
         "nodemon": "^3.1.2",
+        "pdfkit": "^0.15.0",
         "prisma": "^5.16.1",
+        "qrcode": "^1.5.3",
         "sequelize": "^6.37.3",
         "tedious": "^18.2.1",
         "uuid": "^9.0.1"

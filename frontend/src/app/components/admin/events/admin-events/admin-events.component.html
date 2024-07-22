@@ -43,7 +43,7 @@
             <th>Description</th>
             <th>Location</th>
             <th>Status</th>
-            <th>Actions</th>
+            <!-- <th>Actions</th> -->
           </tr>
         </thead>
         <tbody>
@@ -59,10 +59,10 @@
             </td>
             <td>
               <!-- Show Approve Button only for Admins and if event status is 'pending' -->
-              <button *ngIf="role === 'admin' && event.status === 'active'"
+              <!-- <button *ngIf="role === 'admin' && event.status === 'active'"
                       class="btn" id="approvebutton">
                 Approve
-              </button>
+              </button> -->
               
               <!-- Show Edit and Delete Icons only for Organizers -->
               <ng-container *ngIf="role === 'organizer'">

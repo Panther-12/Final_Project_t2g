@@ -19,6 +19,7 @@ import { AdminBaseComponent } from './components/admin/base/admin-base/admin-bas
 import { AdminProfileComponent } from './components/admin/profile/admin-profile/admin-profile.component';
 import { ProfileComponent } from './components/users/profile/profile/profile.component';
 import { UsersBookingsComponent } from './components/users/bookings/users-bookings/users-bookings.component';
+import { BookingsComponent } from './components/admin/bookings/bookings.component';
 
 export const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -44,6 +45,7 @@ export const routes: Routes = [
         { path:'events', component: AdminEventsComponent},
         { path: 'tickets', component: AdminTicketsComponent},
         { path: 'attendees', component: AdminAttendeesComponent},
+        { path: 'bookings', component: BookingsComponent},
         { path: 'venues', component: AdminVenuesComponent},
     ]},
     { path: '**', component: NotFoundComponent }

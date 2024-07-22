@@ -16,7 +16,7 @@
       </div>
       <div class="card-body">
         <div class="d-flex flex-column align-items-center text-center">
-          <img [src]="user.profile.image" alt="Profile Image" class="rounded-circle mb-3" width="150" height="150">
+          <img [src]="user.profile.image || 'https://www.gravatar.com/avatar/a6ea2c1cffdd6f99c2ea02a97f48bea3?s=200&r=pg&d=mm'" alt="Profile Image" class="rounded-circle mb-3" width="150" height="150">
           <h4>{{ user.profile.firstName + ' ' + user.profile.lastName }}</h4>
           <p class="text-muted">{{ user.email }}</p>
           <p>{{ user.profile.bio }}</p>
