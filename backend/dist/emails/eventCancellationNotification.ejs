@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Cancellation Notification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+    .container {
+      background-color: #8e44ad;
+      padding: 20px;
+      color: #fff;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Event Cancellation Notification</h2>
+    <p>Hello <%= attendeeName %>,</p>
+    <p>We regret to inform you that the event "<%= eventName %>" scheduled for <%= eventStartDate %> has been canceled.</p>
+    <p>Please contact us for further details or if you have any questions.</p>
+    <p>Best regards,<br>Agenda Team</p>
+  </div>
+</body>
+</html>

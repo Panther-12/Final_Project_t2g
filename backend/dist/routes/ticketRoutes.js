@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const ticketController_1 = require("../controllers/ticketController");
+const auth_1 = require("../middlewares/auth");
+const router = (0, express_1.Router)();
+router.post('', auth_1.isOrganizer, ticketController_1.ticketController.createTicket);
+router.get('/:id', ticketController_1.ticketController.getTicketById);
+router.put('/:id', auth_1.isOrganizer, ticketController_1.ticketController.updateTicket);
+router.delete('/:id', auth_1.isOrganizer, ticketController_1.ticketController.deleteTicket);
+router.get('/', auth_1.isAdmin, ticketController_1.ticketController.getAllTickets);
+router.get('/events/:eventId', ticketController_1.ticketController.getAllTicketsForEvent);
+router.get('/organizer/:organizerId/tickets', ticketController_1.ticketController.getAllTicketsForOrganizer);
+exports.default = router;

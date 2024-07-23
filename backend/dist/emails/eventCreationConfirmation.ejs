@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Creation Confirmation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+    .container {
+      background-color: #8e44ad;
+      padding: 20px;
+      color: #fff;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Event Creation Confirmation</h2>
+    <p>Hello <%= organizerName %>,</p>
+    <p>Your event "<%= eventName %>" has been successfully created.</p>
+    <p>Event Details:</p>
+    <ul>
+      <li><strong>Event Name:</strong> <%= eventName %></li>
+      <li><strong>Start Date:</strong> <%= eventStartDate %></li>
+      <li><strong>End Date:</strong> <%= eventEndDate %></li>
+      <li><strong>Location:</strong> <%= location %></li>
+    </ul>
+    <p>Thank you for organizing with us!</p>
+    <p>Best regards,<br>Agenda Team</p>
+  </div>
+</body>
+</html>
