@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UsersBookingsComponent } from './users-bookings.component';
+import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 
 describe('UsersBookingsComponent', () => {
   let component: UsersBookingsComponent;
@@ -8,7 +9,10 @@ describe('UsersBookingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UsersBookingsComponent]
+      imports: [UsersBookingsComponent],
+      providers: [
+        HttpClient,
+        provideHttpClient(withFetch())]
     })
     .compileComponents();
 

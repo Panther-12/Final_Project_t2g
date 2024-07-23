@@ -1,14 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { of } from 'rxjs';
 import { VenueFormComponent } from './venue-form.component';
+import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 describe('VenueFormComponent', () => {
   let component: VenueFormComponent;
   let fixture: ComponentFixture<VenueFormComponent>;
+  let activatedRouteStub: Partial<ActivatedRoute>;
 
   beforeEach(async () => {
+    activatedRouteStub = {
+      paramMap: of(convertToParamMap({ someParam: 'someValue' }))
+    };
     await TestBed.configureTestingModule({
-      imports: [VenueFormComponent]
+      imports: [VenueFormComponent],
+      providers: [
+        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        HttpClient,
+        provideHttpClient(withFetch()), NgbActiveModal]
     })
     .compileComponents();
 

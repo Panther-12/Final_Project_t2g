@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,26 +10,41 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   private apiUrl = 'http://localhost:3000/api/auth';
-  private currentUser: any;
+  public currentUser: { role: 'admin' | 'organizer' | 'attendee' } | null = null;
+  Admin: boolean = false
+  Organizer: boolean = false
+  Attendee: boolean = false
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(email: string, password: string): boolean {
-    // Simulate API call and login
-    let user = this.http.post(`${this.apiUrl}/login`, {email, password});
-    if (email === 'admin@example.com' && password === 'password') {
-      this.currentUser = { role: 'SUPER_ADMIN' };
-      return true;
+  login(email: string, password: string): Observable<boolean> {
+    return this.http.post<{ role: 'admin' | 'organizer' | 'attendee' }>(`${this.apiUrl}/login`, { email, password })
+      .pipe(
+        tap(response => {
+          this.currentUser = { role: response.role }; // Set user role based on response
+          localStorage.setItem('tuserId', response.role)
+        }),
+        map(() => true), // Map to true on successful login
+        catchError(() => of(false)) // Return false on error
+      );
+  }
+
+  getCurrentUser(): Observable<boolean> {
+    if(this.currentUser !== null){
+      return of(true)
     }
-    if (email === 'organizer@example.com' && password === 'password') {
-      this.currentUser = { role: 'ORGANIZER' };
-      return true;
+    return of(false);
+  }
+
+  isSuperAdmin(): boolean {
+    if(this.currentUser?.role as string === 'admin'){
+      this.Admin = true
+      this.Organizer = false
+      this.Attendee = false
+      return true
     }
-    if (email === 'attendee@example.com' && password === 'password') {
-      this.currentUser = { role: 'ATTENDEE' };
-      return true;
-    }
-    return false;
+    this.Admin = false
+    return false ;
   }
 
   logout(): void {
@@ -38,19 +54,25 @@ export class AuthService {
     this.router.navigateByUrl("/users/auth/login")
   }
 
-  getCurrentUser(): any {
-    return this.currentUser;
-  }
-
-  isSuperAdmin(): boolean {
-    return this.currentUser?.role === 'admin';
-  }
-
   isOrganizer(): boolean {
-    return this.currentUser?.role === 'organizer';
+    if(this.currentUser?.role as string === 'organizer'){
+      this.Organizer = true
+      this.Admin = false
+      this.Attendee = false
+      return true
+    }
+    this.Organizer = false
+    return false ;
   }
 
   isAttendee(): boolean {
-    return this.currentUser?.role === 'user';
+    if(this.currentUser?.role as string === 'attendee'){
+      this.Attendee = true
+      this.Admin = false
+      this.Organizer = false
+      return true
+    }
+    this.Attendee = false
+    return false ;
   }
 }

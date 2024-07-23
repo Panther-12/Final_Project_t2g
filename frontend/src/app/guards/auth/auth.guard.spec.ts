@@ -1,17 +1,58 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn } from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from '../../services/auth/auth.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { authGuard } from './auth.guard';
+// Mock AuthService
+class MockAuthService {}
 
-describe('authGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => authGuard(...guardParameters));
+describe('AuthGuard', () => {
+  let authGuard: AuthGuard;
+  let router: Router;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
+      providers: [
+        AuthGuard,
+        { provide: AuthService, useClass: MockAuthService }
+      ]
+    });
+
+    authGuard = TestBed.inject(AuthGuard);
+    router = TestBed.inject(Router);
   });
 
   it('should be created', () => {
-    expect(executeGuard).toBeTruthy();
+    expect(authGuard).toBeTruthy();
+  });
+
+  describe('when the user is logged in', () => {
+    beforeEach(() => {
+      spyOn(localStorage, 'getItem').and.callFake((key: string) => {
+        if (key === 'userId') return 'someUserId';
+        if (key === 'role') return 'someRole';
+        return null;
+      });
+    });
+
+    it('should allow access to the route', () => {
+      const result = authGuard.canActivate({} as any, {} as any);
+      expect(result).toBeTrue();
+    });
+  });
+
+  describe('when the user is not logged in', () => {
+    beforeEach(() => {
+      spyOn(localStorage, 'getItem').and.callFake((key: string) => null);
+      spyOn(router, 'navigate');
+    });
+
+    it('should redirect to login page', () => {
+      const result = authGuard.canActivate({} as any, {} as any);
+      expect(result).toBeFalse();
+      expect(router.navigate).toHaveBeenCalledWith(['/login']);
+    });
   });
 });

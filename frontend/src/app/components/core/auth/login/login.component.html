@@ -9,7 +9,7 @@
         <div *ngIf="isInvalid('password')" class="text-danger">Please enter your password</div>
       </div>
       <div class="form-check mb-3">
-        <input type="checkbox" class="form-check-input" id="rememberMe" [(ngModel)]="rememberMe">
+        <input type="checkbox" class="form-check-input" id="rememberMe" [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}">
         <label class="form-check-label" for="rememberMe">Remember me</label>
       </div>
       <button type="submit" class="btn btn-primary" style="border-radius: 25px; background-color: #6f42c1; color: white; border: none;">
