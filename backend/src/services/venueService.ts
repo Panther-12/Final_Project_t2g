@@ -30,13 +30,13 @@ export const venueService = {
 
   async getAllVenues() {
     return prisma.venue.findMany({
-      where: {
-        type: 'public'
+      include: {
+        events: true
       }
     });
   },
 
-  async updateVenue(id: string, data: { name?: string; address?: string; capacity?: number }) {
+  async updateVenue(id: string, data: { name?: string; address?: string; capacity?: number, type?: string }) {
     return prisma.venue.update({
       where: { id },
       data,

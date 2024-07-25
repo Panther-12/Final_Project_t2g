@@ -42,8 +42,8 @@ exports.venueService = {
     getAllVenues() {
         return __awaiter(this, void 0, void 0, function* () {
             return prisma.venue.findMany({
-                where: {
-                    type: 'public'
+                include: {
+                    events: true
                 }
             });
         });

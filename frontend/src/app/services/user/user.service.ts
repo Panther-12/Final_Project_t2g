@@ -61,8 +61,8 @@ export class UserService {
     return this.http.post<void>(`${this.baseUrl}/users/generate-reset-code`, { email }, this.httpOptions);
   }
 
-  resetPassword(email: string, newPassword: string): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}/users/reset-password`, { email, newPassword }, this.httpOptions);
+  resetPassword(email: string, resetCode: string, newPassword: string): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/users/reset-password`, { email, resetCode, newPassword }, this.httpOptions);
   }
 
   getAttendeesForOrganizerEvents(organizerId: string): Observable<any> {

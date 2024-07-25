@@ -28,4 +28,23 @@ export class ToastNotificationComponent implements OnInit {
       }, 3000);
     });
   }
+
+  hideToast(): void {
+    this.show = false;
+  }
+
+  getIconClass(): string {
+    switch (this.type) {
+      case 'success':
+        return 'fa fa-check-circle animate__animated animate__bounceIn';
+      case 'error':
+        return 'fa fa-exclamation-circle animate__animated animate__shakeX';
+      case 'info':
+        return 'fa fa-info-circle animate__animated animate__tada';
+      case 'warning':
+        return 'fa fa-exclamation-triangle animate__animated animate__swing';
+      default:
+        return '';
+    }
+  }
 }

@@ -8,7 +8,7 @@
           <div class="card-body d-flex align-items-center">
             <i class="fa fa-calendar-check fa-2x custom-purple me-3"></i>
             <div>
-              <h5 class="card-title">Total Bookings</h5>
+              <h5 class="card-title">Total</h5>
               <p class="card-text custom-purple">{{ bookings.length }}</p>
             </div>
           </div>
@@ -85,8 +85,13 @@
             <td>{{ booking.event.title }}</td>
             <td>{{ booking.user.profile.firstName }}</td>
             <td>{{ booking.user.email }}</td>
-            <td *ngFor="let ticket of booking.tickets">{{ ticket.type }}</td>
-            <td *ngFor="let ticket of booking.tickets">{{ ticket.price | currency: 'Ksh.' }}</td>
+            <ng-container *ngIf="booking.tickets && booking.tickets.length > 0; else noTickets">
+              <td *ngFor="let ticket of booking.tickets">{{ ticket.type }}</td>
+              <td *ngFor="let ticket of booking.tickets">{{ ticket.price | currency: 'Ksh.' }}</td>
+            </ng-container>
+            <ng-template #noTickets>
+              <td colspan="2">No tickets/types available</td>
+            </ng-template>
             <td>
               <span [ngClass]="{ 'text-success': booking.status === 'active', 'text-danger': booking.status === 'cancelled', 'text-warning': booking.status === 'pending' }">
                 <span [ngClass]="{ 'status-dot-active': booking.status === 'active', 'status-dot-cancelled': booking.status === 'cancelled', 'text-warning': booking.status === 'pending' }"></span>
@@ -94,7 +99,7 @@
               </span>
             </td>
             <td>{{ booking.event.startDateTime | date:'short' }}</td>
-          </tr>
+          </tr>          
         </tbody>
       </table>
     </div>
@@ -117,3 +122,9 @@
     </div>
   </div>
   
+  <app-confirmation-dialog
+  *ngIf="showDialog"
+  [message]="dialogMessage"
+  [type]="dialogType"
+  (confirmed)="handleDialogConfirmation($event)">
+</app-confirmation-dialog>

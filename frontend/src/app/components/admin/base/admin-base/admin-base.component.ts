@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { UserService } from '../../../../services/user/user.service';
 import { UserProfile } from '../../../../interfaces/interfaces';
+import { NotificationService } from '../../../../services/notification/notification.service';
 
 @Component({
   selector: 'app-admin-base',
@@ -32,7 +33,7 @@ export class AdminBaseComponent implements OnInit {
   };
 
   constructor(public loadingService: LoadingService, private authService: AuthService,
-    private userService: UserService) {
+    private userService: UserService, private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -46,12 +47,14 @@ export class AdminBaseComponent implements OnInit {
     const userId = localStorage.getItem('userId') as string;
     this.userService.getUserById(userId).subscribe(user => {
       this.user = user;
+      this.notificationService.notify(`Welcome back ${this.user.profile.firstName}`, 'info')
     }, error => {
-      console.error('Error fetching user profile:', error);
+      this.notificationService.notify('Error fetching user profile:', 'error');
     });
   }
 
   logout(): void {
     this.authService.logout();
+    this.notificationService.notify('Logged out successfully', 'success')
   }
 }

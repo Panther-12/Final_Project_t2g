@@ -39,8 +39,17 @@
             </div>
             <div class="form-group mb-3">
               <label for="profileImage">Profile Image</label>
-              <input type="file" id="profileImage" class="form-control" (change)="handleFileInput($event)">
-            </div>
+              <div *ngIf="!isUploadingImage; else loadingTemplate">
+                <input type="file" id="profileImage" class="form-control" (change)="handleFileInput($event)">
+              </div>
+              <ng-template #loadingTemplate>
+                <div class="loading-dots">
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                </div>
+              </ng-template>
+            </div>            
             <button type="submit" class="btn btn-primary" style="border-radius: 8px; background-color: #6f42c1; color: white; border: none;">
               <i class="fa fa-save"></i> Save Changes
             </button>

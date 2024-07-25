@@ -1,4 +1,14 @@
-<div class="toast" [ngClass]="type" *ngIf="show">
-    {{ message }}
+<div
+  class="toast align-items-center text-white bg-{{type}} border-0 show animate__animated animate__fadeInDown"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  *ngIf="show"
+>
+  <div class="d-flex">
+    <div class="toast-body">
+      <i [ngClass]="getIconClass()"></i> {{ message }}
+    </div>
+    <button type="button" class="btn-close btn-close-white me-2 m-auto" aria-label="Close" (click)="hideToast()"></button>
   </div>
-  
+</div>

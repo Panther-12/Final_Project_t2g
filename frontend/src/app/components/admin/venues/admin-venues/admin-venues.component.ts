@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VenueFormComponent } from '../../venue-form/venue-form/venue-form.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NotificationService } from '../../../../services/notification/notification.service';
 
 @Component({
   selector: 'app-admin-venues',
@@ -19,21 +20,30 @@ export class AdminVenuesComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 6;
   totalPages = 0;
+  role: string = ''
+  userVenues: any[] = []
 
-  constructor(private venueService: VenueService, private modalService: NgbModal) {}
+  constructor(private venueService: VenueService, private modalService: NgbModal, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
+    this.role = localStorage.getItem('role') as string
     this.loadVenues();
   }
 
   loadVenues(): void {
     this.venueService.getAllVenues().subscribe(
       data => {
-        this.venues = data.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
+        if(this.role === 'organizer'){
+          this.userVenues = data.filter(venue => venue.type === 'public')
+        }
+        else{
+          this.userVenues = data
+        }
+        this.venues = this.userVenues.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
         this.calculateTotalPages(data.length);
       },
       error => {
-        console.error('Error loading venues', error);
+        this.notificationService.notify('Error loading venues', 'error');
       }
     );
   }
@@ -43,7 +53,7 @@ export class AdminVenuesComponent implements OnInit {
       name: '',
       address: '',
       capacity: 0,
-      type: 'public'
+      type: ''
     };
     const modalRef = this.modalService.open(VenueFormComponent);
     modalRef.componentInstance.venue = this.selectedVenue;
@@ -61,21 +71,23 @@ export class AdminVenuesComponent implements OnInit {
     if (venue.id) {
       this.venueService.updateVenue(venue.id, venue).subscribe(
         updatedVenue => {
+          this.notificationService.notify('Event updated successfully', 'success')
           this.loadVenues();
           this.closeModal();
         },
         error => {
-          console.error('Error updating venue', error);
+          this.notificationService.notify('Error updating venue', 'error');
         }
       );
     } else {
       this.venueService.createVenue(venue).subscribe(
         newVenue => {
+          this.notificationService.notify('Event created successfully', 'success')
           this.loadVenues();
           this.closeModal();
         },
         error => {
-          console.error('Error creating venue', error);
+          this.notificationService.notify('Error creating venue', 'error');
         }
       );
     }
@@ -84,10 +96,11 @@ export class AdminVenuesComponent implements OnInit {
   deleteVenue(venueId: string): void {
     this.venueService.deleteVenue(venueId).subscribe(
       () => {
+        this.notificationService.notify('Event deleted successfully', 'success')
         this.loadVenues();
       },
       error => {
-        console.error('Error deleting venue', error);
+        this.notificationService.notify('Error deleting venue', 'error');
       }
     );
   }

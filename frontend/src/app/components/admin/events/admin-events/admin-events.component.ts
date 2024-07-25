@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { EventFormComponent } from '../../event-form/event-form/event-form.component';
 import { EventsService } from '../../../../services/events/events.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NotificationService } from '../../../../services/notification/notification.service';
 
 @Component({
   selector: 'app-admin-events',
   standalone: true,
-  imports: [FormsModule, CommonModule, EventFormComponent],
+  imports: [FormsModule, CommonModule, EventFormComponent, NgbModalModule],
   templateUrl: './admin-events.component.html',
   styleUrls: ['./admin-events.component.css']
 })
@@ -29,7 +31,7 @@ export class AdminEventsComponent implements OnInit {
   totalPages = 0;
   role = localStorage.getItem('role') as string
 
-  constructor(private eventService: EventsService, private modalService: NgbModal) {}
+  constructor(private eventService: EventsService, private modalService: NgbModal, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.loadEvents();
@@ -48,7 +50,7 @@ export class AdminEventsComponent implements OnInit {
         this.showLoadingSpinner = false;
       },
       error => {
-        console.error('Error loading events', error);
+        this.notificationService.notify('Error loading events', 'error');
         this.showLoadingSpinner = false;
       }
     );
@@ -106,9 +108,10 @@ export class AdminEventsComponent implements OnInit {
           this.calculateTotalPages();
           this.updatePaginatedEvents();
           this.closeModal();
+          this.notificationService.notify('Event updated successfully', 'success')
         },
         error => {
-          console.error('Error updating event', error);
+          this.notificationService.notify('Error updating event', 'error');
         }
       );
     } else {
@@ -119,9 +122,10 @@ export class AdminEventsComponent implements OnInit {
           this.calculateTotalPages();
           this.updatePaginatedEvents();
           this.closeModal();
+          this.notificationService.notify('Event created successfully', 'success')
         },
         error => {
-          console.error('Error creating event', error);
+          this.notificationService.notify('Error creating event', 'error');
         }
       );
     }
@@ -133,9 +137,10 @@ export class AdminEventsComponent implements OnInit {
         this.events = this.events.filter(event => event.id !== eventId);
         this.calculateTotalPages();
         this.updatePaginatedEvents();
+        this.notificationService.notify('Event deleted successfully', 'success')
       },
       error => {
-        console.error('Error deleting event', error);
+        this.notificationService.notify('Error deleting event', 'error');
       }
     );
   }

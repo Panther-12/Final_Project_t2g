@@ -10,6 +10,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import Tooltip from 'tooltip.js';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { EventsService } from '../../../../services/events/events.service';
+import { NotificationService } from '../../../../services/notification/notification.service';
 
 @Component({
   standalone: true,
@@ -34,7 +35,8 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private elementRef: ElementRef,
     private eventService: EventsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private notificationService: NotificationService
   ) {
     Chart.register(...registerables);
   }
@@ -81,7 +83,7 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
         this.showLoadingSpinner = false;
       },
       error => {
-        console.error('Error loading events', error);
+        this.notificationService.notify('Error loading events', 'error');
         this.showLoadingSpinner = false;
       }
     );
@@ -141,7 +143,7 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
         },
       });
     } else {
-      console.error('Chart elements not found');
+      this.notificationService.notify('Chart elements not found', 'error');
     }
   }
 

@@ -1,0 +1,38 @@
+.toast {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #fff;
+  z-index: 20;
+  font-size: 1rem;
+  opacity: 0.9;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.toast .btn-close {
+  opacity: 1;
+}
+
+.toast-body i {
+  margin-right: 8px;
+  font-size: 1.5rem;
+}
+
+.bg-success {
+  background-color: #07691ee1 !important;
+}
+
+.bg-error {
+  background-color: #bb0f20d7 !important;
+}
+
+.bg-info {
+  background-color: #05525ed3 !important;
+}
+
+.bg-warning {
+  background-color: #755906be !important;
+}

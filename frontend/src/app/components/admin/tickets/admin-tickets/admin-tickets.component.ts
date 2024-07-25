@@ -113,6 +113,7 @@ export class AdminTicketsComponent implements OnInit {
         this.tickets.push(newTicket);
         this.calculateTotalPages();
         this.updatePaginatedTickets();
+        this.notificationService.notify('Ticket created successfully', 'success')
       },
       error => {
         this.notificationService.notify('Error creating ticket', 'error');
@@ -129,6 +130,7 @@ export class AdminTicketsComponent implements OnInit {
         }
         this.calculateTotalPages();
         this.updatePaginatedTickets();
+        this.notificationService.notify('Ticket updated successfully', 'success')
       },
       error => {
         this.notificationService.notify('Error updating ticket', 'error');

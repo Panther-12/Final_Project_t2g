@@ -33,6 +33,7 @@ export class EventFormComponent implements OnInit {
 
   venues: any[] = [];
   categories: any[] = [];
+  organizerId: string = localStorage.getItem('userId') as string;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -49,7 +50,9 @@ export class EventFormComponent implements OnInit {
 
   loadVenuesAndCategories() {
     this.venueService.getAllVenues().subscribe(venues => {
-      this.venues = venues;
+      this.venues = venues.filter(venue => {
+        return venue.type === 'public' || venue.events.some((event: { organizerId: any; }) => event.organizerId === this.organizerId);
+      });
     });
     this.categoryService.getAllCategories().subscribe(categories => {
       this.categories = categories;

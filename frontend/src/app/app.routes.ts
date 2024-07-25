@@ -20,6 +20,8 @@ import { AdminProfileComponent } from './components/admin/profile/admin-profile/
 import { ProfileComponent } from './components/users/profile/profile/profile.component';
 import { UsersBookingsComponent } from './components/users/bookings/users-bookings/users-bookings.component';
 import { BookingsComponent } from './components/admin/bookings/bookings.component';
+import { ResetPasswordComponent } from './components/core/auth/reset-password/reset-password.component';
+import { ChatComponent } from './components/core/chat/chat/chat.component';
 
 export const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -28,6 +30,7 @@ export const routes: Routes = [
         { path: '', pathMatch: 'full', redirectTo: 'events'},
         { path: 'events', component: EventsComponent},
         { path: 'event/:id', component: SingleEventComponent},
+        { path: 'chat', component: ChatComponent},
         { path: 'contact', component: ContactComponent},
         { path: 'profile', component: ProfileComponent},
         { path: 'bookings', component: UsersBookingsComponent},
@@ -35,7 +38,8 @@ export const routes: Routes = [
         { path: 'auth', children: [
             { path: '', pathMatch: 'full', redirectTo: 'register'},
             { path: 'login', component:LoginComponent},
-            { path: 'register', component: RegistrationComponent}
+            { path: 'register', component: RegistrationComponent},
+            { path: 'reset-password', component: ResetPasswordComponent},
         ]},
     ]},
     { path: 'admin', component: AdminBaseComponent, canActivate:[AdminGuard], children:[

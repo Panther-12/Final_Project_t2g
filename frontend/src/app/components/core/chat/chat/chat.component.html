@@ -1,0 +1,19 @@
+<div class="chat-container">
+    <div class="chat-header">
+      <h4>Event Chat</h4>
+      <div class="active-users">
+        Active Users: {{ activeUsers.length }}
+      </div>
+    </div>
+    <div class="chat-body">
+      <div *ngFor="let msg of messages" class="chat-message">
+        <strong>{{ msg.user }}:</strong> {{ msg.message }}
+        <span class="timestamp">{{ msg.timestamp | date:'shortTime' }}</span>
+      </div>
+    </div>
+    <div class="chat-footer">
+      <input type="text" [(ngModel)]="newMessage" placeholder="Type a message..." class="form-control" />
+      <button (click)="sendMessage()" class="btn btn-primary">Send</button>
+    </div>
+  </div>
+  

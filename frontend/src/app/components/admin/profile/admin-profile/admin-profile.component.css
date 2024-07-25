@@ -32,3 +32,37 @@
     color: #6f42c1;
 }
   
+
+.loading-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px; /* Adjust as needed */
+}
+
+.loading-dots .dot {
+  width: 8px;
+  height: 8px;
+  margin: 0 4px;
+  border-radius: 50%;
+  background-color: #007bff;
+  animation: dot-flashing 1s infinite linear alternate;
+}
+
+.loading-dots .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dot-flashing {
+  0% {
+    background-color: #007bff;
+  }
+  50%,
+  100% {
+    background-color: #ffffff;
+  }
+}

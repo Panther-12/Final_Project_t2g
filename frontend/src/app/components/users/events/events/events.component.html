@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="upcoming-events-list">
-                        <div class="upcoming-event-wrap flex flex-wrap justify-content-between align-items-center" *ngFor="let event of events">
+                        <div class="upcoming-event-wrap flex flex-wrap justify-content-between align-items-center" *ngFor="let event of events.slice(0,3)">
                             <figure class="events-thumbnail">
                                 <img src="/assets/images/upcoming-1.jpg" alt="" (click)="navigateToEvent(event.id)">
                             </figure>

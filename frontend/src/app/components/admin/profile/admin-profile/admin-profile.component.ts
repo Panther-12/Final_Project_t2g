@@ -5,6 +5,7 @@ import { CloudinaryService } from '../../../../services/cloudinary/cloudinary.se
 import { UserService } from '../../../../services/user/user.service';
 import { Observable } from 'rxjs';
 import { User, UserProfile } from '../../../../interfaces/interfaces';
+import { NotificationService } from '../../../../services/notification/notification.service';
 
 @Component({
   selector: 'app-admin-profile',
@@ -32,10 +33,12 @@ export class AdminProfileComponent implements OnInit {
   showLoadingSpinner = false;
   selectedFile!: File;
   location: string = ''
+  isUploadingImage = false
 
   constructor(
     private cloudinaryService: CloudinaryService,
-    private userService: UserService
+    private userService: UserService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +51,7 @@ export class AdminProfileComponent implements OnInit {
       this.userService.getUserById(userId).subscribe(user => {
         this.user = user;
       }, error => {
-        console.error('Error fetching user profile:', error);
+        this.notificationService.notify('Error fetching user profile:', 'error');
       });
     }
 
@@ -64,9 +67,14 @@ export class AdminProfileComponent implements OnInit {
 
   saveProfile() {
     if (this.selectedFile) {
-      console.log(this.selectedFile)
       this.uploadProfileImage(this.selectedFile).subscribe(result => {
+        setTimeout(()=>{
+          this.notificationService.notify('Uploading profile image. Please wait..', 'info')
+          this.isUploadingImage = true
+        }, 2000)
         this.user.profile.image = result.secure_url;
+        this.isUploadingImage = false
+        this.notificationService.notify('Image uploaded successfully', 'success')
         this.updateUserProfile();
         this.loadUserProfile();
       });
@@ -92,9 +100,11 @@ export class AdminProfileComponent implements OnInit {
       };
 
       this.userService.updateProfile(userId, updatedProfile).subscribe(() => {
+        this.notificationService.notify('Profile updated successfully', 'success')
         this.toggleEditMode();
+        this.loadUserProfile()
       }, error => {
-        console.error('Error updating profile:', error);
+        this.notificationService.notify('Error updating profile:',' error');
       });
     }
   }
@@ -115,10 +125,10 @@ export class AdminProfileComponent implements OnInit {
       navigator.geolocation.getCurrentPosition(position => {
         this.location = `${position.coords.latitude},${position.coords.longitude}`;
       }, error => {
-        console.error('Error getting location:', error);
+        this.notificationService.notify('Error getting location:', 'error');
       });
     } else {
-      console.error('Geolocation is not supported by this browser.');
+      this.notificationService.notify('Geolocation is not supported by this browser.', 'warning');
     }
   }
 }

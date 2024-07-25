@@ -4,6 +4,7 @@ import { updateProfile, UserProfile } from '../../../../interfaces/interfaces';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CloudinaryService } from '../../../../services/cloudinary/cloudinary.service';
+import { NotificationService } from '../../../../services/notification/notification.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,7 +27,7 @@ export class ProfileComponent implements OnInit {
   };
 
 
-  constructor(private userService: UserService, private cloudinaryService: CloudinaryService) { }
+  constructor(private userService: UserService, private cloudinaryService: CloudinaryService, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     const userId = localStorage.getItem('userId');
@@ -41,8 +42,10 @@ export class ProfileComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       const file = input.files[0];
+      this.notificationService.notify('Uploading profile image. Please wait...', 'info')
       this.cloudinaryService.uploadFile(file).subscribe( result =>{
         this.user.profile.image = result.secure_url
+        this.notificationService.notify('Image uploaded successfully', 'success')
       })
     }
   }
@@ -59,10 +62,10 @@ export class ProfileComponent implements OnInit {
       };
       this.userService.updateProfile(userId, updatedProfile).subscribe(
         response => {
-          console.log('Profile updated successfully', response);
+          this.notificationService.notify('Profile updated successfully', 'success');
         },
         error => {
-          console.error('Error updating profile', error);
+          this.notificationService.notify('Error updating profile', 'error');
         }
       );
     }

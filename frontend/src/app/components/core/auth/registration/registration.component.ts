@@ -33,6 +33,7 @@ export class RegistrationComponent {
 
     if (password && confirmPassword && password.value !== confirmPassword.value) {
       confirmPassword.setErrors({ passwordMismatch: true });
+      this.notificatonService.notify('Passwords do not match', 'warning')
     }
   }
 
@@ -51,7 +52,7 @@ export class RegistrationComponent {
           this.router.navigateByUrl("/users/auth/login")
         },
         (error) => {
-          this.notificatonService.notify('User registration failed:', 'error');
+          this.notificatonService.notify('User registration failed', 'error');
         }
       );
   

@@ -1,0 +1,46 @@
+.modal-dialog {
+    animation: fadeInDown 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .modal-content {
+    border-radius: 10px;
+  }
+  
+  .modal-title i {
+    margin-right: 10px;
+  }
+  
+  .modal-body {
+    font-size: 1.1rem;
+  }
+  
+  .btn-close {
+    background: transparent;
+    border: none;
+  }
+
+  .btn-icon {
+    border: none;
+    background: none;
+    color: purple;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px;
+    margin: 0 5px;
+  }
+  
+  .btn-icon:hover {
+    color: white;
+  }
+  

@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { NotificationService } from '../../../services/notification/notification.service';
+import { ConfirmationDialogComponent } from '../../utils/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-bookings',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ConfirmationDialogComponent],
   templateUrl: './bookings.component.html',
   styleUrl: './bookings.component.css'
 })
@@ -25,8 +27,12 @@ export class BookingsComponent implements OnInit {
   cancelledBookings= 0
   pendingBookings = 0
   activeBookings = 0
+  showDialog = false;
+  dialogMessage = '';
+  dialogType: 'success' | 'error' | 'info' | 'warning' = 'info';
+  bookingIdToCancel: string = '';
 
-  constructor(private bookingService: BookingService) {}
+  constructor(private bookingService: BookingService, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('userId') as string;
@@ -38,15 +44,17 @@ export class BookingsComponent implements OnInit {
   }
 
   loadBookings(): void {
+    console.log(this.userRole)
     if (this.userRole === 'admin') {
       this.bookingService.getAllRegistrations().subscribe(
         data => {
           this.bookings = data;
           this.filteredBookings = data;
+          console.log(this.filteredBookings)
           this.applyFilters();
         },
         error => {
-          console.error('Error fetching bookings', error);
+          this.notificationService.notify('Error fetching all bookings', 'error');
         }
       );
     } else if (this.userRole === 'organizer') {
@@ -57,7 +65,7 @@ export class BookingsComponent implements OnInit {
           this.applyFilters();
         },
         error => {
-          console.error('Error fetching bookings', error);
+          this.notificationService.notify('Error fetching bookings for organizer', 'error');
         }
       );
     }
@@ -77,17 +85,7 @@ export class BookingsComponent implements OnInit {
   }
 
   cancelBooking(bookingId: string): void {
-    if (confirm('Are you sure you want to cancel this booking?')) {
-      this.bookingService.cancelRegistration(bookingId).subscribe(
-        () => {
-          this.loadBookings();
-        },
-        error => {
-          console.error('Error canceling booking', error);
-          alert('Failed to cancel the booking. Please try again.');
-        }
-      );
-    }
+    this.showConfirmationDialog('Are you sure you want to cancel this booking?', 'warning', bookingId);
   }
 
   generateReport(): void {
@@ -137,5 +135,26 @@ export class BookingsComponent implements OnInit {
   }
   getPendingBookings(): void{
     this.pendingBookings = this.filteredBookings.filter(b => b.status === 'pending').length
+  }
+
+  showConfirmationDialog(message: string, type: 'success' | 'error' | 'info' | 'warning', bookingId: string): void {
+    this.dialogMessage = message;
+    this.dialogType = type;
+    this.bookingIdToCancel = bookingId;
+    this.showDialog = true;
+  }
+
+  handleDialogConfirmation(confirmed: boolean): void {
+    if (confirmed && this.bookingIdToCancel) {
+      this.bookingService.cancelRegistration(this.bookingIdToCancel).subscribe(
+        () => {
+          this.loadBookings();
+        },
+        error => {
+          this.notificationService.notify('Failed to cancel the booking. Please try again.', 'error');
+        }
+      );
+    }
+    this.showDialog = false;
   }
 }

@@ -6,6 +6,7 @@ import { EventsService } from '../../../../services/events/events.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from '../../../../interceptors/auth.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NotificationService } from '../../../../services/notification/notification.service';
 
 @Component({
   selector: 'app-admin-attendees',
@@ -32,7 +33,7 @@ export class AdminAttendeesComponent implements OnInit {
   itemsPerPage = 6;
   totalPages = 0;
 
-  constructor(private userService: UserService, private eventService: EventsService) {}
+  constructor(private userService: UserService, private eventService: EventsService, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.showLoadingSpinner = true;
@@ -47,7 +48,7 @@ export class AdminAttendeesComponent implements OnInit {
         this.calculateTotalPages();
         this.showLoadingSpinner = false;
       }, error => {
-        console.error('Error fetching users', error);
+        this.notificationService.notify('Error fetching users', 'error');
         this.showLoadingSpinner = false;
       });
     } else {
@@ -57,7 +58,7 @@ export class AdminAttendeesComponent implements OnInit {
         this.calculateTotalPages();
         this.showLoadingSpinner = false;
       }, error => {
-        console.error('Error fetching users', error);
+        this.notificationService.notify('Error fetching users', 'error');
         this.showLoadingSpinner = false;
       });
     }
@@ -111,13 +112,13 @@ export class AdminAttendeesComponent implements OnInit {
       this.eventService.getEventsForOrganizer(user.id).subscribe(events => {
         this.events = events;
       }, error => {
-        console.error('Error fetching events for organizer', error);
+        this.notificationService.notify('Error fetching events for organizer', 'error');
       });
     } else if (user.role === 'user') {
       this.eventService.getEventsForUser(user.id).subscribe(events => {
         this.events = events;
       }, error => {
-        console.error('Error fetching events for user', error);
+        this.notificationService.notify('Error fetching events for user', 'error');
       });
     } else {
       this.events = [];
@@ -128,14 +129,16 @@ export class AdminAttendeesComponent implements OnInit {
     if (user.accountStatus === 'activated') {
       this.userService.deactivateUser(user.id).subscribe(() => {
         user.accountStatus = 'deactivated';
+        this.notificationService.notify('User account deactivated', 'success')
       }, error => {
-        console.error('Error deactivating user', error);
+        this.notificationService.notify('Error deactivating user', 'error');
       });
     } else {
       this.userService.reactivateUser(user.id).subscribe(() => {
         user.accountStatus = 'activated';
+        this.notificationService.notify('User account activated', 'success')
       }, error => {
-        console.error('Error activating user', error);
+        this.notificationService.notify('Error activating user', 'error');
       });
     }
   }

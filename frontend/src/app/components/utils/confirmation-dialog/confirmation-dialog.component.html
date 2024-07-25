@@ -1,0 +1,21 @@
+<div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title">
+            <i [ngClass]="getIconClass(type)"></i>
+            Confirmation
+          </h6>
+          <button type="button" class="btn-close" aria-label="Close" (click)="onCancel()"></button>
+        </div>
+        <div class="modal-body">
+          <p>{{ message }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-icon" (click)="onConfirm()"><i class="bi bi-check-lg"></i></button>
+          <button type="button" class="btn btn-icon" (click)="onCancel()"><i class="bi bi-x-lg"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

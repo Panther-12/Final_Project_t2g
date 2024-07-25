@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { BookingService } from '../../../../services/bookings/bookings.service';
+import { NotificationService } from '../../../../services/notification/notification.service';
 
 @Component({
   selector: 'app-single-event',
@@ -25,7 +26,7 @@ export class SingleEventComponent implements OnInit {
   selectedTickets: { [ticketId: string]: number } = {};
 
   constructor(private route: ActivatedRoute, private eventService: EventsService,
-    private sanitizer: DomSanitizer, private router: Router,private bookingService: BookingService) {}
+    private sanitizer: DomSanitizer, private router: Router,private bookingService: BookingService, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.getAllEvents();
@@ -89,12 +90,12 @@ export class SingleEventComponent implements OnInit {
     if (this.event && this.userId && ticketIds.length > 0) {
       const ticketIdsArray = ticketIds.flatMap(ticketId => Array(this.selectedTickets[ticketId]).fill(ticketId));
       this.bookingService.registerForEvent(this.event.id, this.userId, ticketIdsArray).subscribe(response => {
-        console.log('Registration successful', response);
+        this.notificationService.notify(`Booking for ${this.event.title} successful`, 'success');
       }, error => {
-        console.error('Registration failed', error);
+        this.notificationService.notify('Booking failed', 'error');
       });
     } else {
-      console.error('Missing required data for registration');
+      this.notificationService.notify('Missing required data for registration', 'warning');
     }
   }
 }

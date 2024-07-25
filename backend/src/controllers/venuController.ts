@@ -38,10 +38,10 @@ export const venueController = {
 
   async updateVenue(req: Request, res: Response) {
     const venueId = req.params.id;
-    const { name, address, capacity } = req.body;
+    const { name, address, capacity, type } = req.body;
 
     try {
-      const updatedVenue = await venueService.updateVenue(venueId, { name, address, capacity });
+      const updatedVenue = await venueService.updateVenue(venueId, { name, address, capacity, type });
       res.json(updatedVenue);
     } catch (error) {
       res.status(500).json({ error: 'Failed to update venue' });

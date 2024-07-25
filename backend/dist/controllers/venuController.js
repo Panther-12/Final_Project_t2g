@@ -53,9 +53,9 @@ exports.venueController = {
     updateVenue(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const venueId = req.params.id;
-            const { name, address, capacity } = req.body;
+            const { name, address, capacity, type } = req.body;
             try {
-                const updatedVenue = yield venueService_1.venueService.updateVenue(venueId, { name, address, capacity });
+                const updatedVenue = yield venueService_1.venueService.updateVenue(venueId, { name, address, capacity, type });
                 res.json(updatedVenue);
             }
             catch (error) {

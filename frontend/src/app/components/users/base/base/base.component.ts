@@ -4,6 +4,7 @@ import { UserService } from '../../../../services/user/user.service';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { UserProfile } from '../../../../interfaces/interfaces';
+import { NotificationService } from '../../../../services/notification/notification.service';
 
 @Component({
   selector: 'app-base',
@@ -28,7 +29,7 @@ export class BaseComponent {
     }
   };
 
-  constructor( private router: Router, private authService: AuthService, private userService: UserService){
+  constructor( private router: Router, private authService: AuthService, private userService: UserService, private notificationService: NotificationService){
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.currentRoute = event.urlAfterRedirects;
@@ -60,5 +61,6 @@ export class BaseComponent {
 
   logout():void{
     this.authService.logout()
+    this.notificationService.notify('User logged out successfully', 'success')
   }
 }

@@ -35,3 +35,10 @@
     <p class="text-muted">You have no bookings yet.</p>
   </ng-template>
 </div>
+
+<app-confirmation-dialog
+*ngIf="showDialog"
+[message]="dialogMessage"
+[type]="dialogType"
+(confirmed)="handleDialogConfirmation($event)">
+</app-confirmation-dialog>
