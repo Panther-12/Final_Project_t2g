@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { AUTH_URL } from '../utils/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:3000/api/auth';
+  private apiUrl = `${AUTH_URL}/auth`;
   public currentUser: { role: 'admin' | 'organizer' | 'attendee' } | null = null;
   Admin: boolean = false
   Organizer: boolean = false

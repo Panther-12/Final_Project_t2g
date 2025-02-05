@@ -1,19 +1,60 @@
-<div class="chat-container">
-    <div class="chat-header">
-      <h4>Event Chat</h4>
-      <div class="active-users">
-        Active Users: {{ activeUsers.length }}
+<!-- chat.component.html -->
+<div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar: User List and Group Info -->
+      <div class="col-md-4 col-lg-3 sidebar bg-light border-right">
+        <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+          <h4 class="mb-0">Chat</h4>
+          <button class="btn btn-outline-secondary" (click)="toggleSidebar()">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+  
+        <!-- User List -->
+        <div class="user-list p-3">
+          <h5 class="text-muted">Users</h5>
+          <ul class="list-unstyled">
+            <li *ngFor="let user of users" class="d-flex align-items-center mb-2">
+              <i class="fa fa-user-circle fa-2x me-2"></i>
+              <span>{{ user.name }}</span>
+              <span class="ms-auto text-muted" [ngClass]="{'text-success': user.online, 'text-danger': !user.online}">
+                <i class="fa" [ngClass]="{'fa-circle': user.online, 'fa-circle-thin': !user.online}"></i>
+              </span>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div class="chat-body">
-      <div *ngFor="let msg of messages" class="chat-message">
-        <strong>{{ msg.user }}:</strong> {{ msg.message }}
-        <span class="timestamp">{{ msg.timestamp | date:'shortTime' }}</span>
+  
+      <!-- Chat Area -->
+      <div class="col-md-8 col-lg-9 chat-area">
+        <!-- Messages -->
+        <div class="messages p-3 border-bottom">
+          <div *ngFor="let message of messages" [ngClass]="{'my-message': message.sender === currentUser, 'other-message': message.sender !== currentUser}" class="message mb-3">
+            <div class="message-header d-flex align-items-center mb-1">
+              <i class="fa fa-user-circle me-2"></i>
+              <strong>{{ message.sender }}</strong>
+              <small class="text-muted ms-auto">{{ message.timestamp | date:'shortTime' }}</small>
+            </div>
+            <div class="message-body">
+              {{ message.content }}
+            </div>
+          </div>
+        </div>
+  
+        <!-- Input and Toolbar -->
+        <div class="d-flex align-items-center p-3 border-top">
+          <input type="text" class="form-control me-2" placeholder="Type a message..." [(ngModel)]="newMessage" (keydown.enter)="sendMessage()">
+          <button class="btn btn-primary" (click)="sendMessage()">
+            <i class="fa fa-paper-plane"></i>
+          </button>
+          <button class="btn btn-outline-secondary ms-2">
+            <i class="fa fa-smile"></i>
+          </button>
+          <button class="btn btn-outline-secondary ms-2">
+            <i class="fa fa-image"></i>
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="chat-footer">
-      <input type="text" [(ngModel)]="newMessage" placeholder="Type a message..." class="form-control" />
-      <button (click)="sendMessage()" class="btn btn-primary">Send</button>
     </div>
   </div>
   

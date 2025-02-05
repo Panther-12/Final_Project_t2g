@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome to Agenda - Registration Confirmation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
@@ -27,9 +28,9 @@
       padding: 30px;
       text-align: center;
     }
-    .header img {
-      width: 120px;
-      height: auto;
+    .header i {
+      font-size: 48px;
+      margin-bottom: 10px;
     }
     .content {
       padding: 30px;
@@ -63,9 +64,9 @@
       text-align: center;
       flex: 1;
     }
-    .feature img {
-      width: 50px;
-      height: 50px;
+    .feature i {
+      font-size: 36px;
+      color: #8e44ad;
       margin-bottom: 10px;
     }
     .social-links {
@@ -76,6 +77,8 @@
     .social-links a {
       display: inline-block;
       margin: 0 10px;
+      color: #333333;
+      font-size: 24px;
     }
     .footer {
       background-color: #333333;
@@ -89,8 +92,7 @@
 <body>
   <div class="container">
     <div class="header">
-      <!-- Add Agenda logo image here -->
-      <img src="agenda-logo.png" alt="Agenda Logo">
+      <i class="fas fa-calendar-check"></i>
       <h1>Welcome to Agenda!</h1>
     </div>
     <div class="content">
@@ -99,32 +101,28 @@
       <p>With Agenda, you'll be able to:</p>
       <div class="features">
         <div class="feature">
-          <!-- Add task management icon here -->
-          <img src="../assets/images/icons/calendar-solid.svg" alt="Task Management">
+          <i class="fas fa-tasks"></i>
           <p>Manage Tasks</p>
         </div>
         <div class="feature">
-          <!-- Add collaboration icon here -->
-          <img src="../assets/images/icons/list-check-solid.svg" alt="Collaboration">
+          <i class="fas fa-users"></i>
           <p>Collaborate</p>
         </div>
         <div class="feature">
-          <!-- Add analytics icon here -->
-          <img src="../assets/images/icons/chart-line-solid.svg" alt="Analytics">
+          <i class="fas fa-chart-line"></i>
           <p>Track Progress</p>
         </div>
       </div>
       <p>To get started, click the button below to access your dashboard:</p>
-      <a href="#" class="cta-button" style="color: white;">Access Your Dashboard</a>
+      <a href="#" class="cta-button">Access Your Dashboard</a>
       <p>If you have any questions or need assistance, our support team is always here to help. Don't hesitate to reach out!</p>
       <p>Best regards,<br>The Agenda Team</p>
     </div>
     <div class="social-links">
-      <!-- Add social media icons here -->
-      <a href="#"><img src="../assets/images/icons/facebook-brands-solid.svg" alt="Facebook"></a>
-      <a href="#"><img src="../assets/images/icons/twitter-brands-solid.svg" alt="Twitter"></a>
-      <a href="#"><img src="../assets/images/icons/linkedin-brands-solid.svg" alt="LinkedIn"></a>
-      <a href="#"><img src="../assets/images/icons/instagram-brands-solid.svg" alt="Instagram"></a>
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
     </div>
     <div class="footer">
       <p>&copy; 2024 Agenda. All rights reserved.</p>

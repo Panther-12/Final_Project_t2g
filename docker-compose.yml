@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  event_db:
+    image: postgres:13
+    container_name: event_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: event
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - event-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        DATABASE_URL: postgresql://postgres:postgres@event_db:5432/event
+    container_name: event_backend
+    ports:
+      - "3100:3100"
+    environment:
+      PORT: 3100
+      DATABASE_URL: postgresql://postgres:postgres@event_db:5432/event
+      JWT_SECRET: 8497ynct89ruutcvi340c59utc489rnyrctn8wc4m90rt4nyc485
+      NODEMAILER_PASS: tokm bfcc otxe tiee
+      NODEMAILER_USER: nimrodnyongesa7@gmail.com
+    depends_on:
+      - event_db
+    networks:
+      - event-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: event
+    volumes:
+      - ./:/home/event
+    ports:
+      - "4300:80"
+    tty: true
+    depends_on:
+      - backend
+    networks:
+      - event-network
+
+volumes:
+  postgres_data:
+
+networks:
+  event-network:
+    driver: bridge

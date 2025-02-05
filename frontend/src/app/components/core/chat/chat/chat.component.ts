@@ -2,10 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChatService } from '../../../../services/chat/chat.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 interface ChatMessage {
-  user: string;
-  message: string;
+  sender: string;
+  content: string;
   timestamp: Date;
 }
 
@@ -16,42 +17,50 @@ interface ChatMessage {
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit, OnDestroy {
+export class ChatComponent implements OnInit {
   messages: ChatMessage[] = [];
   newMessage: string = '';
-  userName: string = 'Organizer'; // Adjust based on logged-in user
-  attendees: string[] = []; // List of attendees
-  activeUsers: string[] = [];
+  users: any[] = [];
+  currentUser: string = 'Organizer';
+  private messagesSubscription!: Subscription;
 
-  constructor(private websocketService: ChatService) {}
+  constructor(private chatService: ChatService) {}
 
   ngOnInit(): void {
-    this.websocketService.messages.subscribe(msg => {
-      this.messages.push({
-        user: msg.user,
-        message: msg.message,
-        timestamp: new Date()
-      });
-    });
+    this.messagesSubscription = this.chatService.messages$.subscribe(
+      (messages: ChatMessage[]) => {
+        this.messages = messages;
+      }
+    );
+    this.loadUsers();
+  }
 
-    this.websocketService.activeUsers.subscribe(users => {
-      this.activeUsers = users;
-    });
+  ngOnDestroy(): void {
+    this.messagesSubscription.unsubscribe();
+  }
+
+  loadUsers(): void {
+    // Example static data for online users
+    this.users = [
+      { name: 'Attendee 1', online: true },
+      { name: 'Attendee 2', online: false },
+      // Add more users
+    ];
   }
 
   sendMessage(): void {
     if (this.newMessage.trim()) {
-      const msg = {
-        type: 'chat',
-        user: this.userName,
-        message: this.newMessage
+      const message: ChatMessage = {
+        sender: this.currentUser,
+        content: this.newMessage,
+        timestamp: new Date()
       };
-      this.websocketService.sendMessage(msg);
+      this.chatService.sendMessage(message);
       this.newMessage = '';
     }
   }
 
-  ngOnDestroy(): void {
-    this.websocketService.close();
+  toggleSidebar(): void {
+    // Implement sidebar toggle logic if needed
   }
 }

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BASE_URL } from '../utils/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VenueService {
-  private apiUrl = 'http://localhost:3000/venues';
+  private apiUrl = `${BASE_URL}/venues`;
   private token = localStorage.getItem('token') as string
   private headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
 

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BASE_URL } from '../utils/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistrationService {
-  private apiUrl = 'http://localhost:3000/registration';
+  private apiUrl = `${BASE_URL}/registration`;
   private token = localStorage.getItem('token') as string
   private headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
 

@@ -16,6 +16,7 @@
         "@types/qrcode": "^1.5.5",
         "@types/uuid": "^9.0.8",
         "axios": "^1.7.2",
+        "backend": "file:",
         "bcrypt": "^5.1.1",
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.20.2",
@@ -48,11 +49,15 @@
     "main": "./dist/server.js",
     "scripts": {
         "test": "npm test",
-        "start:run": "nodemon  ./dist/server.js",
-        "start:build": "tsc -w && npm run copy-email-templates",
-        "copy-email-templates": "copyfiles -u 1 src/emails/**/* dist/",
-        "start": "concurrently \"npm run start:build\" \"npm run start:run\"",
-        "postinstall": "prisma generate"
+        "dev:build": "tsc -w",
+        "dev:copy-emails": "copyfiles -u 1 src/emails/**/* dist/",
+        "dev:start": "nodemon ./dist/server.js",
+        "dev": "concurrently \"npm run dev:build\" \"npm run dev:copy-emails\" \"npm run dev:start\"",
+        "build": "tsc && npm run copy-email-templates",
+        "start": "node ./dist/server.js",
+        "prisma-migrate-dev": "docker exec shopie_backend npx prisma migrate dev",
+        "prisma-studio": "docker exec shopie_backend npx prisma studio",
+        "copy-email-templates": "copyfiles -u 1 src/emails/**/* dist/"
     },
     "keywords": [
         "Agenda",

@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { updateProfile, User, UserProfile } from '../../interfaces/interfaces';
+import { BASE_URL } from '../utils/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = `${BASE_URL}`;
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
